@@ -12,7 +12,7 @@ export default function Header() {
         <nav className="navbar">
           <ul>
             {MENU_LIST.map((v) => (
-              <li>
+              <li key={`menu_key_${v}`}>
                 <Link to="">{v}</Link>
               </li>
             ))}
