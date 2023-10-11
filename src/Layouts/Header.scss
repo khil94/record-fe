@@ -1,0 +1,35 @@
+.header {
+  height: 9rem;
+
+  .header_inner {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+
+    h1 > a {
+      margin-left: 4rem;
+    }
+
+    .navbar {
+      position: static;
+      margin-left: 1rem;
+
+      ul {
+        display: flex;
+        align-items: center;
+        height: 100%;
+
+        li {
+          padding: 0 1rem;
+
+          a {
+            font-size: 1.4rem;
+          }
+        }
+      }
+    }
+  }
+
+  border-bottom: 1px solid #ebebeb;
+}
