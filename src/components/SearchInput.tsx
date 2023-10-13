@@ -7,10 +7,21 @@ interface Props {
   type?: "default" | "dark";
 }
 
-export default function SearchInput({ onChange, placeholder }: Props) {
+export default function SearchInput({
+  onChange,
+  onSubmit,
+  placeholder,
+}: Props) {
   return (
     <div className="search_box">
-      <form action="search" className="search_form">
+      <form
+        action="search"
+        className="search_form"
+        onSubmit={(e) => {
+          e.preventDefault();
+          onSubmit();
+        }}
+      >
         <input
           type="text"
           required
