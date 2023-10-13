@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import SearchInput from "../components/SearchInput";
 import { MENU_LIST } from "../constants/MenuItem";
 import "./Header.scss";
 
@@ -18,6 +19,10 @@ export default function Header() {
             ))}
           </ul>
         </nav>
+        <SearchInput
+          placeholder="소환사 검색"
+          onChange={(v) => console.log(v)}
+        />
       </div>
     </header>
   );
