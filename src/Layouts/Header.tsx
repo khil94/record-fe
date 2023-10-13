@@ -20,6 +20,7 @@ export default function Header() {
           </ul>
         </nav>
         <SearchInput
+          onSubmit={() => {}}
           placeholder="소환사 검색"
           onChange={(v) => console.log(v)}
         />
