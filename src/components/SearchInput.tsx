@@ -3,6 +3,7 @@ import "./SearchInput.scss";
 interface Props {
   onChange: (v: string) => void;
   placeholder?: string;
+  onSubmit: () => void;
   type?: "default" | "dark";
 }
 
