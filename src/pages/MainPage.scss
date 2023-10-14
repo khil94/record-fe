@@ -1,4 +1,14 @@
 .page_main {
   background-image: url("/public/main_background.jpg");
   height: 72rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .search_box {
+    width: 72rem;
+    .search_form {
+      padding: 2.4rem;
+    }
+  }
 }

@@ -10,6 +10,7 @@ export default function MainPage() {
         onSubmit={() => {
           console.log(searchVal);
         }}
+        placeholder="소환사 검색"
         onChange={(v) => setSearchVal(v)}
       />
     </div>
