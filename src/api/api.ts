@@ -1,9 +1,7 @@
 import axios, { AxiosError, InternalAxiosRequestConfig } from "axios";
 
-// const API_CONFIG: InternalAxiosRequestConfig = {
-//   headers: {
-
-//   },
+// const API_CONFIG = {
+//   baseURL: URL,
 // };
 
 const API = axios.create();
