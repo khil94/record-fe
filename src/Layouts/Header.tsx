@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { GetGameListBySummonerName } from "../api/apis";
 import SearchInput from "../components/SearchInput";
-import { MENU_LIST } from "../constants/MenuItem";
+import { MENU_LIST } from "../constants/Enum";
 import "./Header.scss";
 
 export default function Header() {
