@@ -1,0 +1,63 @@
+import { ISummonerProfile } from "../types/types";
+
+export const TEST_ITEM = {
+  profile: {
+    summonerName: "string",
+    summonerLevel: 0,
+    profileIcon: "string",
+    soloLeagueEntry: {
+      queueType: "RANKED_SOLO",
+      tier: "CHALLENGER",
+      rank: "RANK_ONE",
+      leaguePoints: 0,
+      wins: 0,
+      losses: 0,
+    },
+    flexLeagueEntry: {
+      queueType: "RANKED_SOLO",
+      tier: "CHALLENGER",
+      rank: "RANK_ONE",
+      leaguePoints: 0,
+      wins: 0,
+      losses: 0,
+    },
+  },
+  matches: [
+    {
+      matchId: "string",
+      gameMode: "CLASSIC",
+      gameType: "CUSTOM_GAME",
+      queueId: "CUSTOM_GAME",
+      participants: [
+        {
+          summonerName: "string",
+          summonerLevel: 0,
+          championId: 0,
+          champLevel: 0,
+          lane: "string",
+          role: "string",
+          teamId: 0,
+          kills: 0,
+          deaths: 0,
+          assists: 0,
+          summoner1Id: 0,
+          summoner2Id: 0,
+          spell1Casts: 0,
+          spell2Casts: 0,
+          spell3Casts: 0,
+          spell4Casts: 0,
+          summoner1Casts: 0,
+          summoner2Casts: 0,
+          item0: 0,
+          item1: 0,
+          item2: 0,
+          item3: 0,
+          item4: 0,
+          item5: 0,
+          item6: 0,
+          win: true,
+        },
+      ],
+    },
+  ],
+} as ISummonerProfile;
