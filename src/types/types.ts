@@ -67,7 +67,7 @@ export interface ISimpleMatch {
   gameMode: IGameMode;
   gameType: IGameType;
   queueId: IQueueId;
-  participants: ISimpleParticipant;
+  participants: ISimpleParticipant[];
 }
 
 export interface ISummonerProfile {
