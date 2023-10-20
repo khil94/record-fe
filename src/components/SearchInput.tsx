@@ -2,6 +2,7 @@ import "./SearchInput.scss";
 
 interface Props {
   onChange: (v: string) => void;
+  value: string;
   placeholder?: string;
   onSubmit: () => void;
   type?: "default" | "dark";
@@ -11,6 +12,7 @@ export default function SearchInput({
   onChange,
   onSubmit,
   placeholder,
+  value,
 }: Props) {
   return (
     <div className="search_box">
@@ -25,6 +27,7 @@ export default function SearchInput({
         <input
           type="text"
           required
+          value={value}
           className="search_input"
           placeholder={placeholder}
           onChange={(e) => onChange(e.target.value)}

@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { GetGameListBySummonerName } from "../api/apis";
+import { Link, useNavigate } from "react-router-dom";
 import SearchInput from "../components/SearchInput";
 import { MENU_LIST } from "../constants/Enum";
 import "./Header.scss";
 
 export default function Header() {
   const [searchVal, setSearchVal] = useState("");
+  const navigation = useNavigate();
 
   return (
     <header className="header" id="header">
@@ -24,10 +24,11 @@ export default function Header() {
           </ul>
         </nav>
         <SearchInput
+          value={searchVal}
           onSubmit={async () => {
             const val = searchVal.trim();
-            const resp = await GetGameListBySummonerName(val);
-            console.log(resp.data);
+            setSearchVal("");
+            navigation(`summoner/${val}`);
           }}
           placeholder="소환사 검색"
           onChange={(v) => setSearchVal(v)}
