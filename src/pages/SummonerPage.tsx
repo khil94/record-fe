@@ -75,7 +75,9 @@ export default function SummonerPage() {
         {LeagueComponent(data.profile.flexLeagueEntry)}
       </div>
       <div className="matches_container">
-        <MatchComponent matchData={data.matches[0]} userName={"지드루"} />
+        {data.matches.map((v) => {
+          return <MatchComponent matchData={v} userName={"지드루"} />;
+        })}
       </div>
     </div>
   );
