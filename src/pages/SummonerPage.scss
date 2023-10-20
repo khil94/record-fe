@@ -27,7 +27,17 @@
   }
 
   .summoner_league_container {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: center;
+    div {
+      &:first-child {
+        border-right: 1px solid white;
+      }
+    }
     .summoner_league {
+      flex-grow: 1;
       .league_queue_type {
         background-color: #363944;
         padding: 1.6rem;
@@ -40,6 +50,10 @@
       .league_detail {
         display: flex;
         flex-direction: row;
+        align-items: center;
+        div {
+          flex-grow: 1;
+        }
         .league_icon {
           img {
             border-radius: 50%;

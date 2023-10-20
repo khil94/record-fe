@@ -1,4 +1,5 @@
 import { useState } from "react";
+import MatchComponent from "../components/MatchComponent";
 import { TEST_ITEM } from "../constants/testItem";
 import { ILeagueEntry, ISummonerProfile } from "../types/types";
 import { getFullTierName } from "../utils/generalFunctions";
@@ -33,7 +34,9 @@ export default function SummonerPage() {
           </div>
           <div className="league">
             <span>{tier}</span>
-            <span>{props.leaguePoints} LP</span>
+            <span>{props.leaguePoints}</span>
+            {/* 위부분은 실제로 unranked인 유저의 정보가 어떻게 들어오는지 확인하고 
+            수정해야하는 부분이다. 승률또한 마찬가지. UNRANKED면 승률, LP는 보여주지도 ㅇ말아야 한다 */}
           </div>
           <div className="league_win_lose">
             <div className="win_lose">
@@ -70,6 +73,9 @@ export default function SummonerPage() {
       <div className="summoner_league_container">
         {LeagueComponent(data.profile.soloLeagueEntry)}
         {LeagueComponent(data.profile.flexLeagueEntry)}
+      </div>
+      <div className="matches_container">
+        <MatchComponent matchData={data.matches[0]} userName={"지드루"} />
       </div>
     </div>
   );
