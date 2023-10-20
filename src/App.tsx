@@ -10,7 +10,7 @@ function App() {
       <GlobalLayout>
         <Routes>
           <Route path="/" element={<MainPage />} />
-          <Route path="/summoner" element={<SummonerPage />} />
+          <Route path="/summoner/:summonerName" element={<SummonerPage />} />
         </Routes>
       </GlobalLayout>
     </BrowserRouter>
