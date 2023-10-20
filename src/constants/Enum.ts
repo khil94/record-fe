@@ -1,6 +1,10 @@
 export const MENU_LIST = ["TIER", "RANKING", "INFO", "COMMUNITY"] as const;
 
-export const QUEUE_TYPE_LIST = ["RANKED_SOLO", "RANKED_TEAM", "UNKNOWN"];
+export const QUEUE_TYPE_LIST = [
+  "RANKED_SOLO",
+  "RANKED_TEAM",
+  "UNKNOWN",
+] as const;
 
 export const TIER_TYPE_LIST = [
   "CHALLENGER",
@@ -14,7 +18,7 @@ export const TIER_TYPE_LIST = [
   "BRONZE",
   "IRON",
   "UNRANKED",
-];
+] as const;
 
 export const RANK_NUMBER_LIST = [
   "RANK_ONE",
@@ -22,7 +26,7 @@ export const RANK_NUMBER_LIST = [
   "RANK_THREE",
   "RANK_FOUR",
   "UNRANKED",
-];
+] as const;
 
 export const GAME_MODE_LIST = [
   "CLASSIC",
@@ -45,7 +49,7 @@ export const GAME_MODE_LIST = [
   "ODYSSEY",
   "NEXUSBLITZ",
   "ULTBOOK",
-];
+] as const;
 
 export const QUEUE_ID_LIST = [
   "CUSTOM_GAME",
@@ -56,6 +60,10 @@ export const QUEUE_ID_LIST = [
   "NORMAL_GAME",
   "FLEX_RANK_GAME",
   "OTHER_GAME",
-];
+] as const;
 
-export const GAME_TYPE_LIST = ["CUSTOM_GAME", "TUTORIAL_GAME", "MATCHED_GAME"];
+export const GAME_TYPE_LIST = [
+  "CUSTOM_GAME",
+  "TUTORIAL_GAME",
+  "MATCHED_GAME",
+] as const;
