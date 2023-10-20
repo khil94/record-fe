@@ -2,20 +2,20 @@ import { ISummonerProfile } from "../types/types";
 
 export const TEST_ITEM = {
   profile: {
-    summonerName: "string",
-    summonerLevel: 0,
-    profileIcon: "string",
+    summonerName: "지드루",
+    summonerLevel: 243,
+    profileIcon: "지드루",
     soloLeagueEntry: {
       queueType: "RANKED_SOLO",
       tier: "CHALLENGER",
       rank: "RANK_ONE",
       leaguePoints: 0,
-      wins: 0,
-      losses: 0,
+      wins: 512,
+      losses: 231,
     },
     flexLeagueEntry: {
-      queueType: "RANKED_SOLO",
-      tier: "CHALLENGER",
+      queueType: "RANKED_TEAM",
+      tier: "UNRANKED",
       rank: "RANK_ONE",
       leaguePoints: 0,
       wins: 0,
@@ -30,7 +30,7 @@ export const TEST_ITEM = {
       queueId: "CUSTOM_GAME",
       participants: [
         {
-          summonerName: "string",
+          summonerName: "지드루",
           summonerLevel: 0,
           championId: 0,
           champLevel: 0,
