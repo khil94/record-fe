@@ -21,42 +21,46 @@ export default function MatchComponent({ matchData, userName }: IProps) {
 
   return (
     <div className="match_wrapper">
-      <div
-        className={`match_summary_wrapper ${
-          target.win ? "match_win" : "match_lose"
-        }`}
-      >
-        <div className="champ_wrapper">
-          <div className="champ_icon">
-            <img src="" alt="챔피언 아이콘" />
+      <div className="match_summary_wrapper">
+        <div
+          className={`match_summary ${target.win ? "match_win" : "match_lose"}`}
+        >
+          <div className="champ_wrapper">
+            <div className="champ_icon">
+              <img src="" alt="챔피언 아이콘" />
+            </div>
+            <div className="spell_wrapper">
+              <img src="" alt="스펠 아이콘" />
+              <img src="" alt="스펠 아이콘" />
+            </div>
+            <div className="rune_wrapper">
+              <img src="" alt="룬 아이콘" />
+              <img src="" alt="룬 아이콘" />
+            </div>
           </div>
-          <div className="spell_wrapper">
-            <img src="" alt="스펠 아이콘" />
-            <img src="" alt="스펠 아이콘" />
+          <div className="kda_wrapper">
+            <span>{target.kills} /</span>
+            <span className="kda_death">{target.deaths}</span>
+            <span> / {target.assists}</span>
           </div>
-          <div className="rune_wrapper">
-            <img src="" alt="룬 아이콘" />
-            <img src="" alt="룬 아이콘" />
+          <div className="cs_wrapper"></div>
+          <div className="item_wrapper">
+            {itemList.map((v) => {
+              {
+                return (
+                  <div key={matchId + userName + v} className="item_icon">
+                    <img src="" alt="아이템이미지" />
+                  </div>
+                );
+              }
+            })}
           </div>
         </div>
-        <div className="kda_wrapper">
-          <span>{target.kills} /</span>
-          <span className="kda_death">{target.deaths}</span>
-          <span> / {target.assists}</span>
-        </div>
-        <div className="cs_wrapper"></div>
-        <div className="item_wrapper">
-          {itemList.map((v) => {
-            {
-              return (
-                <div key={matchId + userName + v} className="item_icon">
-                  <img src="" alt="아이템이미지" />
-                </div>
-              );
-            }
-          })}
-        </div>
-        <div className="open_close_btn_wrapper">
+        <div
+          className={`open_close_btn_wrapper ${
+            target.win ? "match_win" : "match_lose"
+          }`}
+        >
           <button type="button"></button>
         </div>
       </div>

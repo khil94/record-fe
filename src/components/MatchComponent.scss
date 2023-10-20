@@ -2,48 +2,86 @@
   .match_summary_wrapper {
     display: flex;
     flex-direction: row;
-    align-items: center;
-
-    &.match_win {
-      background-color: #ecf2ff;
-    }
-    &.match_lose {
-      background-color: #e84057;
-    }
-
-    .champ_wrapper {
+    .match_summary {
+      flex-grow: 11;
+      padding: 1.6rem;
+      padding-right: 0;
       display: flex;
+      flex-direction: row;
+      align-items: center;
 
-      .spell_wrapper {
+      &.match_win {
+        background-color: #ecf2ff;
+      }
+      &.match_lose {
+        background-color: #fff1f3;
+      }
+
+      .champ_wrapper {
         display: flex;
-        flex-direction: column;
+
+        .spell_wrapper {
+          display: flex;
+          flex-direction: column;
+        }
+        .rune_wrapper {
+          display: flex;
+          flex-direction: column;
+        }
       }
-      .rune_wrapper {
+      .kda_wrapper {
+        flex-grow: 1;
+        span {
+          margin-right: 0.4rem;
+        }
+        .kda_death {
+          color: red;
+        }
+      }
+
+      .cs_wrapper {
+        flex-grow: 1;
+      }
+
+      .item_wrapper {
+        flex-grow: 1;
         display: flex;
-        flex-direction: column;
       }
     }
-    .kda_wrapper {
-      flex-grow: 1;
-      span {
-        margin-right: 0.4rem;
-      }
-      .kda_death {
-        color: red;
-      }
-    }
-
-    .cs_wrapper {
-      flex-grow: 1;
-    }
-
-    .item_wrapper {
-      flex-grow: 2;
-      display: flex;
-    }
-
     .open_close_btn_wrapper {
+      flex-grow: 1;
+      &.match_win {
+        background-color: #d5e3ff;
+        button {
+          &::after {
+            border-top: 3px solid #81acff; /* 선 두께 */
+            border-right: 3px solid #81acff; /* 선 두께 */
+          }
+        }
+      }
+      &.match_lose {
+        background-color: #ffd8d9;
+        button {
+          &::after {
+            border-top: 3px solid #ff6c81; /* 선 두께 */
+            border-right: 3px solid #ff6c81; /* 선 두께 */
+          }
+        }
+      }
       button {
+        height: 100%;
+        width: 100%;
+        position: relative;
+
+        &::after {
+          position: absolute;
+          content: "";
+          left: 50%;
+          bottom: 1rem;
+          width: 0.5rem;
+          height: 0.5rem;
+          transform: translateX(-50%) rotate(135deg); /* 각도 */
+        }
       }
     }
   }
