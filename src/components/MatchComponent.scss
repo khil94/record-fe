@@ -1,0 +1,50 @@
+.match_wrapper {
+  .match_summary_wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    &.match_win {
+      background-color: #ecf2ff;
+    }
+    &.match_lose {
+      background-color: #e84057;
+    }
+
+    .champ_wrapper {
+      display: flex;
+
+      .spell_wrapper {
+        display: flex;
+        flex-direction: column;
+      }
+      .rune_wrapper {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+    .kda_wrapper {
+      flex-grow: 1;
+      span {
+        margin-right: 0.4rem;
+      }
+      .kda_death {
+        color: red;
+      }
+    }
+
+    .cs_wrapper {
+      flex-grow: 1;
+    }
+
+    .item_wrapper {
+      flex-grow: 2;
+      display: flex;
+    }
+
+    .open_close_btn_wrapper {
+      button {
+      }
+    }
+  }
+}
