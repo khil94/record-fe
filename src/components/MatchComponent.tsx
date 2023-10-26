@@ -11,28 +11,10 @@ export default function MatchComponent({ matchData, userName }: IProps) {
   const { matchId, gameMode, gameType, queueId, participants } = matchData;
 
   const target = participants.find((v) => v.summonerName === userName)!;
-  const itemList = [
-    target.item0,
-    target.item1,
-    target.item2,
-    target.item3,
-    target.item4,
-    target.item5,
-    target.item6,
-  ];
 
   // 승/패 팀 나누어서 표기 할것 => 두 팀을 나누어서 변수화 해라
 
   const ParticipantComponent = (target: ISimpleParticipant) => {
-    const targetItemList = [
-      target.item0,
-      target.item1,
-      target.item2,
-      target.item3,
-      target.item4,
-      target.item5,
-      target.item6,
-    ];
     return (
       <div
         className={`participant_wrapper ${
@@ -57,11 +39,11 @@ export default function MatchComponent({ matchData, userName }: IProps) {
         </div>
         <div className="cs_wrapper"></div>
         <div className="item_wrapper">
-          {targetItemList.map((v) => {
+          {target.items.map((v) => {
             {
               return (
-                <div key={matchId + userName + v} className="item_icon">
-                  <img src="" alt="아이템이미지" />
+                <div key={matchId + userName + v.name} className="item_icon">
+                  <img src={v.image} alt="아이템이미지" />
                 </div>
               );
             }
@@ -97,11 +79,11 @@ export default function MatchComponent({ matchData, userName }: IProps) {
           </div>
           <div className="cs_wrapper"></div>
           <div className="item_wrapper">
-            {itemList.map((v) => {
+            {target.items.map((v) => {
               {
                 return (
-                  <div key={matchId + userName + v} className="item_icon">
-                    <img src="" alt="아이템이미지" />
+                  <div key={matchId + userName + v.name} className="item_icon">
+                    <img src={v.image} alt="아이템이미지" />
                   </div>
                 );
               }

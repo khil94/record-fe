@@ -36,7 +36,6 @@ export interface IProfile {
 export interface ISimpleParticipant {
   summonerName: string;
   summonerLevel: number;
-  championId: number;
   champLevel: number;
   lane: string;
   role: string;
@@ -44,21 +43,15 @@ export interface ISimpleParticipant {
   kills: number;
   deaths: number;
   assists: number;
-  summoner1Id: number;
-  summoner2Id: number;
   spell1Casts: number;
   spell2Casts: number;
   spell3Casts: number;
   spell4Casts: number;
   summoner1Casts: number;
   summoner2Casts: number;
-  item0: number;
-  item1: number;
-  item2: number;
-  item3: number;
-  item4: number;
-  item5: number;
-  item6: number;
+  items: IItem[];
+  spells: ISpell[];
+  champion: IChampion;
   win: boolean;
 }
 
