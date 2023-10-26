@@ -65,7 +65,7 @@ export default function SummonerPage() {
           />
           <span>{data.profile.summonerLevel}</span>
         </div>
-        <div>
+        <div className="summoner_name">
           <span>{data.profile.summonerName}</span>
           <button type="button">전적갱신</button>
         </div>

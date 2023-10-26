@@ -33,7 +33,7 @@ export default function SearchInput({
           onChange={(e) => onChange(e.target.value)}
         />
         <button className="btn_search" type="submit">
-          <i />
+          <i /> {/*필히 검색 돋보기 모양 나중에 넣을것 */}
         </button>
       </form>
     </div>

@@ -4,12 +4,12 @@
     flex-direction: row;
     .match_summary {
       flex-grow: 11;
-      padding: 1.6rem;
+
       padding-right: 0;
       display: flex;
       flex-direction: row;
       align-items: center;
-
+      padding: 1.6rem;
       &.match_win {
         background-color: #ecf2ff;
       }
@@ -77,12 +77,63 @@
           position: absolute;
           content: "";
           left: 50%;
-          bottom: 1rem;
-          width: 0.5rem;
-          height: 0.5rem;
+          bottom: 2rem;
+          width: 0.8rem;
+          height: 0.8rem;
           transform: translateX(-50%) rotate(135deg); /* 각도 */
+        }
+        &.close {
+          &::after {
+            transform: translateX(-50%) rotate(315deg);
+          }
         }
       }
     }
   }
+  .match_detail_wrapper {
+    .participant_wrapper {
+      display: flex;
+      align-items: center;
+      padding: 1.6rem;
+      flex-direction: row;
+
+      &.match_win {
+        background-color: #ecf2ff;
+      }
+      &.match_lose {
+        background-color: #fff1f3;
+      }
+
+      .champ_wrapper {
+        display: flex;
+      }
+      .spell_wrapper {
+        display: flex;
+        flex-direction: column;
+      }
+      .rune_wrapper {
+        display: flex;
+        flex-direction: column;
+      }
+      .kda_wrapper {
+        flex-grow: 1;
+        span {
+          margin-right: 0.4rem;
+        }
+        .kda_death {
+          color: red;
+        }
+      }
+
+      .cs_wrapper {
+        flex-grow: 1;
+      }
+
+      .item_wrapper {
+        flex-grow: 1;
+        display: flex;
+      }
+    }
+  }
+  margin-bottom: 1.6rem;
 }

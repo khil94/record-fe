@@ -13,20 +13,28 @@
       margin-left: 4rem;
     }
 
-    .navbar {
-      position: static;
-      margin-left: 1rem;
+    .header_content {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      justify-content: space-between;
+      padding: 0 1.2rem;
 
-      ul {
-        display: flex;
-        align-items: center;
-        height: 100%;
+      .navbar {
+        position: static;
+        margin-left: 1rem;
 
-        li {
-          padding: 0 1rem;
+        ul {
+          display: flex;
+          align-items: center;
+          height: 100%;
 
-          a {
-            font-size: 1.4rem;
+          li {
+            padding: 0 1rem;
+
+            a {
+              font-size: 1.4rem;
+            }
           }
         }
       }

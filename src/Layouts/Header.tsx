@@ -14,25 +14,27 @@ export default function Header() {
         <h1>
           <Link to="/">홈</Link>
         </h1>
-        <nav className="navbar">
-          <ul>
-            {MENU_LIST.map((v) => (
-              <li key={`menu_key_${v}`}>
-                <Link to="">{v}</Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
-        <SearchInput
-          value={searchVal}
-          onSubmit={async () => {
-            const val = searchVal.trim();
-            setSearchVal("");
-            navigation(`summoner/${val}`);
-          }}
-          placeholder="소환사 검색"
-          onChange={(v) => setSearchVal(v)}
-        />
+        <div className="header_content">
+          <nav className="navbar">
+            <ul>
+              {MENU_LIST.map((v) => (
+                <li key={`menu_key_${v}`}>
+                  <Link to="">{v}</Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+          <SearchInput
+            value={searchVal}
+            onSubmit={async () => {
+              const val = searchVal.trim();
+              setSearchVal("");
+              navigation(`summoner/${val}`);
+            }}
+            placeholder="소환사 검색"
+            onChange={(v) => setSearchVal(v)}
+          />
+        </div>
       </div>
     </header>
   );
