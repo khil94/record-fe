@@ -74,3 +74,20 @@ export interface ISummonerProfile {
   profile: IProfile;
   matches: ISimpleMatch[];
 }
+
+export interface IChampion {
+  name: string;
+  description: string;
+  image: string;
+}
+export interface IItem {
+  name: string;
+  plaintext: string;
+  image: string;
+}
+
+export interface ISpell {
+  name: string;
+  description: string;
+  image: string;
+}
