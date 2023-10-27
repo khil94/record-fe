@@ -1,4 +1,4 @@
-import { IQueueType, IRankNumber, ITierType } from "../types/types";
+import { IQueueId, IRankNumber, ITierType } from "../types/types";
 
 export function getTierName(tier: ITierType) {
   switch (tier) {
@@ -57,13 +57,22 @@ export function getFullTierName(tier: ITierType, rank: IRankNumber) {
   }
 }
 
-export function getGameType(queueType: IQueueType) {
+export function getGameType(queueType: IQueueId) {
   switch (queueType) {
-    case "RANKED_SOLO":
+    case "CUSTOM_GAME":
+      return "커스텀 게임";
+    case "DRAFT_GAME":
+      return "일반 교차 선택";
+    case "NORMAL_GAME":
+      return "일반 게임";
+    case "URF_GAME":
+      return "우르프 모드";
+    case "SOLO_RANK_GAME":
       return "솔로 랭크";
-    case "RANKED_TEAM":
+    case "FLEX_RANK_GAME":
       return "자유 랭크";
-    case "UNKNOWN":
+    case "DYNAMIC_RANK_GAME":
+    case "OTHER_GAME":
       return "기타";
   }
 }
