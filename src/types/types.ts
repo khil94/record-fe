@@ -36,7 +36,7 @@ export interface IProfile {
 export interface ISimpleParticipant {
   summonerName: string;
   summonerLevel: number;
-  champLevel: number;
+  championLevel: number;
   lane: string;
   role: string;
   teamId: number;
