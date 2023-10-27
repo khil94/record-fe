@@ -84,7 +84,13 @@ export default function SummonerPage() {
           </div>
           <div className="matches_container">
             {data.matches.map((v) => {
-              return <MatchComponent matchData={v} userName={"지드루"} />;
+              return (
+                <MatchComponent
+                  key={v.matchId}
+                  matchData={v}
+                  userName={"지드루"}
+                />
+              );
             })}
           </div>
         </>
