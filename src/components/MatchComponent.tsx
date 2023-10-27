@@ -22,15 +22,21 @@ export default function MatchComponent({ matchData, userName }: IProps) {
         }`}
       >
         <div className="champ_icon">
-          <img src="" alt="챔피언 아이콘" />
+          <img src={target.champion.image} alt="챔피언 아이콘" />
+          <span className="champ_level">{target.championLevel}</span>
         </div>
         <div className="spell_wrapper">
-          <img src="" alt="스펠 아이콘" />
-          <img src="" alt="스펠 아이콘" />
+          {target.spells.map((v) => (
+            <img src={v.image} alt="스펠 아이콘" />
+          ))}
         </div>
         <div className="rune_wrapper">
-          <img src="" alt="룬 아이콘" />
-          <img src="" alt="룬 아이콘" />
+          <img src="" alt="룬" />
+          <img src="" alt="룬" />
+        </div>
+        <div className="summoner_info_wrapper">
+          <span>{target.summonerName}</span>
+          <span className="summoner_level">{`Level ${target.summonerLevel}`}</span>
         </div>
         <div className="kda_wrapper">
           <span>{target.kills} /</span>
@@ -43,7 +49,7 @@ export default function MatchComponent({ matchData, userName }: IProps) {
             {
               return (
                 <div key={matchId + userName + v.name} className="item_icon">
-                  <img src={v.image} alt="아이템이미지" />
+                  {v.image && <img src={v.image} alt="아이템이미지" />}
                 </div>
               );
             }
@@ -61,15 +67,17 @@ export default function MatchComponent({ matchData, userName }: IProps) {
         >
           <div className="champ_wrapper">
             <div className="champ_icon">
-              <img src="" alt="챔피언 아이콘" />
+              <img src={target.champion.image} alt="챔피언 아이콘" />
+              <span className="champ_level">{target.championLevel}</span>
             </div>
             <div className="spell_wrapper">
-              <img src="" alt="스펠 아이콘" />
-              <img src="" alt="스펠 아이콘" />
+              {target.spells.map((v) => (
+                <img src={v.image} alt="스펠 아이콘" />
+              ))}
             </div>
             <div className="rune_wrapper">
-              <img src="" alt="룬 아이콘" />
-              <img src="" alt="룬 아이콘" />
+              <img src="" alt="룬" />
+              <img src="" alt="룬" />
             </div>
           </div>
           <div className="kda_wrapper">
@@ -83,7 +91,7 @@ export default function MatchComponent({ matchData, userName }: IProps) {
               {
                 return (
                   <div key={matchId + userName + v.name} className="item_icon">
-                    <img src={v.image} alt="아이템이미지" />
+                    {v.image && <img src={v.image} alt="아이템이미지" />}
                   </div>
                 );
               }
@@ -104,9 +112,16 @@ export default function MatchComponent({ matchData, userName }: IProps) {
       </div>
       {show ? (
         <div className="match_detail_wrapper">
-          {participants.map((v) => (
-            <ParticipantComponent {...v} />
-          ))}
+          <div className="match_detail">
+            {participants.slice(0, 5).map((v) => (
+              <ParticipantComponent {...v} />
+            ))}
+          </div>
+          <div className="match_detail">
+            {participants.slice(5).map((v) => (
+              <ParticipantComponent {...v} />
+            ))}
+          </div>
         </div>
       ) : (
         <></>

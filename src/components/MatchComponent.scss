@@ -12,9 +12,19 @@
       padding: 1.6rem;
       &.match_win {
         background-color: #ecf2ff;
+        .item_wrapper {
+          .item_icon {
+            background-color: #81acff;
+          }
+        }
       }
       &.match_lose {
         background-color: #fff1f3;
+        .item_wrapper {
+          .item_icon {
+            background-color: #ffd8d9;
+          }
+        }
       }
 
       .champ_wrapper {
@@ -46,6 +56,11 @@
       .item_wrapper {
         flex-grow: 1;
         display: flex;
+        .item_icon {
+          width: 2.4rem;
+          margin-right: 0.4rem;
+          border-radius: 1rem;
+        }
       }
     }
     .open_close_btn_wrapper {
@@ -91,49 +106,83 @@
     }
   }
   .match_detail_wrapper {
-    .participant_wrapper {
-      display: flex;
-      align-items: center;
-      padding: 1.6rem;
-      flex-direction: row;
-
-      &.match_win {
-        background-color: #ecf2ff;
-      }
-      &.match_lose {
-        background-color: #fff1f3;
-      }
-
-      .champ_wrapper {
-        display: flex;
-      }
-      .spell_wrapper {
-        display: flex;
-        flex-direction: column;
-      }
-      .rune_wrapper {
-        display: flex;
-        flex-direction: column;
-      }
-      .kda_wrapper {
-        flex-grow: 1;
-        span {
-          margin-right: 0.4rem;
+    display: flex;
+    flex-direction: row;
+    .match_detail {
+      flex-grow: 1;
+      border-top: 1px solid #dddd;
+      .participant_wrapper {
+        img {
+          width: 2.4rem;
+          border-radius: 1rem;
         }
-        .kda_death {
-          color: red;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 3fr;
+        align-items: center;
+        padding: 1.6rem;
+
+        &.match_win {
+          background-color: #ecf2ff;
+          .item_wrapper {
+            .item_icon {
+              background-color: #81acff;
+            }
+          }
         }
-      }
+        &.match_lose {
+          background-color: #fff1f3;
+          .item_wrapper {
+            .item_icon {
+              background-color: #ffd8d9;
+            }
+          }
+        }
 
-      .cs_wrapper {
-        flex-grow: 1;
-      }
+        .spell_wrapper {
+          display: flex;
+          flex-direction: column;
+        }
+        .summoner_info_wrapper {
+          display: flex;
+          flex-direction: column;
+          .summoner_level {
+            font-weight: lighter;
+          }
+        }
+        .rune_wrapper {
+          display: flex;
+          flex-direction: column;
+        }
+        .kda_wrapper {
+          flex-grow: 1;
+          span {
+            margin-right: 0.4rem;
+          }
+          .kda_death {
+            color: red;
+          }
+        }
 
-      .item_wrapper {
-        flex-grow: 1;
-        display: flex;
+        .cs_wrapper {
+          flex-grow: 1;
+        }
+
+        .item_wrapper {
+          flex-grow: 1;
+          display: flex;
+          .item_icon {
+            width: 2.4rem;
+            height: 2.4rem;
+            margin-right: 0.4rem;
+            border-radius: 1rem;
+          }
+        }
       }
     }
   }
   margin-bottom: 1.6rem;
+  img {
+    width: 2.4rem;
+    border-radius: 1rem;
+  }
 }
