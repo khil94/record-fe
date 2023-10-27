@@ -1,22 +1,28 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { GetGameListBySummonerName } from "../api/apis";
 import MatchComponent from "../components/MatchComponent";
-import { TEST_ITEM } from "../constants/testItem";
 import { ILeagueEntry, ISummonerProfile } from "../types/types";
 import { getFullTierName } from "../utils/generalFunctions";
 import "./SummonerPage.scss";
 
 export default function SummonerPage() {
-  const [data, setData] = useState<ISummonerProfile>(TEST_ITEM);
+  const { summonerName } = useParams();
+  const [data, setData] = useState<ISummonerProfile>();
 
-  // useEffect(()=>{
-  //   const getSummonerData = async()=>{
-  //     const resp = await GetGameListBySummonerName('');
-  //     if(resp.data){
-  //       setData(resp.data);
-  //     }
-  //   }
-  //   getSummonerData();
-  // },[]) api붙이고 테스트
+  useEffect(() => {
+    const getSummonerData = async () => {
+      if (summonerName) {
+        const resp = await GetGameListBySummonerName(summonerName);
+        if (resp.data) {
+          setData(resp.data);
+        }
+      } else {
+        Error("없는디요");
+      }
+    };
+    getSummonerData();
+  }, []);
 
   const LeagueComponent = (props: ILeagueEntry) => {
     const qType = props.queueType === "RANKED_SOLO" ? "솔로 랭크" : "자유 랭크";
@@ -54,31 +60,35 @@ export default function SummonerPage() {
 
   return (
     <div className="page_summoner">
-      <div className="summoner_profile">
-        <div className="summoner_icon">
-          <img
-            // src={data.profile.profileIcon}
-            src={
-              "//ddragon.leagueoflegends.com/cdn/13.20.1/img/profileicon/4379.png"
-            }
-            alt="소환사아이콘"
-          />
-          <span>{data.profile.summonerLevel}</span>
-        </div>
-        <div className="summoner_name">
-          <span>{data.profile.summonerName}</span>
-          <button type="button">전적갱신</button>
-        </div>
-      </div>
-      <div className="summoner_league_container">
-        {LeagueComponent(data.profile.soloLeagueEntry)}
-        {LeagueComponent(data.profile.flexLeagueEntry)}
-      </div>
-      <div className="matches_container">
-        {data.matches.map((v) => {
-          return <MatchComponent matchData={v} userName={"지드루"} />;
-        })}
-      </div>
+      {data && (
+        <>
+          <div className="summoner_profile">
+            <div className="summoner_icon">
+              <img
+                // src={data.profile.profileIcon}
+                src={
+                  "//ddragon.leagueoflegends.com/cdn/13.20.1/img/profileicon/4379.png"
+                }
+                alt="소환사아이콘"
+              />
+              <span>{data.profile.summonerLevel}</span>
+            </div>
+            <div className="summoner_name">
+              <span>{data.profile.summonerName}</span>
+              <button type="button">전적갱신</button>
+            </div>
+          </div>
+          <div className="summoner_league_container">
+            {LeagueComponent(data.profile.soloLeagueEntry)}
+            {LeagueComponent(data.profile.flexLeagueEntry)}
+          </div>
+          <div className="matches_container">
+            {data.matches.map((v) => {
+              return <MatchComponent matchData={v} userName={"지드루"} />;
+            })}
+          </div>
+        </>
+      )}
     </div>
   );
 }
