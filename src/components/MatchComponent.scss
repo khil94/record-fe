@@ -49,6 +49,8 @@
     flex-direction: row;
     .match_detail {
       flex-grow: 1;
+      display: grid;
+      grid-template-columns: repeat(1fr, 5);
       border-top: 1px solid #dddd;
     }
   }
@@ -59,7 +61,7 @@
       border-radius: 1rem;
     }
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 3fr;
+    grid-template-columns: 1fr 1fr 1fr 2fr 1fr 3fr;
     align-items: center;
     padding: 1.6rem;
 
@@ -123,5 +125,14 @@
   img {
     width: 2.4rem;
     border-radius: 1rem;
+  }
+}
+
+@media (max-width: 781px) {
+  .match_wrapper {
+    .match_detail_wrapper {
+      display: flex;
+      flex-direction: column;
+    }
   }
 }
