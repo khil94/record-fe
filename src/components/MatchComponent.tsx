@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ISimpleMatch, ISimpleParticipant } from "../types/types";
+import { getGameType } from "../utils/generalFunctions";
 import "./MatchComponent.scss";
 
 interface IProps {
@@ -65,10 +66,16 @@ export default function MatchComponent({ matchData, userName }: IProps) {
 
   return (
     <div className="match_wrapper">
-      <div className="match_summary_wrapper">
-        <div
-          className={`match_summary ${target.win ? "match_win" : "match_lose"}`}
-        >
+      <div
+        className={`match_summary_wrapper  ${
+          target.win ? "match_win" : "match_lose"
+        }`}
+      >
+        <div className="match_result">
+          <span>{target.win ? "승리" : "패배"}</span>
+          <span>{getGameType(queueId)}</span>
+        </div>
+        <div className={`match_summary`}>
           <div className="champ_icon">
             <img src={target.champion.image} alt="챔피언 아이콘" />
             <span className="champ_level">{target.championLevel}</span>
