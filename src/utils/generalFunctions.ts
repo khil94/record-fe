@@ -1,4 +1,4 @@
-import { IRankNumber, ITierType } from "../types/types";
+import { IQueueType, IRankNumber, ITierType } from "../types/types";
 
 export function getTierName(tier: ITierType) {
   switch (tier) {
@@ -54,5 +54,16 @@ export function getFullTierName(tier: ITierType, rank: IRankNumber) {
       return tierName;
     default:
       return `${tierName} ${rankName}`;
+  }
+}
+
+export function getGameType(queueType: IQueueType) {
+  switch (queueType) {
+    case "RANKED_SOLO":
+      return "솔로 랭크";
+    case "RANKED_TEAM":
+      return "자유 랭크";
+    case "UNKNOWN":
+      return "기타";
   }
 }
