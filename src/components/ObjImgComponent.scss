@@ -1,0 +1,30 @@
+.obj_description {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  padding: 1.2rem;
+  z-index: 100;
+  background-color: black;
+  color: white;
+  animation: fade-in 500ms ease;
+  position: absolute;
+  max-width: 24rem;
+  transform: translateY(-100%) translateY(-3.2rem) translateX(-50%)
+    translateX(1.2rem);
+
+  .obj_name {
+    color: aqua;
+  }
+
+  &::after {
+    position: absolute;
+    content: "";
+    width: 0.8rem;
+    height: 0.8rem;
+    border-top: 10px solid black;
+    border-right: 10px solid black;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%) translateY(0.6rem) rotate(135deg);
+  }
+}
