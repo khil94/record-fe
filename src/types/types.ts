@@ -43,14 +43,12 @@ export interface ISimpleParticipant {
   kills: number;
   deaths: number;
   assists: number;
-  spell1Casts: number;
-  spell2Casts: number;
-  spell3Casts: number;
-  spell4Casts: number;
   summoner1Casts: number;
   summoner2Casts: number;
   items: IItem[];
   spells: ISpell[];
+  mainRune: IRune;
+  subRune: IRune;
   champion: IChampion;
   win: boolean;
 }
@@ -80,6 +78,12 @@ export interface IItem {
 }
 
 export interface ISpell {
+  name: string;
+  description: string;
+  image: string;
+}
+
+export interface IRune {
   name: string;
   description: string;
   image: string;
