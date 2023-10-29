@@ -34,8 +34,8 @@ export default function MatchComponent({ matchData, userName }: IProps) {
           ))}
         </div>
         <div className="rune_wrapper">
-          <img src="" alt="룬" />
-          <img src="" alt="룬" />
+          <img src={target.mainRune.image} alt="메인룬" />
+          <img src={target.subRune.image} alt="서브룬" />
         </div>
         <div className="summoner_info_wrapper">
           <span>{target.summonerName}</span>
@@ -90,8 +90,8 @@ export default function MatchComponent({ matchData, userName }: IProps) {
             ))}
           </div>
           <div className="rune_wrapper">
-            <img src="" alt="룬" />
-            <img src="" alt="룬" />
+            <img src={target.mainRune.image} alt="메인룬" />
+            <img src={target.subRune.image} alt="서브룬" />
           </div>
           <div className="kda_wrapper">
             <span>{target.kills} /</span>
