@@ -8,10 +8,14 @@ import "./SummonerPage.scss";
 
 export default function SummonerPage() {
   const { summonerName } = useParams();
+  const [userName, setUserName] = useState("");
   const [data, setData] = useState<ISummonerProfile>();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    setUserName(summonerName!);
     const getSummonerData = async () => {
+      setIsLoading(true);
       if (summonerName) {
         const resp = await GetGameListBySummonerName(summonerName);
         if (resp.data) {
@@ -20,9 +24,10 @@ export default function SummonerPage() {
       } else {
         Error("없는디요");
       }
+      setIsLoading(false);
     };
     getSummonerData();
-  }, []);
+  }, [summonerName]);
 
   const LeagueComponent = (props: ILeagueEntry) => {
     const qType = props.queueType === "RANKED_SOLO" ? "솔로 랭크" : "자유 랭크";
@@ -60,7 +65,7 @@ export default function SummonerPage() {
 
   return (
     <div className="page_summoner">
-      {data && (
+      {data && !isLoading && (
         <>
           <div className="summoner_profile">
             <div className="summoner_icon">
@@ -88,7 +93,7 @@ export default function SummonerPage() {
                 <MatchComponent
                   key={v.matchId}
                   matchData={v}
-                  userName={"지드루"}
+                  userName={userName}
                 />
               );
             })}
