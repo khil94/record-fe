@@ -26,7 +26,7 @@ export default function Header() {
           </nav>
           <SearchInput
             value={searchVal}
-            onSubmit={async () => {
+            onSubmit={() => {
               const val = searchVal.trim();
               setSearchVal("");
               navigation(`summoner/${val}`);
