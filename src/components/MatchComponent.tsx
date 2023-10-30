@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ISimpleMatch, ISimpleParticipant } from "../types/types";
 import { getGameType } from "../utils/generalFunctions";
 import "./MatchComponent.scss";
+import ObjImgComponent from "./ObjImgComponent";
 
 interface IProps {
   matchData: ISimpleMatch;
@@ -12,7 +13,6 @@ export default function MatchComponent({ matchData, userName }: IProps) {
   const { matchId, gameMode, gameType, queueId, participants } = matchData;
 
   const target = participants.find((v) => v.summonerName === userName)!;
-
   // 승/패 팀 나누어서 표기 할것 => 두 팀을 나누어서 변수화 해라
 
   const ParticipantComponent = (target: ISimpleParticipant) => {
@@ -26,16 +26,12 @@ export default function MatchComponent({ matchData, userName }: IProps) {
         </div>
         <div className="spell_wrapper">
           {target.spells.map((v, i) => (
-            <img
-              key={`spell-${target.summonerName}-${i}`}
-              src={v.image}
-              alt="스펠 아이콘"
-            />
+            <ObjImgComponent key={`spell-${target.summonerName}-${i}`} {...v} />
           ))}
         </div>
         <div className="rune_wrapper">
-          <img src={target.mainRune.image} alt="메인룬" />
-          <img src={target.subRune.image} alt="서브룬" />
+          <ObjImgComponent {...target.mainRune} />
+          <ObjImgComponent {...target.subRune} />
         </div>
         <div className="summoner_info_wrapper">
           <span>{target.summonerName}</span>
@@ -54,7 +50,9 @@ export default function MatchComponent({ matchData, userName }: IProps) {
                   key={matchId + userName + v.name + i}
                   className="item_icon"
                 >
-                  {v.image && <img src={v.image} alt="아이템이미지" />}
+                  {v.image && (
+                    <ObjImgComponent {...v} description={v.plaintext} />
+                  )}
                 </div>
               );
             }
@@ -67,7 +65,7 @@ export default function MatchComponent({ matchData, userName }: IProps) {
   return (
     <div className="match_wrapper">
       <div
-        className={`match_summary_wrapper  ${
+        className={`match_summary_wrapper   ${
           target.win ? "match_win" : "match_lose"
         }`}
       >
@@ -81,17 +79,16 @@ export default function MatchComponent({ matchData, userName }: IProps) {
             <span className="champ_level">{target.championLevel}</span>
           </div>
           <div className="spell_wrapper">
-            {target.spells.map((v) => (
-              <img
-                key={`${v.name}-${target.summonerName}`}
-                src={v.image}
-                alt="스펠 아이콘"
+            {target.spells.map((v, i) => (
+              <ObjImgComponent
+                key={`spell-${target.summonerName}-${i}`}
+                {...v}
               />
             ))}
           </div>
           <div className="rune_wrapper">
-            <img src={target.mainRune.image} alt="메인룬" />
-            <img src={target.subRune.image} alt="서브룬" />
+            <ObjImgComponent {...target.mainRune} />
+            <ObjImgComponent {...target.subRune} />
           </div>
           <div className="kda_wrapper">
             <span>{target.kills} /</span>
@@ -107,7 +104,9 @@ export default function MatchComponent({ matchData, userName }: IProps) {
                     key={matchId + userName + v.name + i}
                     className="item_icon"
                   >
-                    {v.image && <img src={v.image} alt="아이템이미지" />}
+                    {v.image && (
+                      <ObjImgComponent {...v} description={v.plaintext} />
+                    )}
                   </div>
                 );
               }

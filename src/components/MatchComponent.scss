@@ -4,6 +4,11 @@
     grid-template-columns: 1fr 11fr 1fr;
     &.match_win {
       background-color: #ecf2ff;
+      .item_wrapper {
+        .item_icon {
+          background-color: #81acff;
+        }
+      }
       button {
         &::after {
           border-top: 3px solid #81acff; /* 선 두께 */
@@ -12,7 +17,12 @@
       }
     }
     &.match_lose {
-      background-color: #ffd8d9;
+      background-color: #fff1f3;
+      .item_wrapper {
+        .item_icon {
+          background-color: #ffd8d9;
+        }
+      }
       button {
         &::after {
           border-top: 3px solid #ff6c81; /* 선 두께 */
