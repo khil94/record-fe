@@ -69,13 +69,7 @@ export default function SummonerPage() {
         <>
           <div className="summoner_profile">
             <div className="summoner_icon">
-              <img
-                // src={data.profile.profileIcon}
-                src={
-                  "//ddragon.leagueoflegends.com/cdn/13.20.1/img/profileicon/4379.png"
-                }
-                alt="소환사아이콘"
-              />
+              <img src={data.profile.profileIcon} alt="소환사아이콘" />
               <span>{data.profile.summonerLevel}</span>
             </div>
             <div className="summoner_name">
