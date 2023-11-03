@@ -56,7 +56,7 @@ export default function SummonerPage() {
         </div>
         <div className="league_detail">
           <div className="league_icon">
-            <img src="" alt="리그 이미지" />
+            <img src={`/public/${props.tier}.webp`} alt="리그 이미지" />
           </div>
           <div className="league">
             <span>{tier}</span>
