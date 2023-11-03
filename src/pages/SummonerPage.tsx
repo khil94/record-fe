@@ -59,8 +59,10 @@ export default function SummonerPage() {
             <img src={`/public/${props.tier}.webp`} alt="리그 이미지" />
           </div>
           <div className="league">
-            <span>{tier}</span>
-            <span>{props.leaguePoints}</span>
+            <span className="tier">{tier}</span>
+            <span className="league_points">
+              {props.tier !== "UNRANKED" ? `${props.leaguePoints}lp` : ""}
+            </span>
             {/* 위부분은 실제로 unranked인 유저의 정보가 어떻게 들어오는지 확인하고 
             수정해야하는 부분이다. 승률또한 마찬가지. UNRANKED면 승률, LP는 보여주지도 ㅇ말아야 한다 */}
           </div>
