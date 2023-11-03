@@ -11,7 +11,7 @@ export default function ObjImgComponent({ name, description, image }: IProp) {
   const [showDesc, setShowDesc] = useState(false);
 
   return (
-    <div>
+    <>
       <img
         onMouseEnter={() => setShowDesc(true)}
         onMouseLeave={() => setShowDesc(false)}
@@ -24,6 +24,6 @@ export default function ObjImgComponent({ name, description, image }: IProp) {
           <span>{description}</span>
         </div>
       )}
-    </div>
+    </>
   );
 }
