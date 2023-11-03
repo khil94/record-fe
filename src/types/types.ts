@@ -26,6 +26,7 @@ export interface ILeagueEntry {
 }
 
 export interface IProfile {
+  puuid: string;
   summonerName: string;
   summonerLevel: number;
   profileIcon: string;
