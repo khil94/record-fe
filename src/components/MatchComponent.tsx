@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { ISimpleMatch, ISimpleParticipant } from "../types/types";
 import { getGameType } from "../utils/generalFunctions";
 import "./MatchComponent.scss";
@@ -34,7 +35,9 @@ export default function MatchComponent({ matchData, userName }: IProps) {
           <ObjImgComponent {...target.subRune} />
         </div>
         <div className="summoner_info_wrapper">
-          <span>{target.summonerName}</span>
+          <Link to={`/summoner/${target.summonerName}`}>
+            {target.summonerName}
+          </Link>
           <span className="summoner_level">{`Level ${target.summonerLevel}`}</span>
         </div>
         <div className="kda_wrapper">
