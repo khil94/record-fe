@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { GetGameList, GetSummonerInfo } from "../api/apis";
+import Loading from "../components/Loading";
 import MatchComponent from "../components/MatchComponent";
 import { ILeagueEntry, ISimpleMatch, ISummonerProfile } from "../types/types";
 import { getFullTierName } from "../utils/generalFunctions";
@@ -12,6 +13,7 @@ export default function SummonerPage() {
   const [data, setData] = useState<ISummonerProfile>();
   const [gameListData, setGameListData] = useState<ISimpleMatch[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isMoreLoading, setIsMoreLoading] = useState(false);
   const pageNumber = useRef(1);
 
   useEffect(() => {
@@ -38,6 +40,7 @@ export default function SummonerPage() {
     if (gameData) {
       setGameListData([...gameListData, ...gameData.data]);
       pageNumber.current = pageNumber.current + 1;
+      setIsMoreLoading(false);
     }
   };
 
@@ -77,7 +80,7 @@ export default function SummonerPage() {
 
   return (
     <div className="page_summoner">
-      {data && !isLoading && (
+      {data && !isLoading ? (
         <>
           <div className="summoner_profile">
             <div className="summoner_icon">
@@ -104,17 +107,24 @@ export default function SummonerPage() {
               );
             })}
             <div className="more_match">
-              <button
-                onClick={() => {
-                  getMoreGameList(data.profile.puuid);
-                }}
-                type="button"
-              >
-                더보기
-              </button>
+              {isMoreLoading ? (
+                <Loading width={18} />
+              ) : (
+                <button
+                  onClick={() => {
+                    setIsMoreLoading(true);
+                    getMoreGameList(data.profile.puuid);
+                  }}
+                  type="button"
+                >
+                  더보기
+                </button>
+              )}
             </div>
           </div>
         </>
+      ) : (
+        <Loading width={32} />
       )}
     </div>
   );
