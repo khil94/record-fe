@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
-import { GetSummonerInfo } from "../api/apis";
+import { GetGameList, GetSummonerInfo } from "../api/apis";
 import MatchComponent from "../components/MatchComponent";
-import { ILeagueEntry, ISummonerProfile } from "../types/types";
+import { ILeagueEntry, ISimpleMatch, ISummonerProfile } from "../types/types";
 import { getFullTierName } from "../utils/generalFunctions";
 import "./SummonerPage.scss";
 
@@ -10,7 +10,9 @@ export default function SummonerPage() {
   const { summonerName } = useParams();
   const [userName, setUserName] = useState("");
   const [data, setData] = useState<ISummonerProfile>();
+  const [gameListData, setGameListData] = useState<ISimpleMatch[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const pageNumber = useRef(1);
 
   useEffect(() => {
     setUserName(summonerName!);
@@ -20,6 +22,7 @@ export default function SummonerPage() {
         const resp = await GetSummonerInfo(summonerName);
         if (resp.data) {
           setData(resp.data);
+          setGameListData(resp.data.matches);
         }
       } else {
         Error("없는디요");
@@ -28,6 +31,15 @@ export default function SummonerPage() {
     };
     getSummonerData();
   }, [summonerName]);
+
+  const getMoreGameList = async (puid: string) => {
+    const targetNumber = pageNumber.current + 1;
+    const gameData = await GetGameList(puid, targetNumber);
+    if (gameData) {
+      setGameListData([...gameListData, ...gameData.data]);
+      pageNumber.current = pageNumber.current + 1;
+    }
+  };
 
   const LeagueComponent = (props: ILeagueEntry) => {
     const qType = props.queueType === "RANKED_SOLO" ? "솔로 랭크" : "자유 랭크";
@@ -82,7 +94,7 @@ export default function SummonerPage() {
             {LeagueComponent(data.profile.flexLeagueEntry)}
           </div>
           <div className="matches_container">
-            {data.matches.map((v) => {
+            {gameListData.map((v) => {
               return (
                 <MatchComponent
                   key={v.matchId}
@@ -92,7 +104,14 @@ export default function SummonerPage() {
               );
             })}
             <div className="more_match">
-              <button type="button">더보기</button>
+              <button
+                onClick={() => {
+                  getMoreGameList(data.profile.puuid);
+                }}
+                type="button"
+              >
+                더보기
+              </button>
             </div>
           </div>
         </>
