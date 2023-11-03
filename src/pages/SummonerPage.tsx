@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { GetGameListBySummonerName } from "../api/apis";
+import { GetSummonerInfo } from "../api/apis";
 import MatchComponent from "../components/MatchComponent";
 import { ILeagueEntry, ISummonerProfile } from "../types/types";
 import { getFullTierName } from "../utils/generalFunctions";
@@ -17,7 +17,7 @@ export default function SummonerPage() {
     const getSummonerData = async () => {
       setIsLoading(true);
       if (summonerName) {
-        const resp = await GetGameListBySummonerName(summonerName);
+        const resp = await GetSummonerInfo(summonerName);
         if (resp.data) {
           setData(resp.data);
         }
@@ -91,6 +91,9 @@ export default function SummonerPage() {
                 />
               );
             })}
+            <div className="more_match">
+              <button type="button">더보기</button>
+            </div>
           </div>
         </>
       )}
