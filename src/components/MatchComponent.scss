@@ -101,6 +101,24 @@
       }
     }
 
+    .champ_icon {
+      position: relative;
+      img {
+        width: 4rem;
+        // height: 3.2rem;
+      }
+      .champ_level {
+        position: absolute;
+        color: white;
+        background-color: black;
+        padding: 0.2rem;
+        border-radius: 0.4rem;
+        left: 0;
+        bottom: 0;
+        transform: translateX(3.8rem);
+      }
+    }
+
     .spell_wrapper {
       display: flex;
       flex-direction: column;
