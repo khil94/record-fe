@@ -3,7 +3,13 @@ import { useParams } from "react-router-dom";
 import { GetGameList, GetSummonerInfo } from "../api/apis";
 import Loading from "../components/Loading";
 import MatchComponent from "../components/MatchComponent";
-import { ILeagueEntry, ISimpleMatch, ISummonerProfile } from "../types/types";
+import UserRecentInfoComponent from "../components/UserRecentInfoComponent";
+import {
+  ILeagueEntry,
+  ISimpleMatch,
+  ISimpleParticipant,
+  ISummonerProfile,
+} from "../types/types";
 import { getFullTierName } from "../utils/generalFunctions";
 import "./SummonerPage.scss";
 
@@ -14,6 +20,10 @@ export default function SummonerPage() {
   const [gameListData, setGameListData] = useState<ISimpleMatch[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isMoreLoading, setIsMoreLoading] = useState(false);
+  const [recentUserInfo, setRecentUserInfo] = useState<ISimpleParticipant[]>(
+    []
+  );
+
   const pageNumber = useRef(1);
 
   useEffect(() => {
@@ -33,6 +43,18 @@ export default function SummonerPage() {
     };
     getSummonerData();
   }, [summonerName]);
+
+  useEffect(() => {
+    const temp: ISimpleParticipant[] = [];
+    gameListData.forEach((v) => {
+      const target = v.participants.find((t) => t.summonerName === userName);
+      if (target) {
+        temp.push(target);
+      }
+    });
+    setRecentUserInfo(temp);
+  }, [gameListData]);
+  console.log("recentInfo", recentUserInfo);
 
   const getMoreGameList = async (puid: string) => {
     const targetNumber = pageNumber.current + 1;
@@ -98,30 +120,33 @@ export default function SummonerPage() {
             {LeagueComponent(data.profile.soloLeagueEntry)}
             {LeagueComponent(data.profile.flexLeagueEntry)}
           </div>
-          <div className="matches_container">
-            {gameListData.map((v) => {
-              return (
-                <MatchComponent
-                  key={v.matchId}
-                  matchData={v}
-                  userName={userName}
-                />
-              );
-            })}
-            <div className="more_match">
-              {isMoreLoading ? (
-                <Loading width={18} />
-              ) : (
-                <button
-                  onClick={() => {
-                    setIsMoreLoading(true);
-                    getMoreGameList(data.profile.puuid);
-                  }}
-                  type="button"
-                >
-                  더보기
-                </button>
-              )}
+          <div className="summoner_detail_wrapper">
+            <UserRecentInfoComponent userData={recentUserInfo} />
+            <div className="matches_container">
+              {gameListData.map((v) => {
+                return (
+                  <MatchComponent
+                    key={v.matchId}
+                    matchData={v}
+                    userName={userName}
+                  />
+                );
+              })}
+              <div className="more_match">
+                {isMoreLoading ? (
+                  <Loading width={18} />
+                ) : (
+                  <button
+                    onClick={() => {
+                      setIsMoreLoading(true);
+                      getMoreGameList(data.profile.puuid);
+                    }}
+                    type="button"
+                  >
+                    더보기
+                  </button>
+                )}
+              </div>
             </div>
           </div>
         </>
