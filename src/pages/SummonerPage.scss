@@ -32,6 +32,8 @@
     width: 100%;
     flex-direction: row;
     justify-content: center;
+    border-bottom: 1px solid #dddd;
+    margin-bottom: 1rem;
     div {
       &:first-child {
         border-right: 1px solid white;
@@ -76,6 +78,17 @@
           }
         }
       }
+    }
+  }
+  .summoner_detail_wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    .matches_container {
+      flex: auto;
+      max-width: 82rem;
     }
   }
 }
