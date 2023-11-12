@@ -1,0 +1,61 @@
+@import "../variable";
+
+.TabL_Wrapper {
+  margin: 12px;
+  padding: 16px;
+  border: 1px solid $color-light-border;
+  border-radius: $default-border-radius;
+
+  .Tab_list {
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid $color-light-border;
+
+    div {
+      padding: 12px;
+      margin-bottom: -1px;
+      cursor: pointer;
+      border-radius: $default-border-radius $default-border-radius 0 0;
+
+      &:hover {
+        animation: duration 500ms forwards;
+      }
+      &.selected_tab {
+        &:hover {
+          animation: none;
+        }
+        border: 1px solid;
+        border-color: #dee2e6 #dee2e6 #fff;
+      }
+    }
+  }
+
+  .Tab_page_list {
+    padding: 12px;
+
+    .Tab_Page {
+      display: none;
+      &.visible {
+        display: block;
+      }
+    }
+  }
+}
+
+@keyframes duration {
+  from {
+    background-color: white;
+  }
+  to {
+    background-color: #ddd;
+  }
+}
+
+@keyframes duration-selected {
+  from {
+    background-color: white;
+  }
+  to {
+    background-color: $color-main;
+  }
+}
