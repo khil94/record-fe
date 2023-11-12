@@ -89,3 +89,18 @@ export interface IRune {
   description: string;
   image: string;
 }
+
+export interface IRanking {
+  tier: string;
+  queue: string;
+  players: IPlayerRankingInfo[];
+}
+
+export interface IPlayerRankingInfo {
+  summonerId: string;
+  summonerName: string;
+  rank: string;
+  leaguePoints: number;
+  wins: number;
+  loses: number;
+}
