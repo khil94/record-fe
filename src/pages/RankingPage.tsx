@@ -1,18 +1,22 @@
-import { useState } from "react";
-
-interface ITestRank {
-  [v: string]: string | number;
-  summonerName: string;
-  rank: number;
-  tier: string;
-  lp: number;
-  level: number;
-  win: number;
-  lose: number;
-}
+import { useEffect, useState } from "react";
+import { GetRankingList } from "../api/apis";
+import { ILeaderBoardQueueTyep, IRanking } from "../types/types";
 
 export default function RankingPage() {
-  const [rnkData, setRnkData] = useState<ITestRank[]>([]);
+  const [rnkData, setRnkData] = useState<IRanking>();
+  const [currentQueueType, setCurrentQueueType] =
+    useState<ILeaderBoardQueueTyep>("RANKED_SOLO_5x5");
+  const [currentPage, setCurrentPage] = useState(1);
+
+  useEffect(() => {
+    const getData = async () => {
+      const resp = await GetRankingList(currentQueueType, currentPage);
+      if (resp) {
+        setRnkData(resp.data);
+      }
+    };
+    getData();
+  }, []);
 
   return (
     <div className="ranking_page">
@@ -46,11 +50,23 @@ export default function RankingPage() {
           </th>
         </thead>
         <tbody>
-          {rnkData.map((v) => {
+          {rnkData?.players.map((v, i) => {
             return (
-              <tr id={v.summonerName}>
+              <tr key={v.summonerName}>
                 {Object.keys(v).map((t) => {
-                  return <td>{v[t]}</td>;
+                  if (t !== "summonerId") {
+                    return (
+                      <td align="left" key={v + t}>
+                        {v[t]}
+                      </td>
+                    );
+                  } else {
+                    return (
+                      <td align="left" key={v + t}>
+                        {i + 1}
+                      </td>
+                    );
+                  }
                 })}
               </tr>
             );
