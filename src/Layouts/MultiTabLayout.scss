@@ -1,8 +1,8 @@
 @import "../variable";
 
 .TabL_Wrapper {
-  margin: 12px;
-  padding: 16px;
+  margin: 1.2rem;
+  padding: 1.6rem;
   border: 1px solid $color-light-border;
   border-radius: $default-border-radius;
 
@@ -12,8 +12,8 @@
     border-bottom: 1px solid $color-light-border;
 
     div {
-      padding: 12px;
-      margin-bottom: -1px;
+      padding: 1.2rem;
+      margin-bottom: -0.1rem;
       cursor: pointer;
       border-radius: $default-border-radius $default-border-radius 0 0;
 
