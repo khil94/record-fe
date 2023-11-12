@@ -1,6 +1,7 @@
 import {
   GAME_MODE_LIST,
   GAME_TYPE_LIST,
+  LEADERBOARD_QUEUE_TYPE_LIST,
   MENU_LIST,
   QUEUE_ID_LIST,
   QUEUE_TYPE_LIST,
@@ -15,6 +16,8 @@ export type IRankNumber = (typeof RANK_NUMBER_LIST)[number];
 export type IGameMode = (typeof GAME_MODE_LIST)[number];
 export type IQueueId = (typeof QUEUE_ID_LIST)[number];
 export type IGameType = (typeof GAME_TYPE_LIST)[number];
+export type ILeaderBoardQueueTyep =
+  (typeof LEADERBOARD_QUEUE_TYPE_LIST)[number];
 
 export interface ILeagueEntry {
   queueType: IQueueType;
@@ -97,6 +100,7 @@ export interface IRanking {
 }
 
 export interface IPlayerRankingInfo {
+  [v: string]: string | number;
   summonerId: string;
   summonerName: string;
   rank: string;

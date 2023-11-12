@@ -67,3 +67,9 @@ export const GAME_TYPE_LIST = [
   "TUTORIAL_GAME",
   "MATCHED_GAME",
 ] as const;
+
+export const LEADERBOARD_QUEUE_TYPE_LIST = [
+  "RANKED_SOLO_5x5",
+  "RANKED_FLEX_SR",
+  "RANKED_FLEX_TT",
+] as const;
