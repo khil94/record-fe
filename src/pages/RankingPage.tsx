@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { GetRankingList } from "../api/apis";
 import { ILeaderBoardQueueTyep, IRanking } from "../types/types";
 import "./RankingPage.scss";
@@ -8,6 +9,7 @@ export default function RankingPage() {
   const [currentQueueType, setCurrentQueueType] =
     useState<ILeaderBoardQueueTyep>("RANKED_SOLO_5x5");
   const [currentPage, setCurrentPage] = useState(1);
+  const navigation = useNavigate();
 
   useEffect(() => {
     const getData = async () => {
@@ -78,18 +80,32 @@ export default function RankingPage() {
               return (
                 <tr key={v.summonerName}>
                   {Object.keys(v).map((t) => {
-                    if (t !== "summonerId") {
-                      return (
-                        <td align="left" key={v + t}>
-                          {v[t]}
-                        </td>
-                      );
-                    } else {
-                      return (
-                        <td align="left" key={v + t}>
-                          {i + 1}
-                        </td>
-                      );
+                    switch (t) {
+                      case "summonerId":
+                        return (
+                          <td align="left" key={v + t}>
+                            {i + 1}
+                          </td>
+                        );
+                      case "summonerName":
+                        return (
+                          <td
+                            align="left"
+                            key={v + t}
+                            onClick={() => {
+                              console.log(v[t]);
+                              navigation(`/summoner/${v[t]}`);
+                            }}
+                          >
+                            {v[t]}
+                          </td>
+                        );
+                      default:
+                        return (
+                          <td align="left" key={v + t}>
+                            {v[t]}
+                          </td>
+                        );
                     }
                   })}
                 </tr>
