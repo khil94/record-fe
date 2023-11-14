@@ -1,11 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
+import MultiTabLayout from "../Layouts/MultiTabLayout";
 import { GetGameList, GetSummonerInfo } from "../api/apis";
 import Loading from "../components/Loading";
 import MatchComponent from "../components/MatchComponent";
 import UserRecentInfoComponent from "../components/UserRecentInfoComponent";
 import {
   ILeagueEntry,
+  IQueueId,
   ISimpleMatch,
   ISimpleParticipant,
   ISummonerProfile,
@@ -20,9 +22,6 @@ export default function SummonerPage() {
   const [gameListData, setGameListData] = useState<ISimpleMatch[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isMoreLoading, setIsMoreLoading] = useState(false);
-  const [recentUserInfo, setRecentUserInfo] = useState<ISimpleParticipant[]>(
-    []
-  );
 
   const pageNumber = useRef(1);
 
@@ -43,18 +42,6 @@ export default function SummonerPage() {
     };
     getSummonerData();
   }, [summonerName]);
-
-  useEffect(() => {
-    const temp: ISimpleParticipant[] = [];
-    gameListData.forEach((v) => {
-      const target = v.participants.find((t) => t.summonerName === userName);
-      if (target) {
-        temp.push(target);
-      }
-    });
-    setRecentUserInfo(temp);
-  }, [gameListData]);
-  console.log("recentInfo", recentUserInfo);
 
   const getMoreGameList = async (puid: string) => {
     const targetNumber = pageNumber.current + 1;
@@ -102,6 +89,50 @@ export default function SummonerPage() {
     );
   };
 
+  function TestComp(matchData: ISimpleMatch[], queueId?: IQueueId) {
+    const target = queueId
+      ? matchData.filter((v) => v.queueId === queueId)
+      : matchData;
+    const temp: ISimpleParticipant[] = [];
+    target.forEach((v) => {
+      const ttarget = v.participants.find((t) => t.summonerName === userName);
+      if (ttarget) {
+        temp.push(ttarget);
+      }
+    });
+    return (
+      <div className="summoner_detail_wrapper">
+        <UserRecentInfoComponent userData={temp} />
+        <div className="matches_container">
+          {target.map((v) => {
+            return (
+              <MatchComponent
+                key={v.matchId}
+                matchData={v}
+                userName={userName}
+              />
+            );
+          })}
+          <div className="more_match">
+            {isMoreLoading ? (
+              <Loading width={18} />
+            ) : (
+              <button
+                onClick={() => {
+                  setIsMoreLoading(true);
+                  getMoreGameList(data!.profile.puuid);
+                }}
+                type="button"
+              >
+                더보기
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="page_summoner">
       {data && !isLoading ? (
@@ -120,34 +151,16 @@ export default function SummonerPage() {
             {LeagueComponent(data.profile.soloLeagueEntry)}
             {LeagueComponent(data.profile.flexLeagueEntry)}
           </div>
-          <div className="summoner_detail_wrapper">
-            <UserRecentInfoComponent userData={recentUserInfo} />
-            <div className="matches_container">
-              {gameListData.map((v) => {
-                return (
-                  <MatchComponent
-                    key={v.matchId}
-                    matchData={v}
-                    userName={userName}
-                  />
-                );
-              })}
-              <div className="more_match">
-                {isMoreLoading ? (
-                  <Loading width={18} />
-                ) : (
-                  <button
-                    onClick={() => {
-                      setIsMoreLoading(true);
-                      getMoreGameList(data.profile.puuid);
-                    }}
-                    type="button"
-                  >
-                    더보기
-                  </button>
-                )}
-              </div>
-            </div>
+          <div>
+            <MultiTabLayout
+              tabList={["전체", "솔로 랭크"]}
+              tabPageList={[
+                TestComp(data.matches),
+                TestComp(
+                  data.matches.filter((v) => v.queueId === "SOLO_RANK_GAME")
+                ),
+              ]}
+            />
           </div>
         </>
       ) : (
