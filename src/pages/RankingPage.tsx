@@ -8,12 +8,13 @@ export default function RankingPage() {
   const [rnkData, setRnkData] = useState<IRanking>();
   const [currentQueueType, setCurrentQueueType] =
     useState<ILeaderBoardQueueTyep>("RANKED_SOLO_5x5");
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(0);
   const navigation = useNavigate();
+  const MAX_PAGE_NUMBER = 100;
 
   useEffect(() => {
     const getData = async () => {
-      const resp = await GetRankingList(currentQueueType, currentPage);
+      const resp = await GetRankingList(currentQueueType, 1);
       if (resp) {
         setRnkData(resp.data);
       }
@@ -76,41 +77,46 @@ export default function RankingPage() {
             </th>
           </thead>
           <tbody>
-            {rnkData?.players.map((v, i) => {
-              return (
-                <tr key={v.summonerName}>
-                  {Object.keys(v).map((t) => {
-                    switch (t) {
-                      case "summonerId":
-                        return (
-                          <td align="left" key={v + t}>
-                            {i + 1}
-                          </td>
-                        );
-                      case "summonerName":
-                        return (
-                          <td
-                            align="left"
-                            key={v + t}
-                            onClick={() => {
-                              console.log(v[t]);
-                              navigation(`/summoner/${v[t]}`);
-                            }}
-                          >
-                            {v[t]}
-                          </td>
-                        );
-                      default:
-                        return (
-                          <td align="left" key={v + t}>
-                            {v[t]}
-                          </td>
-                        );
-                    }
-                  })}
-                </tr>
-              );
-            })}
+            {rnkData?.players
+              .slice(
+                MAX_PAGE_NUMBER * currentPage,
+                MAX_PAGE_NUMBER * (currentPage + 1)
+              )
+              .map((v, i) => {
+                return (
+                  <tr key={v.summonerName}>
+                    {Object.keys(v).map((t) => {
+                      switch (t) {
+                        case "summonerId":
+                          return (
+                            <td align="left" key={v + t}>
+                              {i + 1}
+                            </td>
+                          );
+                        case "summonerName":
+                          return (
+                            <td
+                              align="left"
+                              key={v + t}
+                              onClick={() => {
+                                console.log(v[t]);
+                                navigation(`/summoner/${v[t]}`);
+                              }}
+                            >
+                              {v[t]}
+                            </td>
+                          );
+                        default:
+                          return (
+                            <td align="left" key={v + t}>
+                              {v[t]}
+                            </td>
+                          );
+                      }
+                    })}
+                  </tr>
+                );
+              })}
           </tbody>
         </table>
       </div>
