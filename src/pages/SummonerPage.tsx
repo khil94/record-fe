@@ -94,6 +94,7 @@ export default function SummonerPage() {
       ? matchData.filter((v) => v.queueId === queueId)
       : matchData;
     const temp: ISimpleParticipant[] = [];
+
     target.forEach((v) => {
       const ttarget = v.participants.find((t) => t.summonerName === userName);
       if (ttarget) {
@@ -151,13 +152,13 @@ export default function SummonerPage() {
             {LeagueComponent(data.profile.soloLeagueEntry)}
             {LeagueComponent(data.profile.flexLeagueEntry)}
           </div>
-          <div>
+          <div className="multi_tab_wrapper">
             <MultiTabLayout
               tabList={["전체", "솔로 랭크"]}
               tabPageList={[
-                TestComp(data.matches),
+                TestComp(gameListData),
                 TestComp(
-                  data.matches.filter((v) => v.queueId === "SOLO_RANK_GAME")
+                  gameListData.filter((v) => v.queueId === "SOLO_RANK_GAME")
                 ),
               ]}
             />
