@@ -60,7 +60,6 @@ export default function UserRecentInfoComponent({ userData }: IProp) {
     Object.keys(dt).forEach((v) => {
       crl.push(dt[v]);
     });
-    console.log("중간과정 : ", crl);
     crl.sort((a, b) => b.win - a.win);
     return (
       <div>
