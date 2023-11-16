@@ -30,15 +30,17 @@ export default function SummonerPage() {
     const getSummonerData = async () => {
       setIsLoading(true);
       if (summonerName) {
-        const resp = await GetSummonerInfo(summonerName);
-        if (resp.data) {
-          setData(resp.data);
-          setGameListData(resp.data.matches);
-        }
-      } else {
-        Error("없는디요");
+        await GetSummonerInfo(summonerName)
+          .then((resp) => {
+            if (resp.data) {
+              setData(resp.data);
+              setGameListData(resp.data.matches);
+            }
+          })
+          .finally(() => {
+            setIsLoading(false);
+          });
       }
-      setIsLoading(false);
     };
     getSummonerData();
   }, [summonerName]);
@@ -144,7 +146,9 @@ export default function SummonerPage() {
 
   return (
     <div className="page_summoner">
-      {data && !isLoading ? (
+      {isLoading ? (
+        <Loading width={32} />
+      ) : data ? (
         <>
           <div className="summoner_profile">
             <div className="summoner_icon">
@@ -183,7 +187,9 @@ export default function SummonerPage() {
           </div>
         </>
       ) : (
-        <Loading width={32} />
+        <div className="no_summoner_exists">
+          존재하지 않는 소환사 입니다. 소환사 명을 다시 확인해 주세요.
+        </div>
       )}
     </div>
   );
