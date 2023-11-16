@@ -9,6 +9,7 @@
   animation: fade-in 500ms ease;
   position: absolute;
   max-width: 24rem;
+  min-width: 8rem;
   transform: translateY(-100%) translateY(-3.2rem) translateX(-50%)
     translateX(1.2rem);
 
