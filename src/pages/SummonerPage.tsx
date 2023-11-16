@@ -89,11 +89,19 @@ export default function SummonerPage() {
     );
   };
 
-  function TestComp(matchData: ISimpleMatch[], queueId?: IQueueId) {
+  function MatchComp(matchData: ISimpleMatch[], queueId?: IQueueId) {
     const target = queueId
       ? matchData.filter((v) => v.queueId === queueId)
       : matchData;
     const temp: ISimpleParticipant[] = [];
+
+    if (target.length === 0) {
+      return (
+        <div className="summoner_detail_wrapper">
+          매칭기록이 존재하지 않습니다.
+        </div>
+      );
+    }
 
     target.forEach((v) => {
       const ttarget = v.participants.find((t) => t.summonerName === userName);
@@ -156,8 +164,8 @@ export default function SummonerPage() {
             <MultiTabLayout
               tabList={["전체", "솔로 랭크"]}
               tabPageList={[
-                TestComp(gameListData),
-                TestComp(
+                MatchComp(gameListData),
+                MatchComp(
                   gameListData.filter((v) => v.queueId === "SOLO_RANK_GAME")
                 ),
               ]}
