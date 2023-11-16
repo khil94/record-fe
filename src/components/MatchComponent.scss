@@ -80,7 +80,7 @@
       border-radius: 1rem;
     }
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 2fr 1fr 3fr;
+    grid-template-columns: 1fr 1fr 1fr 2fr 2fr 3fr;
     align-items: center;
     padding: 1.6rem;
 
@@ -103,9 +103,9 @@
 
     .champ_icon {
       position: relative;
+      width: 4rem;
       img {
         width: 4rem;
-        // height: 3.2rem;
       }
       .champ_level {
         position: absolute;
@@ -113,9 +113,8 @@
         background-color: black;
         padding: 0.2rem;
         border-radius: 0.4rem;
-        left: 0;
+        right: 0;
         bottom: 0;
-        transform: translateX(3.8rem);
       }
     }
 
