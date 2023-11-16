@@ -162,11 +162,21 @@ export default function SummonerPage() {
           </div>
           <div className="multi_tab_wrapper">
             <MultiTabLayout
-              tabList={["전체", "솔로 랭크"]}
+              tabList={["전체", "솔로 랭크", "자유 랭크", "기타"]}
               tabPageList={[
                 MatchComp(gameListData),
                 MatchComp(
                   gameListData.filter((v) => v.queueId === "SOLO_RANK_GAME")
+                ),
+                MatchComp(
+                  gameListData.filter((v) => v.queueId === "FLEX_RANK_GAME")
+                ),
+                MatchComp(
+                  gameListData.filter(
+                    (v) =>
+                      v.queueId !== "FLEX_RANK_GAME" &&
+                      v.queueId !== "SOLO_RANK_GAME"
+                  )
                 ),
               ]}
             />
