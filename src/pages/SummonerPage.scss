@@ -84,7 +84,7 @@
     }
   }
   .multi_tab_wrapper {
-    max-width: 108rem;
+    width: 108rem;
     .summoner_detail_wrapper {
       width: 100%;
       display: flex;
@@ -93,8 +93,16 @@
       justify-content: center;
       .matches_container {
         flex: auto;
-        max-width: 82rem;
       }
     }
+  }
+}
+
+@media (max-width: 1080px) {
+  .page_summoner {
+    padding: 2.4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
