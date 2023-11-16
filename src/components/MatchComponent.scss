@@ -65,7 +65,7 @@
   }
   .match_detail_wrapper {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     .match_detail {
       flex-grow: 1;
       display: grid;
@@ -82,7 +82,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 2fr 2fr 3fr;
     align-items: center;
-    padding: 1.6rem;
+    padding: 0.4rem 1.6rem;
 
     &.match_win {
       background-color: #ecf2ff;
@@ -161,14 +161,5 @@
   img {
     width: 2.4rem;
     border-radius: 1rem;
-  }
-}
-
-@media (max-width: 781px) {
-  .match_wrapper {
-    .match_detail_wrapper {
-      display: flex;
-      flex-direction: column;
-    }
   }
 }
