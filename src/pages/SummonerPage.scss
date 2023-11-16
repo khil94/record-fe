@@ -1,5 +1,8 @@
 .page_summoner {
   padding: 2.4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   .summoner_profile {
     display: flex;
     flex-direction: row;
@@ -80,15 +83,18 @@
       }
     }
   }
-  .summoner_detail_wrapper {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: center;
-    .matches_container {
-      flex: auto;
-      max-width: 82rem;
+  .multi_tab_wrapper {
+    max-width: 108rem;
+    .summoner_detail_wrapper {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: center;
+      .matches_container {
+        flex: auto;
+        max-width: 82rem;
+      }
     }
   }
 }
