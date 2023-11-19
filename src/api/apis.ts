@@ -1,3 +1,4 @@
+import useSWR from "swr";
 import {
   ILeaderBoardQueueTyep,
   IRanking,
@@ -5,6 +6,9 @@ import {
   ISummonerProfile,
 } from "../types/types";
 import API from "./api";
+
+export const commonFetcher = (url: string) =>
+  API.get(url).then((res) => res.data);
 
 export const GetSummonerInfo = async (summonerName: string) => {
   const resp = await API.get<ISummonerProfile>(`/api/summoner/${summonerName}`);
@@ -32,3 +36,18 @@ export const GetRankingList = async (
   });
   return resp;
 };
+
+export function useSummonerInfo(summonerName: string) {
+  const { data, error, isLoading } = useSWR(
+    `/api/summoner/${summonerName}`,
+    (url: string) => {
+      return API.get<ISummonerProfile>(url).then((res) => res.data);
+    }
+  );
+
+  return {
+    data,
+    isLoading,
+    error,
+  };
+}

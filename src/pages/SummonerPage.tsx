@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import MultiTabLayout from "../Layouts/MultiTabLayout";
-import { GetGameList, GetSummonerInfo } from "../api/apis";
+import { GetGameList, GetSummonerInfo, useSummonerInfo } from "../api/apis";
 import Loading from "../components/Loading";
 import MatchComponent from "../components/MatchComponent";
 import UserRecentInfoComponent from "../components/UserRecentInfoComponent";
@@ -22,6 +22,8 @@ export default function SummonerPage() {
   const [gameListData, setGameListData] = useState<ISimpleMatch[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isMoreLoading, setIsMoreLoading] = useState(false);
+  const testSWR = useSummonerInfo(summonerName);
+  console.log("test swr", testSWR);
 
   const pageNumber = useRef(1);
 
