@@ -67,67 +67,69 @@ export default function MatchComponent({ matchData, userName }: IProps) {
 
   return (
     <div className="match_wrapper">
-      <div
-        className={`match_summary_wrapper   ${
-          target.win ? "match_win" : "match_lose"
-        }`}
-      >
-        <div className="match_result">
-          <span>{target.win ? "승리" : "패배"}</span>
-          <span>{getGameType(queueId)}</span>
-        </div>
-        <div className={`match_summary`}>
-          <div className="champ_icon">
-            <img src={target.champion.image} alt="챔피언 아이콘" />
-            <span className="champ_level">{target.championLevel}</span>
-          </div>
-          <div className="spell_wrapper">
-            {target.spells.map((v, i) => (
-              <ObjImgComponent
-                key={`spell-${target.summonerName}-${i}`}
-                {...v}
-              />
-            ))}
-          </div>
-          <div className="rune_wrapper">
-            <ObjImgComponent {...target.mainRune} />
-            <ObjImgComponent {...target.subRune} />
-          </div>
-          <div className="kda_wrapper">
-            <span>{target.kills} /</span>
-            <span className="kda_death">{target.deaths}</span>
-            <span> / {target.assists}</span>
-          </div>
-          <div className="cs_wrapper"></div>
-          <div className="item_wrapper">
-            {target.items.map((v, i) => {
-              {
-                return (
-                  <div
-                    key={matchId + userName + v.name + i}
-                    className="item_icon"
-                  >
-                    {v.image && (
-                      <ObjImgComponent {...v} description={v.plaintext} />
-                    )}
-                  </div>
-                );
-              }
-            })}
-          </div>
-        </div>
+      {target && (
         <div
-          className={`open_close_btn_wrapper ${
+          className={`match_summary_wrapper   ${
             target.win ? "match_win" : "match_lose"
           }`}
         >
-          <button
-            className={`${show ? "close" : "open"}`}
-            type="button"
-            onClick={() => setShow(!show)}
-          ></button>
+          <div className="match_result">
+            <span>{target.win ? "승리" : "패배"}</span>
+            <span>{getGameType(queueId)}</span>
+          </div>
+          <div className={`match_summary`}>
+            <div className="champ_icon">
+              <img src={target.champion.image} alt="챔피언 아이콘" />
+              <span className="champ_level">{target.championLevel}</span>
+            </div>
+            <div className="spell_wrapper">
+              {target.spells.map((v, i) => (
+                <ObjImgComponent
+                  key={`spell-${target.summonerName}-${i}`}
+                  {...v}
+                />
+              ))}
+            </div>
+            <div className="rune_wrapper">
+              <ObjImgComponent {...target.mainRune} />
+              <ObjImgComponent {...target.subRune} />
+            </div>
+            <div className="kda_wrapper">
+              <span>{target.kills} /</span>
+              <span className="kda_death">{target.deaths}</span>
+              <span> / {target.assists}</span>
+            </div>
+            <div className="cs_wrapper"></div>
+            <div className="item_wrapper">
+              {target.items.map((v, i) => {
+                {
+                  return (
+                    <div
+                      key={matchId + userName + v.name + i}
+                      className="item_icon"
+                    >
+                      {v.image && (
+                        <ObjImgComponent {...v} description={v.plaintext} />
+                      )}
+                    </div>
+                  );
+                }
+              })}
+            </div>
+          </div>
+          <div
+            className={`open_close_btn_wrapper ${
+              target.win ? "match_win" : "match_lose"
+            }`}
+          >
+            <button
+              className={`${show ? "close" : "open"}`}
+              type="button"
+              onClick={() => setShow(!show)}
+            ></button>
+          </div>
         </div>
-      </div>
+      )}
       {show ? (
         <div className="match_detail_wrapper">
           <div className="match_detail">
