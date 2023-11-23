@@ -37,17 +37,37 @@ export const GetRankingList = async (
   return resp;
 };
 
+export function useRankingInfo(
+  queueType: ILeaderBoardQueueTyep,
+  pageNumber: number
+) {
+  const resp = useSWR(
+    [`/api/leaderboard`, queueType, pageNumber],
+    ([url, queueType, pageNumber]) => {
+      return API.get<IRanking>(url, {
+        params: {
+          page: pageNumber,
+          queue: queueType,
+        },
+      }).then((res) => res.data);
+    },
+    {
+      revalidateOnFocus: false,
+    }
+  );
+  return resp;
+}
+
 export function useSummonerInfo(summonerName: string) {
-  const { data, error, isLoading } = useSWR(
+  const resp = useSWR(
     `/api/summoner/${summonerName}`,
     (url: string) => {
       return API.get<ISummonerProfile>(url).then((res) => res.data);
+    },
+    {
+      revalidateOnFocus: false,
     }
   );
 
-  return {
-    data,
-    isLoading,
-    error,
-  };
+  return resp;
 }
