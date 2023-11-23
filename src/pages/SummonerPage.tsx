@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import MultiTabLayout from "../Layouts/MultiTabLayout";
-import { GetGameList, GetSummonerInfo, useSummonerInfo } from "../api/apis";
+import { GetGameList, useSummonerInfo } from "../api/apis";
 import Loading from "../components/Loading";
 import MatchComponent from "../components/MatchComponent";
 import UserRecentInfoComponent from "../components/UserRecentInfoComponent";
@@ -10,42 +10,17 @@ import {
   IQueueId,
   ISimpleMatch,
   ISimpleParticipant,
-  ISummonerProfile,
 } from "../types/types";
 import { getFullTierName } from "../utils/generalFunctions";
 import "./SummonerPage.scss";
 
 export default function SummonerPage() {
   const { summonerName } = useParams();
-  const [userName, setUserName] = useState("");
-  const [data, setData] = useState<ISummonerProfile>();
   const [gameListData, setGameListData] = useState<ISimpleMatch[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
   const [isMoreLoading, setIsMoreLoading] = useState(false);
-  const testSWR = useSummonerInfo(summonerName);
-  console.log("test swr", testSWR);
-
+  const { data, isLoading } = useSummonerInfo(summonerName);
+  console.log(data?.matches);
   const pageNumber = useRef(1);
-
-  useEffect(() => {
-    setUserName(summonerName!);
-    const getSummonerData = async () => {
-      setIsLoading(true);
-      if (summonerName) {
-        await GetSummonerInfo(summonerName)
-          .then((resp) => {
-            if (resp.data) {
-              setData(resp.data);
-              setGameListData(resp.data.matches);
-            }
-          })
-          .finally(() => {
-            setIsLoading(false);
-          });
-      }
-    };
-    getSummonerData();
-  }, [summonerName]);
 
   const getMoreGameList = async (puid: string) => {
     const targetNumber = pageNumber.current + 1;
@@ -108,7 +83,9 @@ export default function SummonerPage() {
     }
 
     target.forEach((v) => {
-      const ttarget = v.participants.find((t) => t.summonerName === userName);
+      const ttarget = v.participants.find(
+        (t) => t.summonerName === summonerName
+      );
       if (ttarget) {
         temp.push(ttarget);
       }
@@ -122,7 +99,7 @@ export default function SummonerPage() {
               <MatchComponent
                 key={v.matchId}
                 matchData={v}
-                userName={userName}
+                userName={summonerName}
               />
             );
           })}
@@ -170,15 +147,15 @@ export default function SummonerPage() {
             <MultiTabLayout
               tabList={["전체", "솔로 랭크", "자유 랭크", "기타"]}
               tabPageList={[
-                MatchComp(gameListData),
+                MatchComp(data.matches),
                 MatchComp(
-                  gameListData.filter((v) => v.queueId === "SOLO_RANK_GAME")
+                  data.matches.filter((v) => v.queueId === "SOLO_RANK_GAME")
                 ),
                 MatchComp(
-                  gameListData.filter((v) => v.queueId === "FLEX_RANK_GAME")
+                  data.matches.filter((v) => v.queueId === "FLEX_RANK_GAME")
                 ),
                 MatchComp(
-                  gameListData.filter(
+                  data.matches.filter(
                     (v) =>
                       v.queueId !== "FLEX_RANK_GAME" &&
                       v.queueId !== "SOLO_RANK_GAME"
