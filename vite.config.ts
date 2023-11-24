@@ -7,7 +7,8 @@ export default defineConfig({
     proxy: {
       "/api": {
         target:
-          "http://ec2-54-180-159-190.ap-northeast-2.compute.amazonaws.com:8080/",
+          // "http://ec2-54-180-159-190.ap-northeast-2.compute.amazonaws.com:8080/",
+          "http://api.lolstat.net/",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ""),
         secure: false,
