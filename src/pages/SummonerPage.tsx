@@ -19,7 +19,6 @@ export default function SummonerPage() {
   const [gameListData, setGameListData] = useState<ISimpleMatch[]>([]);
   const [isMoreLoading, setIsMoreLoading] = useState(false);
   const { data, isLoading } = useSummonerInfo(summonerName);
-  console.log(data?.matches);
   const pageNumber = useRef(1);
 
   const getMoreGameList = async (puid: string) => {
@@ -125,51 +124,53 @@ export default function SummonerPage() {
 
   return (
     <div className="page_summoner">
-      {isLoading ? (
-        <Loading width={32} />
-      ) : data ? (
-        <>
-          <div className="summoner_profile">
-            <div className="summoner_icon">
-              <img src={data.profile.profileIcon} alt="소환사아이콘" />
-              <span>{data.profile.summonerLevel}</span>
+      <div className="page_summoner_wrapper">
+        {isLoading ? (
+          <Loading width={32} />
+        ) : data ? (
+          <>
+            <div className="summoner_profile">
+              <div className="summoner_icon">
+                <img src={data.profile.profileIcon} alt="소환사아이콘" />
+                <span>{data.profile.summonerLevel}</span>
+              </div>
+              <div className="summoner_name">
+                <span>{data.profile.summonerName}</span>
+                <button type="button">전적갱신</button>
+              </div>
             </div>
-            <div className="summoner_name">
-              <span>{data.profile.summonerName}</span>
-              <button type="button">전적갱신</button>
+            <div className="summoner_league_container">
+              {LeagueComponent(data.profile.soloLeagueEntry)}
+              {LeagueComponent(data.profile.flexLeagueEntry)}
             </div>
+            <div className="multi_tab_wrapper">
+              <MultiTabLayout
+                tabList={["전체", "솔로 랭크", "자유 랭크", "기타"]}
+                tabPageList={[
+                  MatchComp(data.matches),
+                  MatchComp(
+                    data.matches.filter((v) => v.queueId === "SOLO_RANK_GAME")
+                  ),
+                  MatchComp(
+                    data.matches.filter((v) => v.queueId === "FLEX_RANK_GAME")
+                  ),
+                  MatchComp(
+                    data.matches.filter(
+                      (v) =>
+                        v.queueId !== "FLEX_RANK_GAME" &&
+                        v.queueId !== "SOLO_RANK_GAME"
+                    )
+                  ),
+                ]}
+              />
+            </div>
+          </>
+        ) : (
+          <div className="no_summoner_exists">
+            존재하지 않는 소환사 입니다. 소환사 명을 다시 확인해 주세요.
           </div>
-          <div className="summoner_league_container">
-            {LeagueComponent(data.profile.soloLeagueEntry)}
-            {LeagueComponent(data.profile.flexLeagueEntry)}
-          </div>
-          <div className="multi_tab_wrapper">
-            <MultiTabLayout
-              tabList={["전체", "솔로 랭크", "자유 랭크", "기타"]}
-              tabPageList={[
-                MatchComp(data.matches),
-                MatchComp(
-                  data.matches.filter((v) => v.queueId === "SOLO_RANK_GAME")
-                ),
-                MatchComp(
-                  data.matches.filter((v) => v.queueId === "FLEX_RANK_GAME")
-                ),
-                MatchComp(
-                  data.matches.filter(
-                    (v) =>
-                      v.queueId !== "FLEX_RANK_GAME" &&
-                      v.queueId !== "SOLO_RANK_GAME"
-                  )
-                ),
-              ]}
-            />
-          </div>
-        </>
-      ) : (
-        <div className="no_summoner_exists">
-          존재하지 않는 소환사 입니다. 소환사 명을 다시 확인해 주세요.
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }
