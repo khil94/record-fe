@@ -3,32 +3,63 @@
 .ranking_page {
   padding: 2.4rem;
   font-size: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4rem;
 
-  .select_queue_type {
-    display: flex;
-    flex-direction: row;
-    border-bottom: 1px solid $color-light-border;
-    div {
-      font-size: 1.6rem;
-      padding: 12px;
-      margin-bottom: -0.1rem;
-      cursor: pointer;
-      border: 1px solid;
-      border-color: #fff;
-      border-bottom: 1px solid $color-light-border;
-      border-radius: $default-border-radius $default-border-radius 0 0;
+  .ranking_page_wrapper {
+    width: 108rem;
+    margin: 0 auto;
 
-      &:hover {
-        animation: duration 500ms forwards;
-        border: 1px solid #363944;
-        border-color: #ddd #ddd $color-light-border;
-      }
-      &.selected_tab {
-        &:hover {
-          animation: none;
+    table {
+      width: 100%;
+      border-collapse: collapse;
+
+      thead {
+        background-color: $color-light-border;
+        th {
+          border: none;
         }
-        background-color: #363944;
-        color: white;
+      }
+      tbody {
+        .rank_summoner_name {
+          &:hover {
+            cursor: pointer;
+          }
+        }
+        td {
+          padding: 0.8rem;
+          border-bottom: 1px solid $color-light-border;
+        }
+      }
+    }
+    .select_queue_type {
+      display: flex;
+      flex-direction: row;
+      border-bottom: 1px solid $color-light-border;
+      div {
+        font-size: 1.6rem;
+        padding: 12px;
+        margin-bottom: -0.1rem;
+        cursor: pointer;
+        border: 1px solid;
+        border-color: #fff;
+        border-bottom: 1px solid $color-light-border;
+        border-radius: $default-border-radius $default-border-radius 0 0;
+
+        &:hover {
+          animation: duration 500ms forwards;
+          border: 1px solid #363944;
+          border-color: #ddd #ddd $color-light-border;
+        }
+        &.selected_tab {
+          &:hover {
+            animation: none;
+          }
+          background-color: #363944;
+          color: white;
+        }
       }
     }
   }

@@ -11,6 +11,7 @@ export default function RankingPage() {
   const navigation = useNavigate();
   const MAX_PAGE_NUMBER = 100;
   const { data } = useRankingInfo(currentQueueType, 1);
+  console.log(data);
 
   return (
     <div className="ranking_page">
@@ -40,32 +41,19 @@ export default function RankingPage() {
         <div className="ranking_content">
           <table>
             <colgroup>
-              <col width={40} />
               <col />
-              <col width={110} />
-              <col width={60} />
-              <col width={50} />
-              <col width={172} />
+              <col />
+              <col />
+              <col />
+              <col />
+              <col />
             </colgroup>
             <thead>
-              <th align="left" scope="col">
-                순위
-              </th>
-              <th align="left" scope="col">
-                소환사
-              </th>
-              <th align="left" scope="col">
-                티어
-              </th>
-              <th align="left" scope="col">
-                LP
-              </th>
-              <th align="left" scope="col">
-                레벨
-              </th>
-              <th align="left" scope="col">
-                승률
-              </th>
+              <th scope="col">순위</th>
+              <th scope="col">소환사</th>
+              <th scope="col">LP</th>
+              <th scope="col">승</th>
+              <th scope="col">패</th>
             </thead>
             <tbody>
               {data?.players
@@ -77,32 +65,28 @@ export default function RankingPage() {
                   return (
                     <tr key={v.summonerName}>
                       {Object.keys(v).map((t) => {
+                        console.log(t, v[t]);
                         switch (t) {
                           case "summonerId":
-                            return (
-                              <td align="left" key={v + t}>
-                                {i + 1}
-                              </td>
-                            );
+                            return <td key={v + t}>{i + 1}</td>;
                           case "summonerName":
                             return (
-                              <td
-                                align="left"
-                                key={v + t}
-                                onClick={() => {
-                                  console.log(v[t]);
-                                  navigation(`/summoner/${v[t]}`);
-                                }}
-                              >
-                                {v[t]}
+                              <td key={v + t}>
+                                <span
+                                  className="rank_summoner_name"
+                                  onClick={() => {
+                                    console.log(v[t]);
+                                    navigation(`/summoner/${v[t]}`);
+                                  }}
+                                >
+                                  {v[t]}
+                                </span>
                               </td>
                             );
+                          case "rank":
+                            return;
                           default:
-                            return (
-                              <td align="left" key={v + t}>
-                                {v[t]}
-                              </td>
-                            );
+                            return <td key={v + t}>{v[t]}</td>;
                         }
                       })}
                     </tr>
