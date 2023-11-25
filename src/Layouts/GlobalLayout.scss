@@ -1,4 +1,9 @@
-.main_container {
-  // max-width: 144rem; // 108rem으로 변경될 수도 있음
-  margin: 0;
+.layout_wrapper {
+  position: relative;
+  min-height: 100%;
+  .main_container {
+    // max-width: 144rem; // 108rem으로 변경될 수도 있음
+    margin: 0;
+    padding-bottom: 20rem;
+  }
 }

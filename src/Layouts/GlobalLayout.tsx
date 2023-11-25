@@ -8,10 +8,10 @@ interface Props {
 
 export default function GlobalLayout({ children }: Props) {
   return (
-    <>
+    <div className="layout_wrapper">
       <Header />
       <div className="main_container">{children}</div>
       <Footer />
-    </>
+    </div>
   );
 }
