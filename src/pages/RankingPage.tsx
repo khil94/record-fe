@@ -11,7 +11,6 @@ export default function RankingPage() {
   const navigation = useNavigate();
   const MAX_PAGE_NUMBER = 100;
   const { data } = useRankingInfo(currentQueueType, 1);
-  console.log(data);
 
   return (
     <div className="ranking_page">
@@ -65,7 +64,6 @@ export default function RankingPage() {
                   return (
                     <tr key={v.summonerName}>
                       {Object.keys(v).map((t) => {
-                        console.log(t, v[t]);
                         switch (t) {
                           case "summonerId":
                             return <td key={v + t}>{i + 1}</td>;
@@ -75,7 +73,6 @@ export default function RankingPage() {
                                 <span
                                   className="rank_summoner_name"
                                   onClick={() => {
-                                    console.log(v[t]);
                                     navigation(`/summoner/${v[t]}`);
                                   }}
                                 >
