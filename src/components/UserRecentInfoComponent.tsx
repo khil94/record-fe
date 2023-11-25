@@ -89,7 +89,7 @@ export default function UserRecentInfoComponent({ userData }: IProp) {
   }
   return (
     <div className="summoner_champ_info">
-      {data.length && (
+      {userData.length && (
         <>
           <div className="summoner_recent_header">
             <span>최근 전적</span>
