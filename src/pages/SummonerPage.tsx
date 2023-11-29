@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import MultiTabLayout from "../Layouts/MultiTabLayout";
 import { GetGameList, useSummonerInfo } from "../api/apis";
@@ -18,7 +18,7 @@ export default function SummonerPage() {
   const { summonerName } = useParams();
   const [gameListData, setGameListData] = useState<ISimpleMatch[]>([]);
   const [isMoreLoading, setIsMoreLoading] = useState(false);
-  const { data, isLoading } = useSummonerInfo(summonerName);
+  const { data, isLoading, isValidating } = useSummonerInfo(summonerName);
   const pageNumber = useRef(1);
 
   const getMoreGameList = async (puid: string) => {
@@ -30,6 +30,12 @@ export default function SummonerPage() {
       setIsMoreLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (!isLoading && !isValidating && data?.matches) {
+      setGameListData(data.matches);
+    }
+  }, [isLoading, isValidating, data?.matches]);
 
   const LeagueComponent = (props: ILeagueEntry) => {
     const qType = props.queueType === "RANKED_SOLO" ? "솔로 랭크" : "자유 랭크";
@@ -129,33 +135,34 @@ export default function SummonerPage() {
           <Loading width={32} />
         ) : data ? (
           <>
-            <div className="summoner_profile">
-              <div className="summoner_icon">
-                <img src={data.profile.profileIcon} alt="소환사아이콘" />
-                <span>{data.profile.summonerLevel}</span>
+            <div className="summoner_summary_wrapper">
+              <div className="summoner_profile">
+                <div className="summoner_icon">
+                  <img src={data.profile.profileIcon} alt="소환사아이콘" />
+                  <span>{data.profile.summonerLevel}</span>
+                </div>
+                <div className="summoner_name">
+                  <span>{data.profile.summonerName}</span>
+                </div>
               </div>
-              <div className="summoner_name">
-                <span>{data.profile.summonerName}</span>
-                <button type="button">전적갱신</button>
+              <div className="summoner_league_container">
+                {LeagueComponent(data.profile.soloLeagueEntry)}
+                {LeagueComponent(data.profile.flexLeagueEntry)}
               </div>
-            </div>
-            <div className="summoner_league_container">
-              {LeagueComponent(data.profile.soloLeagueEntry)}
-              {LeagueComponent(data.profile.flexLeagueEntry)}
             </div>
             <div className="multi_tab_wrapper">
               <MultiTabLayout
                 tabList={["전체", "솔로 랭크", "자유 랭크", "기타"]}
                 tabPageList={[
-                  MatchComp(data.matches),
+                  MatchComp(gameListData),
                   MatchComp(
-                    data.matches.filter((v) => v.queueId === "SOLO_RANK_GAME")
+                    gameListData.filter((v) => v.queueId === "SOLO_RANK_GAME")
                   ),
                   MatchComp(
-                    data.matches.filter((v) => v.queueId === "FLEX_RANK_GAME")
+                    gameListData.filter((v) => v.queueId === "FLEX_RANK_GAME")
                   ),
                   MatchComp(
-                    data.matches.filter(
+                    gameListData.filter(
                       (v) =>
                         v.queueId !== "FLEX_RANK_GAME" &&
                         v.queueId !== "SOLO_RANK_GAME"
