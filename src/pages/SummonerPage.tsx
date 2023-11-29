@@ -5,12 +5,7 @@ import { GetGameList, useSummonerInfo } from "../api/apis";
 import Loading from "../components/Loading";
 import MatchComponent from "../components/MatchComponent";
 import UserRecentInfoComponent from "../components/UserRecentInfoComponent";
-import {
-  ILeagueEntry,
-  IQueueId,
-  ISimpleMatch,
-  ISimpleParticipant,
-} from "../types/types";
+import { ILeagueEntry, ISimpleMatch, ISimpleParticipant } from "../types/types";
 import { getFullTierName } from "../utils/generalFunctions";
 import "./SummonerPage.scss";
 
@@ -18,7 +13,7 @@ export default function SummonerPage() {
   const { summonerName } = useParams();
   const [gameListData, setGameListData] = useState<ISimpleMatch[]>([]);
   const [isMoreLoading, setIsMoreLoading] = useState(false);
-  const { data, isLoading, isValidating } = useSummonerInfo(summonerName);
+  const { data, isLoading, isValidating } = useSummonerInfo(summonerName || "");
   const pageNumber = useRef(1);
 
   const getMoreGameList = async (puid: string) => {
@@ -73,10 +68,8 @@ export default function SummonerPage() {
     );
   };
 
-  function MatchComp(matchData: ISimpleMatch[], queueId?: IQueueId) {
-    const target = queueId
-      ? matchData.filter((v) => v.queueId === queueId)
-      : matchData;
+  function MatchComp(matchData: ISimpleMatch[], userName: string) {
+    const target = matchData;
     const temp: ISimpleParticipant[] = [];
 
     if (target.length === 0) {
@@ -104,7 +97,7 @@ export default function SummonerPage() {
               <MatchComponent
                 key={v.matchId}
                 matchData={v}
-                userName={summonerName}
+                userName={userName}
               />
             );
           })}
@@ -154,19 +147,22 @@ export default function SummonerPage() {
               <MultiTabLayout
                 tabList={["전체", "솔로 랭크", "자유 랭크", "기타"]}
                 tabPageList={[
-                  MatchComp(gameListData),
+                  MatchComp(gameListData, data.profile.summonerName),
                   MatchComp(
-                    gameListData.filter((v) => v.queueId === "SOLO_RANK_GAME")
+                    gameListData.filter((v) => v.queueId === "SOLO_RANK_GAME"),
+                    data.profile.summonerName
                   ),
                   MatchComp(
-                    gameListData.filter((v) => v.queueId === "FLEX_RANK_GAME")
+                    gameListData.filter((v) => v.queueId === "FLEX_RANK_GAME"),
+                    data.profile.summonerName
                   ),
                   MatchComp(
                     gameListData.filter(
                       (v) =>
                         v.queueId !== "FLEX_RANK_GAME" &&
                         v.queueId !== "SOLO_RANK_GAME"
-                    )
+                    ),
+                    data.profile.summonerName
                   ),
                 ]}
               />
