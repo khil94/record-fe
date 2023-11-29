@@ -8,7 +8,7 @@ import {
 import API from "./api";
 
 export const GetGameList = async (puid: string, pageNumber: number) => {
-  const resp = await API.get<ISimpleMatch[]>(`/api/matches/${puid}`, {
+  const resp = await API.get<ISimpleMatch[]>(`/matches/${puid}`, {
     params: {
       page: pageNumber,
     },
@@ -21,7 +21,7 @@ export function useRankingInfo(
   pageNumber: number
 ) {
   const resp = useSWR(
-    [`/api/leaderboard`, queueType, pageNumber],
+    [`/leaderboard`, queueType, pageNumber],
     ([url, queueType, pageNumber]) => {
       return API.get<IRanking>(url, {
         params: {
@@ -39,7 +39,7 @@ export function useRankingInfo(
 
 export function useSummonerInfo(summonerName: string) {
   const resp = useSWR(
-    `/api/summoner/${summonerName}`,
+    `/summoner/${summonerName}`,
     (url: string) => {
       return API.get<ISummonerProfile>(url).then((res) => res.data);
     },
