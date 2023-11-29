@@ -7,7 +7,7 @@ import "./RankingPage.scss";
 export default function RankingPage() {
   const [currentQueueType, setCurrentQueueType] =
     useState<ILeaderBoardQueueTyep>("RANKED_SOLO_5x5");
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage] = useState(0);
   const navigation = useNavigate();
   const MAX_PAGE_NUMBER = 100;
   const { data } = useRankingInfo(currentQueueType, 1);

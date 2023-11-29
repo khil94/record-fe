@@ -11,7 +11,7 @@ interface IProps {
 }
 export default function MatchComponent({ matchData, userName }: IProps) {
   const [show, setShow] = useState(false);
-  const { matchId, gameMode, gameType, queueId, participants } = matchData;
+  const { matchId, queueId, participants } = matchData;
 
   const target = participants.find((v) => v.summonerName === userName)!;
   // 승/패 팀 나누어서 표기 할것 => 두 팀을 나누어서 변수화 해라
