@@ -1,10 +1,14 @@
 import axios, { AxiosError, InternalAxiosRequestConfig } from "axios";
 
-// const API_CONFIG = {
-//   baseURL: URL,
-// };
+const API_CONFIG = {
+  baseURL: "http://api.lolstat.net/",
+  headers: {
+    "Cache-Control": "max-age=60",
+    "Content-Type": "application/json",
+  },
+};
 
-const API = axios.create();
+const API = axios.create(API_CONFIG);
 
 const ErrorHandler = (err: AxiosError) => {
   console.log("err", err);
