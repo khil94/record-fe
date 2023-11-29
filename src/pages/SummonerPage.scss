@@ -5,81 +5,96 @@
   align-items: center;
   .page_summoner_wrapper {
     width: 108rem;
-    .summoner_profile {
-      display: flex;
-      flex-direction: row;
-      padding: 2.4rem;
-      .summoner_icon {
-        position: relative;
-        width: fit-content;
-        img {
-          border-radius: 50%;
-          width: 5.6rem;
-          height: 5.6rem;
-        }
-        span {
-          position: absolute;
-          left: 50%;
-          transform: translateX(-50%);
-          bottom: 0;
-          font-size: 1.2rem;
-          color: white;
-          background-color: black;
-          border-radius: 0.8rem;
-          padding: 0 0.8rem;
-          line-height: 1.4rem;
-        }
-      }
-    }
+    .summoner_summary_wrapper {
+      display: grid;
+      grid-template-columns: 1fr 4fr;
 
-    .summoner_league_container {
-      display: flex;
-      width: 100%;
-      flex-direction: row;
-      justify-content: center;
-      border-bottom: 1px solid #dddd;
-      margin-bottom: 1rem;
-      div {
-        &:first-child {
-          border-right: 1px solid white;
+      .summoner_profile {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        padding: 2.4rem;
+        .summoner_icon {
+          position: relative;
+          width: fit-content;
+          margin-right: 1rem;
+          img {
+            border-radius: 50%;
+            width: 5.6rem;
+            height: 5.6rem;
+          }
+          span {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 0;
+            font-size: 1.2rem;
+            color: white;
+            background-color: black;
+            border-radius: 0.8rem;
+            padding: 0 0.8rem;
+            line-height: 1.4rem;
+          }
+        }
+
+        .summoner_name {
+          display: flex;
+          align-items: center;
+          font-size: 1.8rem;
+          font-weight: 600;
         }
       }
-      .summoner_league {
-        flex-grow: 1;
-        .league_queue_type {
-          background-color: #363944;
-          padding: 1.6rem;
-          text-align: left;
-          span {
-            color: white;
-            font-size: 1.2rem;
+
+      .summoner_league_container {
+        display: flex;
+        width: 100%;
+        flex-direction: row;
+        justify-content: center;
+        border-bottom: 1px solid #dddd;
+        margin-bottom: 1rem;
+        div {
+          &:first-child {
+            border-right: 1px solid white;
           }
         }
-        .league_detail {
-          display: flex;
-          flex-direction: row;
-          align-items: center;
-          padding: 2rem;
-          div {
-            flex-grow: 1;
-          }
-          .league_icon {
-            img {
-              background-color: #f7f7f9;
-              padding: 0.8rem;
-              border-radius: 50%;
-              width: 7.2rem;
-              height: 7.2rem;
-            }
-          }
-          .league {
-            .tier {
-              font-size: 1.6rem;
-              font-weight: 600;
-              margin-right: 0.4rem;
-            }
-            .league_points {
+        .summoner_league {
+          flex-grow: 1;
+          .league_queue_type {
+            background-color: #363944;
+            padding: 1.6rem;
+            text-align: left;
+            span {
+              color: white;
               font-size: 1.2rem;
+            }
+          }
+          .league_detail {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            padding: 2rem;
+            div {
+              flex-grow: 1;
+            }
+            .league_icon {
+              img {
+                background-color: #f7f7f9;
+                padding: 0.8rem;
+                border-radius: 50%;
+                width: 7.2rem;
+                height: 7.2rem;
+              }
+            }
+            .league {
+              .tier {
+                font-size: 1.6rem;
+                font-weight: 600;
+                margin-right: 0.4rem;
+              }
+              .league_points {
+                font-size: 1.2rem;
+              }
             }
           }
         }
