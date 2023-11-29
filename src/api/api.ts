@@ -1,7 +1,7 @@
 import axios, { AxiosError, InternalAxiosRequestConfig } from "axios";
 
 const API_CONFIG = {
-  baseURL: "http://api.lolstat.net/",
+  baseURL: "https://api.lolstat.net/",
   headers: {
     "Cache-Control": "max-age=60",
     "Content-Type": "application/json",
