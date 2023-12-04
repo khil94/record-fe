@@ -77,7 +77,6 @@
   .match_summary {
     img {
       width: 2.4rem;
-      border-radius: 1rem;
     }
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 2fr 2fr 3fr;
@@ -112,7 +111,6 @@
         color: white;
         background-color: black;
         padding: 0.2rem;
-        border-radius: 0.4rem;
         right: 0;
         bottom: 0;
       }
@@ -152,7 +150,6 @@
         width: 2.4rem;
         height: 2.4rem;
         margin-right: 0.4rem;
-        border-radius: 1rem;
       }
     }
   }
@@ -160,6 +157,5 @@
   margin-bottom: 1.6rem;
   img {
     width: 2.4rem;
-    border-radius: 1rem;
   }
 }

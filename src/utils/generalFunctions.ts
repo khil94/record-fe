@@ -76,3 +76,18 @@ export function getGameType(queueType: IQueueId) {
       return "기타";
   }
 }
+
+export function addRecentSearchVal(val: string) {
+  const temp = localStorage.getItem("recent");
+  const ttemp = temp ? (JSON.parse(temp) as string[]) : [];
+  const tttemp = ttemp.filter((v) => v !== val);
+  tttemp.unshift(val);
+  localStorage.setItem("recent", JSON.stringify(tttemp));
+}
+
+export function deleteRecentSearchVal(val: string) {
+  const temp = localStorage.getItem("recent");
+  const ttemp = temp ? (JSON.parse(temp) as string[]) : [];
+  const tttemp = ttemp.filter((v) => v !== val);
+  localStorage.setItem("recent", JSON.stringify(tttemp));
+}

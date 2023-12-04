@@ -1,7 +1,7 @@
 import axios, { AxiosError, InternalAxiosRequestConfig } from "axios";
 
 const API_CONFIG = {
-  baseURL: "https://api.lolstat.net/",
+  baseURL: import.meta.env.VITE_LOLSTAT_BASE_URL,
   headers: {
     "Cache-Control": "max-age=60",
     "Content-Type": "application/json",

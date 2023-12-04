@@ -44,7 +44,7 @@ export default function SummonerPage() {
         </div>
         <div className="league_detail">
           <div className="league_icon">
-            <img src={`/${props.tier}.webp`} alt="리그 이미지" />
+            <img src={`/${props.tier.toLowerCase()}.webp`} alt="리그 이미지" />
           </div>
           <div className="league">
             <span className="tier">{tier}</span>

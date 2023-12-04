@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useRankingInfo } from "../api/apis";
 import { ILeaderBoardQueueTyep } from "../types/types";
 import "./RankingPage.scss";
+import Loading from "../components/Loading";
 
 export default function RankingPage() {
   const [currentQueueType, setCurrentQueueType] =
@@ -10,12 +11,12 @@ export default function RankingPage() {
   const [currentPage] = useState(0);
   const navigation = useNavigate();
   const MAX_PAGE_NUMBER = 100;
-  const { data } = useRankingInfo(currentQueueType, 1);
+  const { data,isLoading } = useRankingInfo(currentQueueType, 1);
 
   return (
     <div className="ranking_page">
       <div className="ranking_page_wrapper">
-        <div className="select_queue_type">
+        {isLoading?<Loading width={32}/>:(<><div className="select_queue_type">
           <div
             className={
               currentQueueType === "RANKED_SOLO_5x5" ? "selected_tab" : "tab"
@@ -91,7 +92,7 @@ export default function RankingPage() {
                 })}
             </tbody>
           </table>
-        </div>
+        </div></>)}
       </div>
     </div>
   );
