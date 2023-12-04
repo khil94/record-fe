@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import SearchInput from "../components/SearchInput";
 import { MENU_LIST } from "../constants/Enum";
+import { addRecentSearchVal } from "../utils/generalFunctions";
 import "./Header.scss";
 
 export default function Header() {
@@ -29,6 +30,7 @@ export default function Header() {
             onSubmit={() => {
               const val = searchVal.trim();
               setSearchVal("");
+              addRecentSearchVal(val);
               navigation(`summoner/${val}`);
             }}
             placeholder="소환사 검색"
