@@ -5,7 +5,8 @@ interface Props {
   value: string;
   placeholder?: string;
   onSubmit: () => void;
-  type?: "default" | "dark";
+  onFocus?: () => void;
+  onBlur?: () => void;
 }
 
 export default function SearchInput({
@@ -13,6 +14,8 @@ export default function SearchInput({
   onSubmit,
   placeholder,
   value,
+  onFocus,
+  onBlur,
 }: Props) {
   return (
     <div className="search_box">
@@ -28,6 +31,8 @@ export default function SearchInput({
           type="text"
           required
           value={value}
+          onFocus={onFocus}
+          onBlur={onBlur}
           className="search_input"
           placeholder={placeholder}
           onChange={(e) => onChange(e.target.value)}
