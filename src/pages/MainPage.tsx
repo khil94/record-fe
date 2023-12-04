@@ -30,7 +30,9 @@ export default function MainPage() {
           onMouseDown={(e) => {
             e.preventDefault();
             e.stopPropagation();
-            setRecentSearchVal(recentSearchVal.filter((v) => v !== val));
+            setRecentSearchVal(
+              recentSearchVal.filter((v: string) => v !== val)
+            );
             deleteRecentSearchVal(val);
           }}
           className="delete_recent"
@@ -62,7 +64,7 @@ export default function MainPage() {
       <div className={`recent_search_val_wrapper ${showRecent ? "show" : ""}`}>
         <div className="recent_search_info">최근 검색 목록</div>
         <div className="recent_search_val_container">
-          {recentSearchVal.map((v) => {
+          {recentSearchVal.map((v: string) => {
             return <RecentSearch key={v} val={v} />;
           })}
         </div>
