@@ -11,7 +11,7 @@ export default function MainPage() {
   const [searchVal, setSearchVal] = useState("");
   const [showRecent, setShowRecent] = useState(false);
   const navigation = useNavigate();
-  const [recentSearchVal, setRecentSearchVal] = useState(
+  const [recentSearchVal, setRecentSearchVal] = useState<string[]>(
     localStorage.getItem("recent")
       ? JSON.parse(localStorage.getItem("recent")!)
       : []
@@ -61,14 +61,16 @@ export default function MainPage() {
         placeholder="소환사 검색"
         onChange={(v) => setSearchVal(v)}
       />
-      <div className={`recent_search_val_wrapper ${showRecent ? "show" : ""}`}>
-        <div className="recent_search_info">최근 검색 목록</div>
-        <div className="recent_search_val_container">
-          {recentSearchVal.map((v: string) => {
-            return <RecentSearch key={v} val={v} />;
-          })}
+      {showRecent && recentSearchVal.length > 0 && (
+        <div className={`recent_search_val_wrapper`}>
+          <div className="recent_search_info">최근 검색 목록</div>
+          <div className="recent_search_val_container">
+            {recentSearchVal.map((v: string) => {
+              return <RecentSearch key={v} val={v} />;
+            })}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
