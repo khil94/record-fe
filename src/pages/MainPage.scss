@@ -14,11 +14,14 @@
 }
 
 .recent_search_val_wrapper {
+  display: none;
+  &.show {
+    display: block;
+  }
   position: absolute;
-  top: 36rem;
+  top: 37rem;
   width: 72rem;
   // padding: 4rem;
-  border-top: 1px solid #ddd;
   background-color: white;
   .recent_search_info {
     padding: 1rem;
@@ -38,6 +41,12 @@
       padding: 1rem;
       &:hover {
         background-color: #ddd;
+        cursor: pointer;
+      }
+      .delete_recent {
+        &:hover {
+          color: red;
+        }
       }
     }
   }
