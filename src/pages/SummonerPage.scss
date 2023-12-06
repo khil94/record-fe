@@ -51,7 +51,6 @@
         width: 100%;
         flex-direction: row;
         justify-content: center;
-        border-bottom: 1px solid #dddd;
         margin-bottom: 1rem;
         div {
           &:first-child {
@@ -64,6 +63,7 @@
             background-color: #363944;
             padding: 1.6rem;
             text-align: left;
+            border-radius: 0.8rem;
             span {
               color: white;
               font-size: 1.2rem;
