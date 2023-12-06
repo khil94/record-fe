@@ -88,9 +88,9 @@ export default function UserRecentInfoComponent({ userData }: IProp) {
     );
   }
   return (
-    <div className="summoner_champ_info">
-      {userData.length && (
-        <>
+    <>
+      {userData.length > 0 && (
+        <div className="summoner_champ_info">
           <div className="summoner_recent_header">
             <span>최근 전적</span>
             <span>{`${userData.length}전 ${win}승 ${
@@ -98,8 +98,8 @@ export default function UserRecentInfoComponent({ userData }: IProp) {
             }패`}</span>
           </div>
           <UserRecentChampComponent {...data} />
-        </>
+        </div>
       )}
-    </div>
+    </>
   );
 }
