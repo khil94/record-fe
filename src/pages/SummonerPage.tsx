@@ -79,15 +79,15 @@ export default function SummonerPage() {
         </div>
       );
     }
-
     target.forEach((v) => {
       const ttarget = v.participants.find(
-        (t) => t.summonerName === summonerName
+        (t) => t.summonerName.toLowerCase() === summonerName
       );
       if (ttarget) {
         temp.push(ttarget);
       }
     });
+
     return (
       <div className="summoner_detail_wrapper">
         <UserRecentInfoComponent userData={temp} />
