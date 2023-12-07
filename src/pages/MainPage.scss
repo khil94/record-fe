@@ -1,3 +1,5 @@
+@import "../variable";
+
 .page_main {
   background-image: url("/main_background.jpg");
   height: 96rem;
@@ -18,11 +20,11 @@
   top: 62rem;
   width: 72rem;
   // padding: 4rem;
-  background-color: white;
+  background-color: $color-white;
   .recent_search_info {
     padding: 1rem;
-    background-color: #363944;
-    color: white;
+    background-color: $color-bar;
+    color: $color-white;
   }
   .recent_search_val_container {
     display: flex;
@@ -33,15 +35,15 @@
       display: flex;
       flex-direction: row;
       justify-content: space-between;
-      border: 1px solid #ddd;
+      border: 1px solid $color-white;
       padding: 1rem;
       &:hover {
-        background-color: #ddd;
+        background-color: $color-white;
         cursor: pointer;
       }
       .delete_recent {
         &:hover {
-          color: red;
+          color: $color-red;
         }
       }
     }

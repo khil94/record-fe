@@ -1,6 +1,8 @@
+@import "../variable";
+
 .header {
   height: 9rem;
-  background-color: #363944;
+  background-color: $color-bar;
   color: white;
 
   .header_inner {

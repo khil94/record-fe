@@ -48,21 +48,21 @@
         margin-bottom: -0.1rem;
         cursor: pointer;
         border: 1px solid;
-        border-color: #fff;
+        border-color: $color-white;
         border-bottom: 1px solid $color-light-border;
         border-radius: $default-border-radius $default-border-radius 0 0;
 
         &:hover {
           animation: duration 500ms forwards;
-          border: 1px solid #363944;
-          border-color: #ddd #ddd $color-light-border;
+          border: 1px solid $color-bar;
+          border-color: $color-light-border;
         }
         &.selected_tab {
           &:hover {
             animation: none;
           }
-          background-color: #363944;
-          color: white;
+          background-color: $color-bar;
+          color: $color-white;
         }
       }
     }
