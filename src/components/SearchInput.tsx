@@ -38,8 +38,7 @@ export default function SearchInput({
           onChange={(e) => onChange(e.target.value)}
         />
         <button className="btn_search" type="submit">
-          <img src="public/search icon.png" width={16} />{" "}
-          {/*필히 검색 돋보기 모양 나중에 넣을것 */}
+          <img src="public/search icon.png" width={16} />
         </button>
       </form>
     </div>
