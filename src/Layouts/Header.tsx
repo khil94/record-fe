@@ -13,7 +13,9 @@ export default function Header() {
     <header className="header" id="header">
       <div className="header_inner">
         <h1>
-          <Link to="/">홈</Link>
+          <Link to="/">
+            <img src="public/logo.png" width={44} />
+          </Link>
         </h1>
         <div className="header_content">
           <nav className="navbar">
