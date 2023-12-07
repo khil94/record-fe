@@ -3,7 +3,12 @@ import "./Footer.scss";
 export default function Footer() {
   return (
     <footer className="footer" id="footer">
-      <div className="footer_inner">FOOTER CONTENT</div>
+      <div className="footer_inner">
+        LoL Stat is not endorsed by Riot Games and does not reflect the views or
+        opinions of Riot Games or anyone officially involved in producing or
+        managing Riot Games properties. Riot Games and all associated properties
+        are trademarks or registered trademarks of Riot Games, Inc
+      </div>
     </footer>
   );
 }
