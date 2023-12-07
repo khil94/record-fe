@@ -79,7 +79,7 @@ export default function SummonerPage() {
     }
     target.forEach((v) => {
       const ttarget = v.participants.find(
-        (t) => t.summonerName.toLowerCase() === summonerName
+        (t) => t.summonerName.toLowerCase() === userName.toLowerCase()
       );
       if (ttarget) {
         temp.push(ttarget);
