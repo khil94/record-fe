@@ -32,6 +32,9 @@
             cursor: pointer;
           }
         }
+        tr:hover {
+          background-color: $color-light-border;
+        }
         td {
           padding: 0.8rem;
           border-bottom: 1px solid $color-light-border;
