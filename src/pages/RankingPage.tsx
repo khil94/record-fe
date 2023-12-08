@@ -81,8 +81,8 @@ export default function RankingPage() {
                             </span>
                           </td>
                           <td>{v.leaguePoints}</td>
-                          <td>{v.wins}</td>
-                          <td>{v.loses}</td>
+                          <td className="win">{v.wins}</td>
+                          <td className="lose">{v.loses}</td>
                         </tr>
                       );
                     })}
