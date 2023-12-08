@@ -1,9 +1,9 @@
 @import "../variable";
 
 .match_wrapper {
+  width: 64rem;
   .match_summary_wrapper {
     display: grid;
-    // width: 70rem;
     grid-template-columns: 1fr 11fr 1fr;
     padding: 1rem 1rem;
     border-top-left-radius: $default-border-radius;
