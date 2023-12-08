@@ -69,29 +69,20 @@ export default function RankingPage() {
                     .map((v, i) => {
                       return (
                         <tr key={v.summonerName}>
-                          {Object.keys(v).map((t) => {
-                            switch (t) {
-                              case "summonerId":
-                                return <td key={v + t}>{i + 1}</td>;
-                              case "summonerName":
-                                return (
-                                  <td key={v + t}>
-                                    <span
-                                      className="rank_summoner_name"
-                                      onClick={() => {
-                                        navigation(`/summoner/${v[t]}`);
-                                      }}
-                                    >
-                                      {v[t]}
-                                    </span>
-                                  </td>
-                                );
-                              case "rank":
-                                return;
-                              default:
-                                return <td key={v + t}>{v[t]}</td>;
-                            }
-                          })}
+                          <td>{i + 1}</td>
+                          <td>
+                            <span
+                              className="rank_summoner_name"
+                              onClick={() => {
+                                navigation(`/summoner/${v.summonerName}`);
+                              }}
+                            >
+                              {v.summonerName}
+                            </span>
+                          </td>
+                          <td>{v.leaguePoints}</td>
+                          <td>{v.wins}</td>
+                          <td>{v.loses}</td>
                         </tr>
                       );
                     })}
