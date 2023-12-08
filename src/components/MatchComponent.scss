@@ -3,7 +3,11 @@
 .match_wrapper {
   .match_summary_wrapper {
     display: grid;
+    // width: 70rem;
     grid-template-columns: 1fr 11fr 1fr;
+    padding: 1rem 1rem;
+    border-top-left-radius: $default-border-radius;
+    border-top-right-radius: $default-border-radius;
     &.match_win {
       background-color: $color-win;
       .item_wrapper {
@@ -38,6 +42,19 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      font-size: 1.1rem;
+
+      span {
+        &:first-child {
+          font-weight: bold;
+        }
+        &.win {
+          color: $color-win-bold;
+        }
+        &.lose {
+          color: $color-lose-bold;
+        }
+      }
     }
 
     .open_close_btn_wrapper {
@@ -78,7 +95,7 @@
   .match_component,
   .match_summary {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 2fr 2fr 3fr;
+    grid-template-columns: 1fr 0.5fr 0.5fr 2fr 1fr 3fr;
     align-items: center;
     padding: 0.4rem 1.6rem;
 
@@ -130,6 +147,7 @@
     .kda_wrapper {
       span {
         margin-right: 0.4rem;
+        font-size: 1.1rem;
       }
       .kda_death {
         color: $color-red;
@@ -138,6 +156,7 @@
 
     .item_wrapper {
       display: flex;
+      justify-content: center;
       .item_icon {
         width: 2.4rem;
         height: 2.4rem;

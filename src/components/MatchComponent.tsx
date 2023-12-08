@@ -74,7 +74,9 @@ export default function MatchComponent({ matchData, userName }: IProps) {
           }`}
         >
           <div className="match_result">
-            <span>{target.win ? "승리" : "패배"}</span>
+            <span className={`${target.win ? "win" : "lose"}`}>
+              {target.win ? "승리" : "패배"}
+            </span>
             <span>{getGameType(queueId)}</span>
           </div>
           <div className="match_summary">
@@ -82,7 +84,7 @@ export default function MatchComponent({ matchData, userName }: IProps) {
               <img src={target.champion.image} alt="챔피언 아이콘" />
               <span className="champ_level">{target.championLevel}</span>
             </div>
-            <div className="spell_wrapper">
+            <div className="spell_wrapper wrapper">
               {target.spells.map((v, i) => (
                 <ObjImgComponent
                   key={`spell-${target.summonerName}-${i}`}
@@ -90,7 +92,7 @@ export default function MatchComponent({ matchData, userName }: IProps) {
                 />
               ))}
             </div>
-            <div className="rune_wrapper">
+            <div className="rune_wrapper wrapper">
               <ObjImgComponent {...target.mainRune} />
               <ObjImgComponent {...target.subRune} />
             </div>
