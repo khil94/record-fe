@@ -69,13 +69,14 @@
           position: absolute;
           content: "";
           left: 50%;
+          bottom: 50%;
           width: 0.8rem;
           height: 0.8rem;
-          transform: translateX(-50%) rotate(135deg); /* 각도 */
+          transform: translateX(-50%) translateY(50%) rotate(135deg); /* 각도 */
         }
         &.close {
           &::after {
-            transform: translateX(-50%) rotate(315deg);
+            transform: translateX(-50%) translateY(50%) rotate(315deg);
           }
         }
       }
@@ -166,7 +167,7 @@
   }
 
   .match_summary {
-    grid-template-columns: 1fr 1fr 1fr 2fr 3fr;
+    grid-template-columns: 1fr 0.5fr 0.5fr 2fr 3fr;
   }
 
   margin-bottom: 1.6rem;
