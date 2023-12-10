@@ -8,11 +8,11 @@ import "./RankingPage.scss";
 export default function RankingPage() {
   const [currentQueueType, setCurrentQueueType] =
     useState<ILeaderBoardQueueTyep>("RANKED_SOLO_5x5");
-  const [currentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0);
   const navigation = useNavigate();
   const MAX_PAGE_NUMBER = 100;
   const { data, isLoading } = useRankingInfo(currentQueueType, 1);
-
+  console.log(data?.players.length);
   return (
     <div className="ranking_page">
       <div className="ranking_page_wrapper">
@@ -69,7 +69,7 @@ export default function RankingPage() {
                     .map((v, i) => {
                       return (
                         <tr key={v.summonerName}>
-                          <td>{i + 1}</td>
+                          <td>{currentPage * 100 + i + 1}</td>
                           <td>
                             <span
                               className="rank_summoner_name"
@@ -88,6 +88,15 @@ export default function RankingPage() {
                     })}
                 </tbody>
               </table>
+            </div>
+            <div className="rank_page_wrapper">
+              {Array((data?.players.length || 0) / 100)
+                .fill("")
+                .map((v, i) => {
+                  return (
+                    <button onClick={() => setCurrentPage(i)}>{i + 1}</button>
+                  );
+                })}
             </div>
           </>
         )}
