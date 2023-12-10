@@ -30,6 +30,7 @@
         .rank_summoner_name {
           &:hover {
             cursor: pointer;
+            text-decoration: underline;
           }
         }
         tr:hover {
