@@ -20,10 +20,10 @@ export default function RankingPage() {
       <td className="win_rate">
         <div className="win_rate_wrapper">
           <span style={{ width: `${(wins * 100) / total}%` }} className="win">
-            {wins}
+            {`${wins}W`}
           </span>
           <span style={{ width: `${(loses * 100) / total}%` }} className="lose">
-            {loses}
+            {`${loses}L`}
           </span>
         </div>
       </td>

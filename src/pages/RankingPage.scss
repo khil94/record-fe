@@ -44,11 +44,18 @@
             .win_rate_wrapper {
               display: flex;
               flex-direction: row;
+              span {
+                padding: 0.4rem;
+              }
               .win {
                 background-color: $color-win-bold;
+                border-top-left-radius: $default-border-radius;
+                border-bottom-left-radius: $default-border-radius;
               }
               .lose {
                 background-color: $color-lose-bold;
+                border-top-right-radius: $default-border-radius;
+                border-bottom-right-radius: $default-border-radius;
               }
             }
           }
