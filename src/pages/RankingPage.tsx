@@ -13,6 +13,23 @@ export default function RankingPage() {
   const MAX_PAGE_NUMBER = 100;
   const { data, isLoading } = useRankingInfo(currentQueueType, 1);
   console.log(data?.players.length);
+
+  function WinRateComponent({ wins, loses }: { wins: number; loses: number }) {
+    const total = wins + loses;
+    return (
+      <td className="win_rate">
+        <div className="win_rate_wrapper">
+          <span style={{ width: `${(wins * 100) / total}%` }} className="win">
+            {wins}
+          </span>
+          <span style={{ width: `${(loses * 100) / total}%` }} className="lose">
+            {loses}
+          </span>
+        </div>
+      </td>
+    );
+  }
+
   return (
     <div className="ranking_page">
       <div className="ranking_page_wrapper">
@@ -51,15 +68,13 @@ export default function RankingPage() {
                   <col />
                   <col />
                   <col />
-                  <col />
                 </colgroup>
                 <thead>
                   <tr>
                     <th scope="col">순위</th>
                     <th scope="col">소환사</th>
                     <th scope="col">LP</th>
-                    <th scope="col">승</th>
-                    <th scope="col">패</th>
+                    <th scope="col">승률</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -83,8 +98,7 @@ export default function RankingPage() {
                             </span>
                           </td>
                           <td>{v.leaguePoints}</td>
-                          <td className="win">{v.wins}</td>
-                          <td className="lose">{v.loses}</td>
+                          <WinRateComponent wins={v.wins} loses={v.loses} />
                         </tr>
                       );
                     })}

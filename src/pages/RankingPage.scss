@@ -39,11 +39,18 @@
         td {
           padding: 0.8rem;
           border-bottom: 1px solid $color-light-border;
-          &.win {
-            color: $color-win-bold;
-          }
-          &.lose {
-            color: $color-lose-bold;
+          &.win_rate {
+            color: $color-white;
+            .win_rate_wrapper {
+              display: flex;
+              flex-direction: row;
+              .win {
+                background-color: $color-win-bold;
+              }
+              .lose {
+                background-color: $color-lose-bold;
+              }
+            }
           }
         }
       }
