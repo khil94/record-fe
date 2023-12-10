@@ -54,11 +54,13 @@ export default function RankingPage() {
                   <col />
                 </colgroup>
                 <thead>
-                  <th scope="col">순위</th>
-                  <th scope="col">소환사</th>
-                  <th scope="col">LP</th>
-                  <th scope="col">승</th>
-                  <th scope="col">패</th>
+                  <tr>
+                    <th scope="col">순위</th>
+                    <th scope="col">소환사</th>
+                    <th scope="col">LP</th>
+                    <th scope="col">승</th>
+                    <th scope="col">패</th>
+                  </tr>
                 </thead>
                 <tbody>
                   {data?.players
@@ -95,6 +97,7 @@ export default function RankingPage() {
                 .map((v, i) => {
                   return (
                     <button
+                      key={`rank-button-${i}`}
                       className={`${currentPage === i ? "selected" : ""}`}
                       onClick={() => {
                         setCurrentPage(i);
