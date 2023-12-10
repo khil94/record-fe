@@ -108,7 +108,7 @@ export default function RankingPage() {
             <div className="page_wrapper">
               {Array((data?.players.length || 0) / 100)
                 .fill("")
-                .map((v, i) => {
+                .map((_, i) => {
                   return (
                     <button
                       key={`rank-button-${i}`}
