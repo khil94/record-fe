@@ -89,12 +89,20 @@ export default function RankingPage() {
                 </tbody>
               </table>
             </div>
-            <div className="rank_page_wrapper">
+            <div className="page_wrapper">
               {Array((data?.players.length || 0) / 100)
                 .fill("")
                 .map((v, i) => {
                   return (
-                    <button onClick={() => setCurrentPage(i)}>{i + 1}</button>
+                    <button
+                      className={`${currentPage === i ? "selected" : ""}`}
+                      onClick={() => {
+                        setCurrentPage(i);
+                        window.scrollTo(0, 0);
+                      }}
+                    >
+                      {i + 1}
+                    </button>
                   );
                 })}
             </div>

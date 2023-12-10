@@ -75,5 +75,15 @@
         }
       }
     }
+
+    .page_wrapper {
+      margin-top: 2rem;
+      button {
+        margin-right: 1rem;
+        &.selected {
+          font-weight: bold;
+        }
+      }
+    }
   }
 }
