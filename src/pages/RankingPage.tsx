@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useRankingInfo } from "../api/apis";
 import Loading from "../components/Loading";
 import { ILeaderBoardQueueTyep } from "../types/types";
@@ -9,7 +9,6 @@ export default function RankingPage() {
   const [currentQueueType, setCurrentQueueType] =
     useState<ILeaderBoardQueueTyep>("RANKED_SOLO_5x5");
   const [currentPage, setCurrentPage] = useState(0);
-  const navigation = useNavigate();
   const MAX_PAGE_NUMBER = 100;
   const { data, isLoading } = useRankingInfo(currentQueueType, 1);
   console.log(data?.players.length);
