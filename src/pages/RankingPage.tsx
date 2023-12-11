@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useRankingInfo } from "../api/apis";
 import Loading from "../components/Loading";
 import { ILeaderBoardQueueTyep } from "../types/types";
@@ -88,14 +88,11 @@ export default function RankingPage() {
                         <tr key={v.summonerName}>
                           <td>{currentPage * 100 + i + 1}</td>
                           <td>
-                            <span
-                              className="rank_summoner_name"
-                              onClick={() => {
-                                navigation(`/summoner/${v.summonerName}`);
-                              }}
-                            >
-                              {v.summonerName}
-                            </span>
+                            <Link to={`/summoner/${v.summonerName}`}>
+                              <span className="rank_summoner_name">
+                                {v.summonerName}
+                              </span>
+                            </Link>
                           </td>
                           <td>{v.leaguePoints}</td>
                           <WinRateComponent wins={v.wins} loses={v.loses} />
