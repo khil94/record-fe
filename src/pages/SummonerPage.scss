@@ -1,3 +1,5 @@
+@import "../variable";
+
 .page_summoner {
   padding: 2.4rem;
   display: flex;
@@ -30,8 +32,8 @@
             transform: translateX(-50%);
             bottom: 0;
             font-size: 1.2rem;
-            color: white;
-            background-color: black;
+            color: $color-white;
+            background-color: $color-black;
             border-radius: 0.8rem;
             padding: 0 0.8rem;
             line-height: 1.4rem;
@@ -51,11 +53,10 @@
         width: 100%;
         flex-direction: row;
         justify-content: center;
-        border-bottom: 1px solid #dddd;
         margin-bottom: 1rem;
         div {
           &:first-child {
-            border-right: 1px solid white;
+            border-right: 1px solid $color-white;
           }
         }
         .summoner_league {
@@ -64,8 +65,9 @@
             background-color: #363944;
             padding: 1.6rem;
             text-align: left;
+            border-radius: 0.8rem;
             span {
-              color: white;
+              color: $color-white;
               font-size: 1.2rem;
             }
           }
@@ -79,7 +81,7 @@
             }
             .league_icon {
               img {
-                background-color: #f7f7f9;
+                background-color: $color-lighter-border;
                 padding: 0.8rem;
                 border-radius: 50%;
                 width: 7.2rem;

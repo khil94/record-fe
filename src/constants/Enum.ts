@@ -1,4 +1,4 @@
-export const MENU_LIST = ["TIER", "RANKING", "INFO", "COMMUNITY"] as const;
+export const MENU_LIST = ["RANKING"] as const;
 
 export const QUEUE_TYPE_LIST = [
   "RANKED_SOLO",

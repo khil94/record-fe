@@ -19,22 +19,22 @@ export default function MatchComponent({ matchData, userName }: IProps) {
   const ParticipantComponent = (target: ISimpleParticipant) => {
     return (
       <div
-        className={`match_summary ${target.win ? "match_win" : "match_lose"}`}
+        className={`match_component ${target.win ? "match_win" : "match_lose"}`}
       >
         <div className="champ_icon">
           <img src={target.champion.image} alt="챔피언 아이콘" />
           <span className="champ_level">{target.championLevel}</span>
         </div>
-        <div className="spell_wrapper">
+        <div className="spell_wrapper wrapper">
           {target.spells.map((v, i) => (
             <ObjImgComponent key={`spell-${target.summonerName}-${i}`} {...v} />
           ))}
         </div>
-        <div className="rune_wrapper">
+        <div className="rune_wrapper wrapper">
           <ObjImgComponent {...target.mainRune} />
           <ObjImgComponent {...target.subRune} />
         </div>
-        <div className="summoner_info_wrapper">
+        <div className="summoner_info_wrapper wrapper">
           <Link to={`/summoner/${target.summonerName}`}>
             {target.summonerName}
           </Link>
@@ -74,15 +74,17 @@ export default function MatchComponent({ matchData, userName }: IProps) {
           }`}
         >
           <div className="match_result">
-            <span>{target.win ? "승리" : "패배"}</span>
+            <span className={`${target.win ? "win" : "lose"}`}>
+              {target.win ? "승리" : "패배"}
+            </span>
             <span>{getGameType(queueId)}</span>
           </div>
-          <div className={`match_summary`}>
+          <div className="match_summary">
             <div className="champ_icon">
               <img src={target.champion.image} alt="챔피언 아이콘" />
               <span className="champ_level">{target.championLevel}</span>
             </div>
-            <div className="spell_wrapper">
+            <div className="spell_wrapper wrapper">
               {target.spells.map((v, i) => (
                 <ObjImgComponent
                   key={`spell-${target.summonerName}-${i}`}
@@ -90,7 +92,7 @@ export default function MatchComponent({ matchData, userName }: IProps) {
                 />
               ))}
             </div>
-            <div className="rune_wrapper">
+            <div className="rune_wrapper wrapper">
               <ObjImgComponent {...target.mainRune} />
               <ObjImgComponent {...target.subRune} />
             </div>
@@ -99,7 +101,6 @@ export default function MatchComponent({ matchData, userName }: IProps) {
               <span className="kda_death">{target.deaths}</span>
               <span> / {target.assists}</span>
             </div>
-            <div className="cs_wrapper"></div>
             <div className="item_wrapper">
               {target.items.map((v, i) => {
                 {

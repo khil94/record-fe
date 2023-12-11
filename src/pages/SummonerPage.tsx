@@ -34,7 +34,7 @@ export default function SummonerPage() {
 
   const LeagueComponent = (props: ILeagueEntry) => {
     const qType = props.queueType === "RANKED_SOLO" ? "솔로 랭크" : "자유 랭크";
-    // 우선은 두개만
+
     const tier = getFullTierName(props.tier, props.rank);
     const ratio = Math.round((props.wins / (props.wins + props.losses)) * 100);
     return (
@@ -51,8 +51,6 @@ export default function SummonerPage() {
             <span className="league_points">
               {props.tier !== "UNRANKED" ? `${props.leaguePoints}lp` : ""}
             </span>
-            {/* 위부분은 실제로 unranked인 유저의 정보가 어떻게 들어오는지 확인하고 
-            수정해야하는 부분이다. 승률또한 마찬가지. UNRANKED면 승률, LP는 보여주지도 ㅇ말아야 한다 */}
           </div>
           <div className="league_win_lose">
             <div className="win_lose">
@@ -79,15 +77,15 @@ export default function SummonerPage() {
         </div>
       );
     }
-
     target.forEach((v) => {
       const ttarget = v.participants.find(
-        (t) => t.summonerName === summonerName
+        (t) => t.summonerName.toLowerCase() === userName.toLowerCase()
       );
       if (ttarget) {
         temp.push(ttarget);
       }
     });
+
     return (
       <div className="summoner_detail_wrapper">
         <UserRecentInfoComponent userData={temp} />

@@ -1,7 +1,13 @@
+@import "../variable";
+
 .footer {
   position: absolute;
   width: 100%;
-  background-color: #dddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $color-bar;
+  color: white;
   padding: 2.4rem 0;
   bottom: 0;
   height: 10rem;

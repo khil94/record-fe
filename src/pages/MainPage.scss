@@ -1,6 +1,8 @@
+@import "../variable";
+
 .page_main {
   background-image: url("/main_background.jpg");
-  height: 48rem;
+  height: 96rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -15,33 +17,37 @@
 
 .recent_search_val_wrapper {
   position: absolute;
-  top: 37rem;
+  top: 62rem;
   width: 72rem;
-  // padding: 4rem;
-  background-color: white;
+  font-size: 1.4rem;
+  background-color: $color-white;
   .recent_search_info {
     padding: 1rem;
-    background-color: #363944;
-    color: white;
+    background-color: $color-bar;
+    color: $color-white;
   }
   .recent_search_val_container {
     display: flex;
     flex-wrap: wrap;
+    span {
+      line-height: 2rem;
+    }
 
     .recent_search_val {
       flex: 1 30%;
       display: flex;
       flex-direction: row;
       justify-content: space-between;
-      border: 1px solid #ddd;
+      border: 1px solid $color-light-border;
       padding: 1rem;
+      text-decoration: none;
       &:hover {
-        background-color: #ddd;
+        background-color: $color-light-border;
         cursor: pointer;
       }
       .delete_recent {
         &:hover {
-          color: red;
+          color: $color-red;
         }
       }
     }

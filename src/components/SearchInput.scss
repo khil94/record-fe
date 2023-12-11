@@ -1,12 +1,14 @@
+@import "../variable";
+
 .search_box {
   padding-bottom: 1rem;
   padding-top: 1rem;
 
   .search_form {
-    background-color: white;
+    background-color: $color-white;
     display: flex;
     justify-content: space-between;
-    border: 0.1rem solid #fff;
+    border: 0.1rem solid $color-white;
     border-radius: 0.6rem;
     padding: 1.2rem;
 
@@ -14,12 +16,6 @@
       width: 100%;
       &:focus {
         outline: none;
-      }
-    }
-
-    .btn_search {
-      ::before {
-        content: "\f0a6";
       }
     }
   }

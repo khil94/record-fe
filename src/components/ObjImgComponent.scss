@@ -1,11 +1,13 @@
+@import "../variable";
+
 .obj_description {
   display: flex;
   flex-direction: column;
   position: absolute;
   padding: 1.2rem;
   z-index: 100;
-  background-color: black;
-  color: white;
+  background-color: $color-black;
+  color: $color-white;
   animation: fade-in 500ms ease;
   position: absolute;
   max-width: 24rem;
@@ -14,7 +16,7 @@
     translateX(1.2rem);
 
   .obj_name {
-    color: aqua;
+    color: $color-aqua;
   }
 
   &::after {
@@ -22,8 +24,8 @@
     content: "";
     width: 0.8rem;
     height: 0.8rem;
-    border-top: 10px solid black;
-    border-right: 10px solid black;
+    border-top: 10px solid $color-black;
+    border-right: 10px solid $color-black;
     left: 50%;
     bottom: 0;
     transform: translateX(-50%) translateY(0.6rem) rotate(135deg);

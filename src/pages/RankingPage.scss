@@ -15,9 +15,13 @@
     table {
       width: 100%;
       border-collapse: collapse;
+      table-layout: fixed;
 
       thead {
         background-color: $color-light-border;
+        col {
+          width: auto;
+        }
         th {
           border: none;
         }
@@ -26,11 +30,35 @@
         .rank_summoner_name {
           &:hover {
             cursor: pointer;
+            text-decoration: underline;
           }
+        }
+        tr:hover {
+          background-color: $color-light-border;
         }
         td {
           padding: 0.8rem;
           border-bottom: 1px solid $color-light-border;
+          &.win_rate {
+            color: $color-white;
+            .win_rate_wrapper {
+              display: flex;
+              flex-direction: row;
+              span {
+                padding: 0.4rem;
+              }
+              .win {
+                background-color: $color-win-bold;
+                border-top-left-radius: $default-border-radius;
+                border-bottom-left-radius: $default-border-radius;
+              }
+              .lose {
+                background-color: $color-lose-bold;
+                border-top-right-radius: $default-border-radius;
+                border-bottom-right-radius: $default-border-radius;
+              }
+            }
+          }
         }
       }
     }
@@ -44,21 +72,31 @@
         margin-bottom: -0.1rem;
         cursor: pointer;
         border: 1px solid;
-        border-color: #fff;
+        border-color: $color-white;
         border-bottom: 1px solid $color-light-border;
         border-radius: $default-border-radius $default-border-radius 0 0;
 
         &:hover {
           animation: duration 500ms forwards;
-          border: 1px solid #363944;
-          border-color: #ddd #ddd $color-light-border;
+          border: 1px solid $color-bar;
+          border-color: $color-light-border;
         }
         &.selected_tab {
           &:hover {
             animation: none;
           }
-          background-color: #363944;
-          color: white;
+          background-color: $color-bar;
+          color: $color-white;
+        }
+      }
+    }
+
+    .page_wrapper {
+      margin-top: 2rem;
+      button {
+        margin-right: 1rem;
+        &.selected {
+          font-weight: bold;
         }
       }
     }
