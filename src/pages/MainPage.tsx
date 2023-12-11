@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SearchInput from "../components/SearchInput";
 import {
   addRecentSearchVal,
@@ -19,17 +19,17 @@ export default function MainPage() {
 
   function RecentSearch({ val }: { val: string }) {
     return (
-      <div
-        onMouseDown={() => {
-          navigation(`summoner/${val}`);
+      <Link
+        onMouseDown={(e) => {
+          e.preventDefault();
         }}
+        to={`summoner/${val}`}
         className="recent_search_val"
       >
         <span>{val}</span>
         <span
-          onMouseDown={(e) => {
+          onClick={(e) => {
             e.preventDefault();
-            e.stopPropagation();
             setRecentSearchVal(
               recentSearchVal.filter((v: string) => v !== val)
             );
@@ -39,7 +39,7 @@ export default function MainPage() {
         >
           X
         </span>
-      </div>
+      </Link>
     );
   }
 
