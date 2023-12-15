@@ -25,7 +25,7 @@ export default function MainPage() {
         onMouseDown={(e) => {
           e.preventDefault();
         }}
-        to={`summoner/${name}/tag`}
+        to={`summoner/${name}/${tag}`}
         className="recent_search_val"
       >
         <span>{val}</span>
