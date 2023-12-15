@@ -37,9 +37,9 @@ export function useRankingInfo(
   return resp;
 }
 
-export function useSummonerInfo(summonerName: string) {
+export function useSummonerInfo(summonerName: string, tagName: string) {
   const resp = useSWR(
-    `/summoner/${summonerName}`,
+    `/summoner/${summonerName}-${tagName}`,
     (url: string) => {
       return API.get<ISummonerProfile>(url).then((res) => res.data);
     },

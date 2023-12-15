@@ -31,9 +31,10 @@ export default function Header() {
             value={searchVal}
             onSubmit={() => {
               const val = searchVal.trim();
+              const [name, tag] = val.split("#");
               setSearchVal("");
               addRecentSearchVal(val);
-              navigation(`summoner/${val}`);
+              navigation(`summoner/${name}${tag ? `/${tag}` : "/KR1"}`);
             }}
             placeholder="소환사 검색"
             onChange={(v) => setSearchVal(v)}

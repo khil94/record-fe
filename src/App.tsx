@@ -11,7 +11,10 @@ function App() {
       <GlobalLayout>
         <Routes>
           <Route path="/" element={<MainPage />} />
-          <Route path="/summoner/:summonerName" element={<SummonerPage />} />
+          <Route
+            path="/summoner/:summonerName/:tagName"
+            element={<SummonerPage />}
+          />
           <Route path="/ranking" element={<RankingPage />} />
         </Routes>
       </GlobalLayout>

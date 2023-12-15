@@ -10,10 +10,13 @@ import { getFullTierName } from "../utils/generalFunctions";
 import "./SummonerPage.scss";
 
 export default function SummonerPage() {
-  const { summonerName } = useParams();
+  const { summonerName, tagName } = useParams();
   const [gameListData, setGameListData] = useState<ISimpleMatch[]>([]);
   const [isMoreLoading, setIsMoreLoading] = useState(false);
-  const { data, isLoading, isValidating } = useSummonerInfo(summonerName || "");
+  const { data, isLoading, isValidating } = useSummonerInfo(
+    summonerName || "",
+    tagName || ""
+  );
   const pageNumber = useRef(1);
 
   const getMoreGameList = async (puid: string) => {
