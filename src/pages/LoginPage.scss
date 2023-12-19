@@ -77,5 +77,15 @@
         margin-right: 0.4rem;
       }
     }
+    .btn_register{
+      width:100%;
+      padding: 1.6rem;
+      border-radius: $default-border-radius;
+      background-color: $color-light-border;
+      margin: 0 0 2rem;
+      a:hover{
+        text-decoration: none;
+      }
+    }
   }
 }
