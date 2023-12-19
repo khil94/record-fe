@@ -6,6 +6,7 @@ import LoginPage from "./pages/LoginPage";
 import MainPage from "./pages/MainPage";
 import RankingPage from "./pages/RankingPage";
 import SummonerPage from "./pages/SummonerPage";
+import RegisterPage from "./pages/RegisterPage";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             element={<AuthRouter children={<RankingPage />} />}
           />
           <Route path="login" element={<LoginPage />} />
+          <Route path="register" element={<RegisterPage/>}/>
         </Routes>
       </GlobalLayout>
     </BrowserRouter>
