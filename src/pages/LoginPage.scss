@@ -13,9 +13,9 @@
     margin-bottom: 2rem;
   }
   .login_form_wrapper {
+    width: 32rem;
     .login_form {
       width: 100%;
-      margin-bottom: 2rem;
       font-size: 1.6rem;
       display: flex;
       flex-direction: column;
@@ -37,7 +37,8 @@
         }
         input {
           display: block;
-          height: 2rem;
+          height: 5.2rem;
+          box-sizing: border-box;
           width: 100%;
           border: 1px solid $color-light-border;
           border-radius: $default-border-radius;
@@ -61,12 +62,20 @@
     }
     .btn_submit {
       width: 100%;
+      margin: 2rem 0;
       position: relative;
-      box-sizing: content-box;
       color: $color-white;
       background-color: $color-bar;
       border-radius: $default-border-radius;
       padding: 1.6rem;
+    }
+    .extra_option_wrapper {
+      color: $color-dark-border;
+      width: 100%;
+
+      span {
+        margin-right: 0.4rem;
+      }
     }
   }
 }
