@@ -11,10 +11,10 @@
   flex-direction: column;
   .logo_wrapper {
     margin-bottom: 2rem;
-        font-size: 2.4rem;
-        img{
-            margin-bottom: 1.6rem;
-        }
+    font-size: 2.4rem;
+    img {
+      margin-bottom: 1.6rem;
+    }
   }
   .register_form_wrapper {
     width: 32rem;
@@ -56,10 +56,15 @@
               color: $color-dark-border;
             }
           }
-          &:valid ~ label {
+          &.valid ~ label {
             transform: translateY(-4.2rem);
             font-size: 1.4rem;
             color: $color-win-bold;
+          }
+          &.invalid ~ label {
+            transform: translateY(-4.2rem);
+            font-size: 1.4rem;
+            color: $color-red;
           }
         }
       }
@@ -72,7 +77,10 @@
       background-color: $color-bar;
       border-radius: $default-border-radius;
       padding: 1.6rem;
+      &:disabled {
+        background-color: $color-light-border;
+        cursor: auto;
+      }
     }
-    
   }
 }
