@@ -25,9 +25,11 @@ export default function LoginPage() {
         <button form="login_form" className="btn_submit" type="submit">
           로그인
         </button>
+        <Link to="/register">
           <button className="btn_register" type="button">
-            <Link to="/register">회원가입</Link>
+            회원가입{" "}
           </button>
+        </Link>
         <div className="extra_option_wrapper">
           <Link to="/">
             <span>아이디 찾기</span>
