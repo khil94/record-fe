@@ -50,3 +50,24 @@ export function useSummonerInfo(summonerName: string, tagName: string) {
 
   return resp;
 }
+
+export const PostLogin = async (email: string, password: string) => {
+  const resp = await API.post(`/user/login`, {
+    email,
+    password,
+  });
+  return resp;
+};
+
+export const PostRegister = async (
+  email: string,
+  password: string,
+  passwordCheck: string
+) => {
+  const resp = await API.post("/user", {
+    email,
+    password,
+    passwordCheck,
+  });
+  return resp;
+};
