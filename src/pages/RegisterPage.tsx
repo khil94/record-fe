@@ -59,6 +59,9 @@ export default function RegisterPage() {
               value={email}
             />
             <label htmlFor="register_email">이메일</label>
+            {!emailValid && email.length > 0 && (
+              <span className="error_msg">이메일 형식에 맞게 써주세요.</span>
+            )}
           </div>
           <div className="input_wrapper">
             <input
@@ -74,6 +77,9 @@ export default function RegisterPage() {
               type="password"
             />
             <label htmlFor="register_password">비밀번호</label>
+            {!pwdValid && pwd.length > 0 && (
+              <span className="error_msg">비밀번호는 8~16자리로 해주세요.</span>
+            )}
           </div>
           <div className="input_wrapper">
             <input
@@ -89,6 +95,11 @@ export default function RegisterPage() {
               type="password"
             />
             <label htmlFor="register_password_check">비밀번호 확인</label>
+            {!pwdCheckValid && pwdCheck.length > 0 && (
+              <span className="error_msg">
+                비밀번호 확인이 비밀번호와 같지 않습니다.
+              </span>
+            )}
           </div>
         </form>
         <button
