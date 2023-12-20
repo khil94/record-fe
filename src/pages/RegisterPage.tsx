@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { PostRegister } from "../api/apis";
 import "./RegisterPage.scss";
 
 export default function RegisterPage() {
@@ -8,6 +10,8 @@ export default function RegisterPage() {
   const [emailValid, setEmailVaild] = useState(false);
   const [pwdValid, setPwdValid] = useState(false);
   const [pwdCheckValid, setPwdCheckValid] = useState(false);
+
+  const navigator = useNavigate();
 
   // 이메일 에러 판정
   useEffect(() => {
@@ -35,8 +39,12 @@ export default function RegisterPage() {
       setPwdCheckValid(false);
     }
   }, [pwd, pwdCheck]);
-  // function HandleRegister() {}
-  console.log(emailValid, pwdValid, pwdCheckValid);
+
+  async function HandleRegister() {
+    const resp = await PostRegister(email, pwd, pwdCheck);
+    console.log("register resp", resp);
+    navigator("/login");
+  }
 
   return (
     <div className="register_page_wrapper">
@@ -45,7 +53,14 @@ export default function RegisterPage() {
         <div>회원가입</div>
       </div>
       <div className="register_form_wrapper">
-        <form id="register_form" className="register_form">
+        <form
+          // onSubmit={(e) => {
+          //   e.preventDefault();
+          //   HandleRegister();
+          // }}
+          id="register_form"
+          className="register_form"
+        >
           <div className="input_wrapper">
             <input
               onChange={(e) => {
