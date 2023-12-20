@@ -66,7 +66,7 @@ export default function RegisterPage() {
           <div className="input_wrapper">
             <input
               onChange={(e) => {
-                setPwd(e.target.value);
+                setPwd(e.target.value.trim());
               }}
               className={`${
                 pwd.length === 0 ? "" : pwdValid ? "valid" : "invalid"
@@ -84,7 +84,7 @@ export default function RegisterPage() {
           <div className="input_wrapper">
             <input
               onChange={(e) => {
-                setPwdCheck(e.target.value);
+                setPwdCheck(e.target.value.trim());
               }}
               className={`${
                 pwdCheck.length === 0 ? "" : pwdCheckValid ? "valid" : "invalid"
