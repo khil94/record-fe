@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { PostRegister } from "../api/apis";
+import CommonModal from "../components/CommonModal";
 import "./RegisterPage.scss";
 
 export default function RegisterPage() {
@@ -10,6 +11,7 @@ export default function RegisterPage() {
   const [emailValid, setEmailVaild] = useState(false);
   const [pwdValid, setPwdValid] = useState(false);
   const [pwdCheckValid, setPwdCheckValid] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const navigator = useNavigate();
 
@@ -41,9 +43,18 @@ export default function RegisterPage() {
   }, [pwd, pwdCheck]);
 
   async function HandleRegister() {
-    const resp = await PostRegister(email, pwd, pwdCheck);
-    console.log("register resp", resp);
-    navigator("/login");
+    try {
+      await PostRegister(email, pwd, pwdCheck);
+      navigator("/login");
+    } catch {
+      setShowModal(true);
+    }
+  }
+
+  function resetForm() {
+    setEmail("");
+    setPwd("");
+    setPwdCheck("");
   }
 
   return (
@@ -54,10 +65,10 @@ export default function RegisterPage() {
       </div>
       <div className="register_form_wrapper">
         <form
-          // onSubmit={(e) => {
-          //   e.preventDefault();
-          //   HandleRegister();
-          // }}
+          onSubmit={(e) => {
+            e.preventDefault();
+            HandleRegister();
+          }}
           id="register_form"
           className="register_form"
         >
@@ -126,6 +137,14 @@ export default function RegisterPage() {
           회원가입
         </button>
       </div>
+      <CommonModal
+        showModal={showModal}
+        title={"회원가입 오류"}
+        message={
+          "회원가입 과정에서 오류가 발생했습니다. 중복된 아이디 이거나 입력된 정보가 정확하지 않을 수 있습니다."
+        }
+        onDisapppear={resetForm}
+      />
     </div>
   );
 }
