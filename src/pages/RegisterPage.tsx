@@ -143,7 +143,10 @@ export default function RegisterPage() {
         message={
           "회원가입 과정에서 오류가 발생했습니다. 중복된 아이디 이거나 입력된 정보가 정확하지 않을 수 있습니다."
         }
-        onDisapppear={resetForm}
+        onDisapppear={() => {
+          resetForm();
+          setShowModal(false);
+        }}
       />
     </div>
   );
