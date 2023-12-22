@@ -1,6 +1,7 @@
 import useSWR from "swr";
 import {
   ILeaderBoardQueueTyep,
+  ILoginResp,
   IRanking,
   ISimpleMatch,
   ISummonerProfile,
@@ -52,7 +53,7 @@ export function useSummonerInfo(summonerName: string, tagName: string) {
 }
 
 export const PostLogin = async (email: string, password: string) => {
-  const resp = await API.post(`/user/login`, {
+  const resp = await API.post<ILoginResp>(`/user/login`, {
     email,
     password,
   });

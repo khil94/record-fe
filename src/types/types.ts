@@ -108,3 +108,8 @@ export interface IPlayerRankingInfo {
   wins: number;
   loses: number;
 }
+
+export interface ILoginResp {
+  accessToken: string;
+  refreshToken: string;
+}
