@@ -21,7 +21,7 @@ export default function LoginPage() {
       navigator("/");
     } catch {
       setShowModal(true);
-      console.log("hi");
+      resetForm();
     }
   }
 
