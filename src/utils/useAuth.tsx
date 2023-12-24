@@ -20,7 +20,7 @@ export const useAuth = () => {
     } else {
       setIsAuth(false);
     }
-  }, []);
+  }, [localStorage.getItem("user")]);
 
   return { isAuth, login, logout };
 };
