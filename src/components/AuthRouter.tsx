@@ -1,22 +1,21 @@
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../utils/useAuth";
 
 interface IProp {
   children: ReactNode;
+  reverse?: boolean;
 }
 
-export default function AuthRouter({ children }: IProp) {
-  const [isAuth, setIsAuth] = useState(false);
+export default function AuthRouter({ children, reverse = false }: IProp) {
+  const { isAuth } = useAuth();
   const navigator = useNavigate();
 
   useEffect(() => {
-    const cookie = localStorage.getItem("test");
-    if (cookie) {
-      setIsAuth(true);
-    } else {
-      navigator("/login");
+    if (isAuth && reverse) {
+      navigator("/");
     }
   }, []);
 
-  return isAuth ? <>{children}</> : <></>;
+  return <>{children}</>;
 }
