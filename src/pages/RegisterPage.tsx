@@ -12,6 +12,7 @@ export default function RegisterPage() {
   const [pwdValid, setPwdValid] = useState(false);
   const [pwdCheckValid, setPwdCheckValid] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [endRegister, setEndRegister] = useState(false);
 
   const navigator = useNavigate();
 
@@ -45,7 +46,7 @@ export default function RegisterPage() {
   async function HandleRegister() {
     try {
       await PostRegister(email, pwd, pwdCheck);
-      navigator("/login");
+      setEndRegister(true);
     } catch {
       setShowModal(true);
     }
@@ -146,6 +147,14 @@ export default function RegisterPage() {
         onDisapppear={() => {
           resetForm();
           setShowModal(false);
+        }}
+      />
+      <CommonModal
+        showModal={endRegister}
+        title="회원가입 완료!"
+        message={"회원가입이 완료되었습니다! 로그인을 해주세요."}
+        onDisapppear={() => {
+          navigator("/login");
         }}
       />
     </div>
