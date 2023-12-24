@@ -18,12 +18,14 @@ export default function MainPage() {
   );
 
   function RecentSearch({ val }: { val: string }) {
+    const [name, tag] = val.split("#");
+
     return (
       <Link
         onMouseDown={(e) => {
           e.preventDefault();
         }}
-        to={`summoner/${val}`}
+        to={`summoner/${name}/${tag}`}
         className="recent_search_val"
       >
         <span>{val}</span>
@@ -49,8 +51,9 @@ export default function MainPage() {
         value={searchVal}
         onSubmit={() => {
           const val = searchVal.trim();
-          addRecentSearchVal(val);
-          navigation(`summoner/${val}`);
+          const [name, tag] = val.split("#");
+          addRecentSearchVal(name + (tag ? `#${tag}` : `#KR1`));
+          navigation(`summoner/${name}${tag ? `/${tag}` : "/KR1"}`);
         }}
         onFocus={() => {
           setShowRecent(true);
