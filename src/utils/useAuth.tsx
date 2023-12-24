@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import API from "../api/api";
 
 export const useAuth = () => {
   const [isAuth, setIsAuth] = useState<boolean>(
@@ -10,6 +11,7 @@ export const useAuth = () => {
 
   const logout = () => {
     setIsAuth(false);
+    API.defaults.headers.common["Authorization"] = ``;
     localStorage.removeItem("user");
   };
 
