@@ -1,17 +1,21 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import SearchInput from "../components/SearchInput";
 import { MENU_LIST } from "../constants/Enum";
 import { addRecentSearchVal } from "../utils/generalFunctions";
 import { useAuth } from "../utils/useAuth";
+import { useOnClickOutside } from "../utils/useOnClickOutside";
 import "./Header.scss";
 
 export default function Header() {
   const [searchVal, setSearchVal] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
+  const ref = useRef(null);
 
   const { isAuth, logout } = useAuth();
   const navigation = useNavigate();
+
+  useOnClickOutside(ref, () => setShowDropdown(false));
 
   const UserComponent = () => {
     return (
@@ -20,6 +24,7 @@ export default function Header() {
           isAuth ? setShowDropdown(!showDropdown) : navigation("/login");
         }}
         className="user_wrapper"
+        ref={ref}
       >
         <span>{isAuth ? "메뉴" : "로그인"}</span>
         <div className={`user_dropdown ${showDropdown ? "show" : ""}`}>
