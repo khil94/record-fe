@@ -3,11 +3,26 @@ import { Link, useNavigate } from "react-router-dom";
 import SearchInput from "../components/SearchInput";
 import { MENU_LIST } from "../constants/Enum";
 import { addRecentSearchVal } from "../utils/generalFunctions";
+import { useAuth } from "../utils/useAuth";
 import "./Header.scss";
 
 export default function Header() {
   const [searchVal, setSearchVal] = useState("");
+  const { isAuth, logout } = useAuth();
   const navigation = useNavigate();
+
+  const UserComponent = () => {
+    return (
+      <div
+        onClick={() => {
+          isAuth ? logout() : navigation("/login");
+        }}
+        className="user_wrapper"
+      >
+        <span>{isAuth ? "로그아웃" : "로그인"}</span>
+      </div>
+    );
+  };
 
   return (
     <header className="header" id="header">
@@ -27,18 +42,21 @@ export default function Header() {
               ))}
             </ul>
           </nav>
-          <SearchInput
-            value={searchVal}
-            onSubmit={() => {
-              const val = searchVal.trim();
-              const [name, tag] = val.split("#");
-              setSearchVal("");
-              addRecentSearchVal(val);
-              navigation(`summoner/${name}${tag ? `/${tag}` : "/KR1"}`);
-            }}
-            placeholder="소환사 검색"
-            onChange={(v) => setSearchVal(v)}
-          />
+          <div className="header_right_wrapper">
+            <SearchInput
+              value={searchVal}
+              onSubmit={() => {
+                const val = searchVal.trim();
+                const [name, tag] = val.split("#");
+                setSearchVal("");
+                addRecentSearchVal(val);
+                navigation(`summoner/${name}${tag ? `/${tag}` : "/KR1"}`);
+              }}
+              placeholder="소환사 검색"
+              onChange={(v) => setSearchVal(v)}
+            />
+            <UserComponent />
+          </div>
         </div>
       </div>
     </header>
