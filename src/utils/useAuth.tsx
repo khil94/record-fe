@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import API from "../api/api";
+import useUser from "./useUser";
 
 export const useAuth = () => {
   const [isAuth, setIsAuth] = useState<boolean>(
     localStorage.getItem("user") ? true : false
   );
+  const { mutate } = useUser();
+
   const login = () => {
     setIsAuth(true);
   };
@@ -13,6 +16,7 @@ export const useAuth = () => {
     setIsAuth(false);
     API.defaults.headers.common["Authorization"] = ``;
     localStorage.removeItem("user");
+    mutate({ email: "", accessToken: "" });
   };
 
   useEffect(() => {
