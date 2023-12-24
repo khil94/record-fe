@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import API from "../api/api";
 import { PostLogin } from "../api/apis";
 import CommonModal from "../components/CommonModal";
+import useUser from "../utils/useUser";
 import "./LoginPage.scss";
 
 export default function LoginPage() {
@@ -10,6 +11,7 @@ export default function LoginPage() {
   const [pwd, setPwd] = useState("");
   const [showModal, setShowModal] = useState(false);
   const navigator = useNavigate();
+  const { mutate } = useUser();
 
   async function HandleLogin() {
     try {
@@ -18,6 +20,10 @@ export default function LoginPage() {
       API.defaults.headers.common[
         "Authorization"
       ] = `Bearer ${resp.data.accessToken}`;
+      mutate({
+        email: email,
+        accessToken: resp.data.accessToken,
+      });
       navigator("/");
     } catch {
       setShowModal(true);

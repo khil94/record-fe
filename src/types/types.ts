@@ -113,3 +113,8 @@ export interface ILoginResp {
   accessToken: string;
   refreshToken: string;
 }
+
+export interface IUser {
+  email: string;
+  accessToken?: string;
+}
