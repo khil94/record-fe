@@ -16,7 +16,7 @@ export default function CommonModal({
   message,
   width,
   height,
-  onDisapppear,
+  onDisapppear = () => {},
 }: IProp) {
   const [show, setShow] = useState(showModal);
 
@@ -24,14 +24,14 @@ export default function CommonModal({
     setShow(showModal);
   }, [showModal]);
 
-  useEffect(() => {
-    if (!show && onDisapppear) {
-      onDisapppear();
-    }
-  }, [show]);
-
   return show ? (
-    <div onClick={() => setShow(false)} className="modal_outer_wrapper">
+    <div
+      onClick={() => {
+        setShow(false);
+        onDisapppear();
+      }}
+      className="modal_outer_wrapper"
+    >
       <div
         style={{ width: width, height: height }}
         className="modal_inner_wrapper"
