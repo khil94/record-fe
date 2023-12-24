@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import API from "../api/api";
 import { PostLogin } from "../api/apis";
 import CommonModal from "../components/CommonModal";
 import "./LoginPage.scss";
@@ -13,6 +14,10 @@ export default function LoginPage() {
   async function HandleLogin() {
     try {
       const resp = await PostLogin(email, pwd);
+      await localStorage.setItem("user", resp.data.refreshToken);
+      API.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${resp.data.accessToken}`;
       navigator("/");
     } catch {
       setShowModal(true);
