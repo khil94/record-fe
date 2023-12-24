@@ -15,6 +15,9 @@ export default function AuthRouter({ children, reverse = false }: IProp) {
     if (isAuth && reverse) {
       navigator("/");
     }
+    if (!isAuth && !reverse) {
+      navigator("/");
+    }
   }, []);
 
   return <>{children}</>;
