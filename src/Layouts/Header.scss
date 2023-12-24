@@ -52,6 +52,25 @@
     .user_wrapper {
       font-size: 1.4rem;
       cursor: pointer;
+
+      .user_dropdown {
+        display: none;
+        position: absolute;
+        width: 10rem;
+        right: 0;
+        background-color: $color-bar;
+        top: 9rem;
+        div {
+          padding: 1.2rem;
+          &:hover {
+            color: $color-light-border;
+          }
+        }
+
+        &.show {
+          display: block;
+        }
+      }
     }
   }
   // border-bottom: 1px solid #ebebeb;

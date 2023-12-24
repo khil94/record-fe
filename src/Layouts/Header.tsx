@@ -8,6 +8,8 @@ import "./Header.scss";
 
 export default function Header() {
   const [searchVal, setSearchVal] = useState("");
+  const [showDropdown, setShowDropdown] = useState(false);
+
   const { isAuth, logout } = useAuth();
   const navigation = useNavigate();
 
@@ -15,11 +17,15 @@ export default function Header() {
     return (
       <div
         onClick={() => {
-          isAuth ? logout() : navigation("/login");
+          isAuth ? setShowDropdown(!showDropdown) : navigation("/login");
         }}
         className="user_wrapper"
       >
-        <span>{isAuth ? "로그아웃" : "로그인"}</span>
+        <span>{isAuth ? "메뉴" : "로그인"}</span>
+        <div className={`user_dropdown ${showDropdown ? "show" : ""}`}>
+          <div>마이페이지</div>
+          <div onClick={logout}>로그아웃</div>
+        </div>
       </div>
     );
   };
