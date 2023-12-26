@@ -11,7 +11,6 @@ export default function RankingPage() {
   const [currentPage, setCurrentPage] = useState(0);
   const MAX_PAGE_NUMBER = 100;
   const { data, isLoading } = useRankingInfo(currentQueueType, 1);
-  console.log(data?.players.length);
 
   function WinRateComponent({ wins, loses }: { wins: number; loses: number }) {
     const total = wins + loses;
@@ -63,7 +62,7 @@ export default function RankingPage() {
             <div className="ranking_content">
               <table>
                 <colgroup>
-                  <col />
+                  <col width={60} />
                   <col />
                   <col />
                   <col />
