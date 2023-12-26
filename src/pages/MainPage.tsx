@@ -61,7 +61,7 @@ export default function MainPage() {
         onBlur={() => {
           setShowRecent(false);
         }}
-        placeholder="소환사 검색"
+        placeholder="소환사 검색 (ex. 소환사명#KR1)"
         onChange={(v) => setSearchVal(v)}
       />
       {showRecent && recentSearchVal.length > 0 && (
