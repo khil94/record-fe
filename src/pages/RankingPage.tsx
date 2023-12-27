@@ -101,7 +101,7 @@ export default function RankingPage() {
               </table>
             </div>
             <div className="page_wrapper">
-              {Array((data?.players.length || 0) / 100)
+              {Array(Math.ceil((data?.players.length || 0) / 100))
                 .fill("")
                 .map((_, i) => {
                   return (
