@@ -1,0 +1,31 @@
+@import "../variable";
+
+.email_auth_page_wrapper {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  h1 {
+    margin-bottom: 8rem;
+  }
+  form {
+    display: flex;
+    width: 32rem;
+    justify-content: space-between;
+    input {
+      padding: 2rem;
+      border: 1px solid $color-light-border;
+      border-radius: $default-border-radius;
+      &:focus {
+        outline: none;
+      }
+      &:disabled {
+        background-color: $color-disabled;
+        &::placeholder {
+          color: $color-white;
+        }
+      }
+    }
+  }
+}
