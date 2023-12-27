@@ -30,19 +30,12 @@
       tbody {
         tr:hover {
           background-color: $color-light-border;
-          cursor: pointer;
         }
         td {
           padding: 0.8rem;
           border-bottom: 1px solid $color-light-border;
-          span:hover {
-            cursor: auto;
-          }
-          a {
-            text-decoration: none;
-            span:hover {
-              cursor: pointer;
-            }
+          &.ranker_td {
+            cursor: pointer;
           }
           &.win_rate {
             color: $color-white;
