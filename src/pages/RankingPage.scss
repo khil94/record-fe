@@ -20,23 +20,30 @@
       thead {
         background-color: $color-light-border;
 
-        th {
-          border: none;
+        tr {
+          th {
+            border: none;
+            padding: 0.6rem 0;
+          }
         }
       }
       tbody {
-        .rank_summoner_name {
-          &:hover {
-            cursor: pointer;
-            text-decoration: underline;
-          }
-        }
         tr:hover {
           background-color: $color-light-border;
+          cursor: pointer;
         }
         td {
           padding: 0.8rem;
           border-bottom: 1px solid $color-light-border;
+          span:hover {
+            cursor: auto;
+          }
+          a {
+            text-decoration: none;
+            span:hover {
+              cursor: pointer;
+            }
+          }
           &.win_rate {
             color: $color-white;
             .win_rate_wrapper {
@@ -63,7 +70,6 @@
     .select_queue_type {
       display: flex;
       flex-direction: row;
-      border-bottom: 1px solid $color-light-border;
       div {
         font-size: 1.6rem;
         padding: 12px;

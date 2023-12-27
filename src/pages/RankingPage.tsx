@@ -84,7 +84,9 @@ export default function RankingPage() {
                     .map((v, i) => {
                       return (
                         <tr key={v.summonerName}>
-                          <td>{currentPage * 100 + i + 1}</td>
+                          <td>
+                            <span>{currentPage * 100 + i + 1}</span>
+                          </td>
                           <td>
                             <Link to={`/summoner/${v.summonerName}`}>
                               <span className="rank_summoner_name">
@@ -92,7 +94,9 @@ export default function RankingPage() {
                               </span>
                             </Link>
                           </td>
-                          <td>{v.leaguePoints}</td>
+                          <td>
+                            <span>{v.leaguePoints}</span>
+                          </td>
                           <WinRateComponent wins={v.wins} loses={v.loses} />
                         </tr>
                       );
