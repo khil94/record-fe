@@ -4,7 +4,7 @@ interface IProp extends React.InputHTMLAttributes<HTMLInputElement> {
   required?: boolean;
   err?: boolean;
   errMsg?: string;
-  label?: string;
+  label: string;
   value: string;
 }
 
@@ -25,7 +25,7 @@ export default function StyledInput({
         required={required}
         value={value}
         {...rest}
-        id="styled_input"
+        id={`styled_input_${label}`}
       />
       <label htmlFor="styled_input">{label}</label>
       {err && value.length > 0 && <span className="error_msg">{errMsg}</span>}
