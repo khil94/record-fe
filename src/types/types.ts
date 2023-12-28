@@ -118,3 +118,10 @@ export interface IUser {
   email: string;
   accessToken?: string;
 }
+
+export interface IError {
+  errorCode: string;
+  httpStatus: string;
+  message: string;
+  data: unknown;
+}
