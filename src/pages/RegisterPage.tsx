@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { PostRegister } from "../api/apis";
 import CommonModal from "../components/CommonModal";
+import StyledInput from "../components/StyledInput";
 import { IError } from "../types/types";
 import "./RegisterPage.scss";
 
@@ -85,61 +86,34 @@ export default function RegisterPage() {
           id="register_form"
           className="register_form"
         >
-          <div className="input_wrapper">
-            <input
-              onChange={(e) => {
-                setEmail(e.target.value);
-              }}
-              className={`${
-                email.length === 0 ? "" : emailValid ? "valid" : "invalid"
-              }`}
-              type="email"
-              id="register_email"
-              value={email}
-            />
-            <label htmlFor="register_email">이메일</label>
-            {!emailValid && email.length > 0 && (
-              <span className="error_msg">이메일 형식에 맞게 써주세요.</span>
-            )}
-          </div>
-          <div className="input_wrapper">
-            <input
-              onChange={(e) => {
-                setPwd(e.target.value.trim());
-              }}
-              className={`${
-                pwd.length === 0 ? "" : pwdValid ? "valid" : "invalid"
-              }`}
-              id="register_password"
-              value={pwd}
-              maxLength={16}
-              type="password"
-            />
-            <label htmlFor="register_password">비밀번호</label>
-            {!pwdValid && pwd.length > 0 && (
-              <span className="error_msg">비밀번호는 8~16자리로 해주세요.</span>
-            )}
-          </div>
-          <div className="input_wrapper">
-            <input
-              onChange={(e) => {
-                setPwdCheck(e.target.value.trim());
-              }}
-              className={`${
-                pwdCheck.length === 0 ? "" : pwdCheckValid ? "valid" : "invalid"
-              }`}
-              id="register_password_check"
-              value={pwdCheck}
-              maxLength={16}
-              type="password"
-            />
-            <label htmlFor="register_password_check">비밀번호 확인</label>
-            {!pwdCheckValid && pwdCheck.length > 0 && (
-              <span className="error_msg">
-                비밀번호 확인이 비밀번호와 같지 않습니다.
-              </span>
-            )}
-          </div>
+          <StyledInput
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
+            required
+            label="이메일"
+            err={!emailValid}
+            errMsg={"이메일 형식에 맞게 써주세요."}
+          />
+          <StyledInput
+            onChange={(e) => setPwd(e.target.value.trim())}
+            value={pwd}
+            required
+            label="비밀번호"
+            err={!pwdValid}
+            type="password"
+            maxLength={16}
+            errMsg={"비밀번호는 8~16자리로 해주세요."}
+          />
+          <StyledInput
+            onChange={(e) => setPwdCheck(e.target.value.trim())}
+            value={pwdCheck}
+            required
+            label="비밀번호 확인"
+            err={!pwdCheckValid}
+            type="password"
+            maxLength={16}
+            errMsg={"비밀번호 확인이 비밀번호와 같지 않습니다."}
+          />
         </form>
         <button
           disabled={!emailValid || !pwdValid || !pwdCheckValid}

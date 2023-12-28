@@ -51,8 +51,19 @@ export default function LoginPage() {
           id="login_form"
           className="login_form"
         >
-          <StyledInput onChange={(v) => setEmail(v)} required value="이메일" />
-          <StyledInput onChange={(v) => setPwd(v)} required value="비밀번호" />
+          <StyledInput
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            label="이메일"
+          />
+          <StyledInput
+            onChange={(e) => setPwd(e.target.value.trim())}
+            required
+            value={pwd}
+            type="password"
+            label="비밀번호"
+          />
         </form>
         <button form="login_form" className="btn_submit" type="submit">
           로그인
