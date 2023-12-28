@@ -26,7 +26,6 @@ export default function LoginPage() {
       login();
       await mutate({
         email: email,
-        accessToken: resp.data.accessToken,
       });
       navigator("/");
     } catch {

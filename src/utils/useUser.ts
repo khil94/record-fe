@@ -1,12 +1,11 @@
-import useSWR from "swr";
+import useSWRMutation from "swr";
 import { IUser } from "../types/types";
 export const USER_KEY = "/user-data";
 
 export default function useUser() {
-  const { data, mutate } = useSWR<IUser>(USER_KEY, {
+  const { data, mutate } = useSWRMutation<IUser>(USER_KEY, {
     fallbackData: {
-      email: "",
-      accessToken: "",
+      email: localStorage.getItem("user") || "",
     },
   });
 

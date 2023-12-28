@@ -116,7 +116,6 @@ export interface ILoginResp {
 
 export interface IUser {
   email: string;
-  accessToken?: string;
 }
 
 export interface IError {
