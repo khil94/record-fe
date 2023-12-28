@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import API from "../api/api";
 import { PostLogin } from "../api/apis";
 import CommonModal from "../components/CommonModal";
+import StyledInput from "../components/StyledInput";
 import useUser from "../utils/useUser";
 import "./LoginPage.scss";
 
@@ -50,23 +51,8 @@ export default function LoginPage() {
           id="login_form"
           className="login_form"
         >
-          <div className="input_wrapper">
-            <input
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              id="login_email"
-            />
-            <label htmlFor="login_email">이메일</label>
-          </div>
-          <div className="input_wrapper">
-            <input
-              onChange={(e) => setPwd(e.target.value)}
-              required
-              id="login_password"
-              type="password"
-            />
-            <label htmlFor="login_password">비밀번호</label>
-          </div>
+          <StyledInput onChange={(v) => setEmail(v)} required value="이메일" />
+          <StyledInput onChange={(v) => setPwd(v)} required value="비밀번호" />
         </form>
         <button form="login_form" className="btn_submit" type="submit">
           로그인
