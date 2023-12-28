@@ -31,10 +31,19 @@
         color: $color-dark-border;
       }
     }
-    &:valid ~ label {
+    &.valid ~ label {
       transform: translateY(-4.2rem);
       font-size: 1.4rem;
       color: $color-win-bold;
     }
+    &.invalid ~ label {
+      transform: translateY(-4.2rem);
+      font-size: 1.4rem;
+      color: $color-red;
+    }
+  }
+  .error_msg {
+    color: $color-red;
+    font-size: 1.2rem;
   }
 }
