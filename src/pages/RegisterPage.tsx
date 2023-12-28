@@ -1,7 +1,9 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { PostRegister } from "../api/apis";
 import CommonModal from "../components/CommonModal";
+import { IError } from "../types/types";
 import "./RegisterPage.scss";
 
 export default function RegisterPage() {
@@ -13,6 +15,7 @@ export default function RegisterPage() {
   const [pwdCheckValid, setPwdCheckValid] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [endRegister, setEndRegister] = useState(false);
+  const [errMsg, setErrMsg] = useState("");
 
   const navigator = useNavigate();
 
@@ -47,8 +50,17 @@ export default function RegisterPage() {
     try {
       await PostRegister(email, pwd, pwdCheck);
       setEndRegister(true);
-    } catch {
-      setShowModal(true);
+    } catch (e) {
+      if (axios.isAxiosError<IError>(e)) {
+        if (e.response?.data.errorCode === "9000") {
+          setErrMsg(e.response.data.message);
+        } else {
+          setErrMsg(
+            "회원가입 과정에서 오류가 발생했습니다. 중복된 아이디 이거나 입력된 정보가 정확하지 않을 수 있습니다."
+          );
+        }
+        setShowModal(true);
+      }
     }
   }
 
@@ -141,9 +153,7 @@ export default function RegisterPage() {
       <CommonModal
         showModal={showModal}
         title={"회원가입 오류"}
-        message={
-          "회원가입 과정에서 오류가 발생했습니다. 중복된 아이디 이거나 입력된 정보가 정확하지 않을 수 있습니다."
-        }
+        message={errMsg}
         onDisapppear={() => {
           resetForm();
           setShowModal(false);
