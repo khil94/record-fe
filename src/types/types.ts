@@ -119,7 +119,7 @@ export interface IUser {
 }
 
 export interface IError {
-  errorCode: string;
+  errorCode: number;
   httpStatus: string;
   message: string;
   data: unknown;

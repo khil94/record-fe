@@ -53,7 +53,7 @@ export default function RegisterPage() {
       setEndRegister(true);
     } catch (e) {
       if (axios.isAxiosError<IError>(e)) {
-        if (e.response?.data.errorCode === "9000") {
+        if (e.response?.data.errorCode === 9000) {
           setErrMsg(e.response.data.message);
         } else {
           setErrMsg(
