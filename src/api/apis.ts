@@ -78,6 +78,14 @@ export const APITEST = async () => {
   return resp;
 };
 
+export const PostLoginTest = async (email: string, password: string) => {
+  const resp = await API.post<ILoginResp>(`/user/login/test`, {
+    email,
+    password,
+  });
+  return resp;
+};
+
 export const PostRefresh = async () => {
   const resp = await API.post("/user/refresh", {
     headers: {
