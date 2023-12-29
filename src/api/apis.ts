@@ -72,3 +72,8 @@ export const PostRegister = async (
   });
   return resp;
 };
+
+export const APITEST = async () => {
+  const resp = await API.post("/user/auth/test");
+  return resp;
+};
