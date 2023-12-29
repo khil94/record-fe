@@ -17,7 +17,7 @@ export default function LoginPage() {
   async function HandleLogin() {
     try {
       const resp = await PostLogin(email, pwd);
-      await localStorage.setItem("user", resp.data.refreshToken);
+      localStorage.setItem("user", resp.data.refreshToken);
       API.defaults.headers.common[
         "Authorization"
       ] = `Bearer ${resp.data.accessToken}`;
