@@ -31,6 +31,7 @@ export default function useUser() {
           ? true
           : false,
     },
+    revalidateOnFocus: false,
   });
 
   const logout = async () => {
