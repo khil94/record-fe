@@ -32,7 +32,10 @@ function App() {
             path="register"
             element={<AuthRouter reverse children={<RegisterPage />} />}
           />
-          <Route path="/email_auth" element={<EmailAuthPage />} />
+          <Route
+            path="/email_auth"
+            element={<AuthRouter children={<EmailAuthPage />} />}
+          />
         </Routes>
       </GlobalLayout>
     </BrowserRouter>
