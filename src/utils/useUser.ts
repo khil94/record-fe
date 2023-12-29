@@ -1,13 +1,12 @@
-import useSWRMutation from "swr";
+import useSWRImmutable from "swr";
 import API from "../api/api";
 import { PostRefresh } from "../api/apis";
 import { IUser } from "../types/types";
 export const USER_KEY = "/user-data";
 
 export default function useUser() {
-  const accessToken = API.defaults.headers.common["Authorization"];
-  const refreshToken = localStorage.getItem("user");
   const fetcher: () => Promise<IUser> = async () => {
+    const refreshToken = localStorage.getItem("user");
     try {
       if (refreshToken) {
         API.defaults.headers.common["Authorization"] = `Bearer ${refreshToken}`;
@@ -24,21 +23,24 @@ export default function useUser() {
     }
   };
 
-  const { data, mutate } = useSWRMutation<IUser>(USER_KEY, fetcher, {
+  const { data, mutate } = useSWRImmutable<IUser>(USER_KEY, fetcher, {
     fallbackData: {
-      auth: accessToken !== undefined || refreshToken ? true : false,
+      auth:
+        API.defaults.headers.common["Authorization"] !== undefined ||
+        localStorage.getItem("user")
+          ? true
+          : false,
     },
-    suspense: true,
   });
 
-  const logout = () => {
-    mutate({ auth: false });
+  const logout = async () => {
     API.defaults.headers.common["Authorization"] = "";
     localStorage.removeItem("user");
+    await mutate({ auth: false });
   };
 
-  const login = () => {
-    mutate({ auth: true });
+  const login = async () => {
+    await mutate({ auth: true });
   };
 
   return { data, logout, login };
