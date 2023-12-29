@@ -12,13 +12,10 @@ const API_CONFIG = {
 const API = axios.create(API_CONFIG);
 
 const ErrorHandler = (err: AxiosError) => {
-  console.log("err", err);
-
   return Promise.reject(err);
 };
 
 API.interceptors.request.use((config: InternalAxiosRequestConfig) => {
-  console.log("req", config);
   return config;
 }, ErrorHandler);
 

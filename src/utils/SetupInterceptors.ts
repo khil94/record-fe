@@ -12,17 +12,14 @@ const SetupInterceptors = (navigate: NavigateFunction) => {
   if (once) {
     API.interceptors.response.use(
       (config: AxiosResponse) => {
-        console.log("res", config);
         return config;
       },
       async (e: AxiosError) => {
         const { config } = e;
-        console.log(e);
         if (axios.isAxiosError<IError>(e)) {
           const refToken = localStorage.getItem("user");
           switch (e.response?.data.errorCode) {
             case 1002:
-              console.log(1002);
               if (refToken) {
                 try {
                   API.defaults.headers.common[
@@ -37,7 +34,7 @@ const SetupInterceptors = (navigate: NavigateFunction) => {
                     return (await axios.request(config)).data;
                   }
                 } catch (e) {
-                  // navigate('/');
+                  navigate("/");
                   return Promise.reject(e);
                 }
               } else {
@@ -48,16 +45,13 @@ const SetupInterceptors = (navigate: NavigateFunction) => {
               navigate("/email_auth");
               break;
             case 1005:
-              console.log(1005);
               try {
                 if (
                   `Bearer ${refToken}` ===
                   API.defaults.headers.common["Authorization"]
                 ) {
-                  console.log("refresh expired");
                   throw new Error("refresh toekn expired");
                 }
-                console.log("refresh not expired");
                 API.defaults.headers.common[
                   "Authorization"
                 ] = `Bearer ${refToken}`;
@@ -70,9 +64,8 @@ const SetupInterceptors = (navigate: NavigateFunction) => {
                   return await axios.request(config);
                 }
               } catch (e) {
-                console.log("below catch");
                 logout();
-                // navigate('/');
+                navigate("/");
 
                 return config;
               }
