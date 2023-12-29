@@ -8,11 +8,13 @@ import MainPage from "./pages/MainPage";
 import RankingPage from "./pages/RankingPage";
 import RegisterPage from "./pages/RegisterPage";
 import SummonerPage from "./pages/SummonerPage";
+import NavigateComp from "./utils/NavigateComp";
 
 function App() {
   return (
     <BrowserRouter>
       <GlobalLayout>
+        <NavigateComp />
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route
