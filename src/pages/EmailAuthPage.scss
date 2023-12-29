@@ -7,25 +7,19 @@
   justify-content: center;
   align-items: center;
   h1 {
-    margin-bottom: 8rem;
+    margin-bottom: 2.4rem;
+    font-weight: bold;
+  }
+  .subtitle {
+    font-size: 1.4rem;
+    display: flex;
+    flex-direction: column;
+    color: $color-dark-border;
+    margin-bottom: 2rem;
   }
   form {
     display: flex;
     width: 32rem;
     justify-content: space-between;
-    input {
-      padding: 2rem;
-      border: 1px solid $color-light-border;
-      border-radius: $default-border-radius;
-      &:focus {
-        outline: none;
-      }
-      &:disabled {
-        background-color: $color-disabled;
-        &::placeholder {
-          color: $color-white;
-        }
-      }
-    }
   }
 }
