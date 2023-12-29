@@ -77,3 +77,12 @@ export const APITEST = async () => {
   const resp = await API.post("/user/auth/test");
   return resp;
 };
+
+export const PostRefresh = async () => {
+  const resp = await API.post("/user/refresh", {
+    headers: {
+      Authorization: localStorage.getItem("user"),
+    },
+  });
+  return resp;
+};
