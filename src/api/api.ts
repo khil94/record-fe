@@ -1,7 +1,14 @@
-import axios, { AxiosError, InternalAxiosRequestConfig } from "axios";
+import axios, {
+  AxiosError,
+  AxiosResponse,
+  InternalAxiosRequestConfig,
+} from "axios";
+import { IError } from "../types/types";
+import { PostRefresh } from "./apis";
 
 const API_CONFIG = {
   baseURL: import.meta.env.VITE_LOLSTAT_BASE_URL,
+  withCredentials: true,
   headers: {
     "Cache-Control": "max-age=60",
     "Content-Type": "application/json",
@@ -16,8 +23,53 @@ const ErrorHandler = (err: AxiosError) => {
 };
 
 API.interceptors.request.use((config: InternalAxiosRequestConfig) => {
-  console.log("request");
   return config;
 }, ErrorHandler);
+
+API.interceptors.response.use(
+  (config: AxiosResponse) => {
+    console.log("response");
+
+    return config;
+  },
+  async (e: AxiosError) => {
+    const { config } = e;
+    if (axios.isAxiosError<IError>(e)) {
+      switch (e.response?.data.errorCode) {
+        case 1002:
+          window.location.href = "/login";
+          break;
+        case 1003:
+          window.location.href = "/email_auth";
+          break;
+        case 1005:
+          try {
+            const refToken = localStorage.getItem("user");
+            if (
+              `Bearer ${refToken}` ===
+              API.defaults.headers.common["Authorization"]
+            ) {
+              throw new Error("refresh toekn expired");
+            }
+            API.defaults.headers.common["Authorization"] = `Bearer ${refToken}`;
+            const resp = await PostRefresh();
+            API.defaults.headers.common[
+              "Authorization"
+            ] = `Bearer ${resp.data.accessToken}`;
+            if (config) {
+              return await axios(config);
+            }
+          } catch (e) {
+            localStorage.removeItem("user");
+            window.location.href = "/";
+            return config;
+          }
+          break;
+        default:
+      }
+    }
+    return Promise.reject(e);
+  }
+);
 
 export default API;
