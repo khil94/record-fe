@@ -29,7 +29,14 @@ export default function Header() {
         <span>{isAuth ? "메뉴" : "로그인"}</span>
         <div className={`user_dropdown ${showDropdown ? "show" : ""}`}>
           <div>마이페이지</div>
-          <div onClick={logout}>로그아웃</div>
+          <div
+            onClick={() => {
+              logout();
+              navigation("/login");
+            }}
+          >
+            로그아웃
+          </div>
         </div>
       </div>
     );
