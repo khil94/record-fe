@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { PutVerifyEmail } from "../api/apis";
 import CommonModal from "../components/CommonModal";
 import StyledInput from "../components/StyledInput";
@@ -10,6 +11,8 @@ export default function EmailAuthPage() {
   const [authNum, setAuthNum] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [msg, setMsg] = useState("");
+
+  const navigator = useNavigate();
 
   return (
     <div className="email_auth_page_wrapper">
@@ -25,6 +28,7 @@ export default function EmailAuthPage() {
             e.preventDefault();
             try {
               await PutVerifyEmail(authNum);
+              navigator("/");
             } catch (e) {
               if (axios.isAxiosError<IError>(e)) {
                 switch (e.response?.data.errorCode) {
