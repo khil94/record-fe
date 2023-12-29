@@ -19,6 +19,7 @@ const API = axios.create(API_CONFIG);
 
 const ErrorHandler = (err: AxiosError) => {
   console.log("err", err);
+
   return Promise.reject(err);
 };
 
@@ -35,16 +36,37 @@ API.interceptors.response.use(
   async (e: AxiosError) => {
     const { config } = e;
     if (axios.isAxiosError<IError>(e)) {
+      const refToken = localStorage.getItem("user");
       switch (e.response?.data.errorCode) {
         case 1002:
-          window.location.href = "/login";
+          if (refToken) {
+            try {
+              API.defaults.headers.common[
+                "Authorization"
+              ] = `Bearer ${refToken}`;
+              const resp = await PostRefresh();
+              API.defaults.headers.common[
+                "Authorization"
+              ] = `Bearer ${resp.data.accessToken}`;
+              if (config) {
+                config.headers.Authorization = `Bearer ${resp.data.accessToken}`;
+                return (await axios.request(config)).data;
+              }
+            } catch (e) {
+              console.log("catch", e);
+              // localStorage.removeItem("user");
+              // window.location.href = "/";
+              return config;
+            }
+          } else {
+            window.location.href = "/login";
+          }
           break;
         case 1003:
           window.location.href = "/email_auth";
           break;
         case 1005:
           try {
-            const refToken = localStorage.getItem("user");
             if (
               `Bearer ${refToken}` ===
               API.defaults.headers.common["Authorization"]
@@ -57,7 +79,8 @@ API.interceptors.response.use(
               "Authorization"
             ] = `Bearer ${resp.data.accessToken}`;
             if (config) {
-              return await axios(config);
+              config.headers.Authorization = `Bearer ${resp.data.accessToken}`;
+              return await axios.request(config);
             }
           } catch (e) {
             localStorage.removeItem("user");
