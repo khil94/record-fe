@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import GlobalLayout from "./Layouts/GlobalLayout";
 import AuthRouter from "./components/AuthRouter";
+import EmailAuthPage from "./pages/EmailAuthPage";
 import LoginPage from "./pages/LoginPage";
 import MainPage from "./pages/MainPage";
 import RankingPage from "./pages/RankingPage";
@@ -31,6 +32,7 @@ function App() {
             path="register"
             element={<AuthRouter reverse children={<RegisterPage />} />}
           />
+          <Route path="/email_auth" element={<EmailAuthPage />} />
         </Routes>
       </GlobalLayout>
     </BrowserRouter>
