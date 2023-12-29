@@ -53,9 +53,8 @@ API.interceptors.response.use(
                 return (await axios.request(config)).data;
               }
             } catch (e) {
-              console.log("catch", e);
-              // localStorage.removeItem("user");
-              // window.location.href = "/";
+              localStorage.removeItem("user");
+              window.location.href = "/";
               return config;
             }
           } else {
