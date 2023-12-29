@@ -87,10 +87,13 @@ export const PostLoginTest = async (email: string, password: string) => {
 };
 
 export const PostRefresh = async () => {
-  const resp = await API.post("/user/refresh", {
-    headers: {
-      Authorization: localStorage.getItem("user"),
-    },
+  const resp = await API.post<ILoginResp>("/user/refresh");
+  return resp;
+};
+
+export const PutVerifyEmail = async (verificationCode: string) => {
+  const resp = await API.put("/user/verify", {
+    verificationCode,
   });
   return resp;
 };
