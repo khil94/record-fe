@@ -3,8 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import SearchInput from "../components/SearchInput";
 import { MENU_LIST } from "../constants/Enum";
 import { addRecentSearchVal } from "../utils/generalFunctions";
-import { useAuth } from "../utils/useAuth";
 import { useOnClickOutside } from "../utils/useOnClickOutside";
+import useUser from "../utils/useUser";
 import "./Header.scss";
 
 export default function Header() {
@@ -12,7 +12,7 @@ export default function Header() {
   const [showDropdown, setShowDropdown] = useState(false);
   const ref = useRef(null);
 
-  const { isAuth, logout } = useAuth();
+  const { data, logout } = useUser();
   const navigation = useNavigate();
 
   useOnClickOutside(ref, () => setShowDropdown(false));
@@ -21,12 +21,12 @@ export default function Header() {
     return (
       <div
         onClick={() => {
-          isAuth ? setShowDropdown(!showDropdown) : navigation("/login");
+          data?.auth ? setShowDropdown(!showDropdown) : navigation("/login");
         }}
         className="user_wrapper"
         ref={ref}
       >
-        <span>{isAuth ? "메뉴" : "로그인"}</span>
+        <span>{data?.auth ? "메뉴" : "로그인"}</span>
         <div className={`user_dropdown ${showDropdown ? "show" : ""}`}>
           <div>마이페이지</div>
           <div

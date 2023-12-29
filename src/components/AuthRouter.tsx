@@ -1,6 +1,6 @@
 import { ReactNode, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../utils/useAuth";
+import useUser from "../utils/useUser";
 
 interface IProp {
   children: ReactNode;
@@ -8,17 +8,17 @@ interface IProp {
 }
 
 export default function AuthRouter({ children, reverse = false }: IProp) {
-  const { isAuth } = useAuth();
+  const { data } = useUser();
   const navigator = useNavigate();
 
   useEffect(() => {
-    if (isAuth && reverse) {
+    if (data?.auth && reverse) {
       navigator("/");
     }
-    if (!isAuth && !reverse) {
+    if (!data?.auth && !reverse) {
       navigator("/");
     }
-  }, [isAuth, reverse]);
+  }, [data?.auth, reverse]);
 
   return <>{children}</>;
 }

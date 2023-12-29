@@ -115,7 +115,7 @@ export interface ILoginResp {
 }
 
 export interface IUser {
-  email: string;
+  auth: boolean;
 }
 
 export interface IError {
