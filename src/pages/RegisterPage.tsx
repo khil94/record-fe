@@ -22,7 +22,7 @@ export default function RegisterPage() {
 
   // 이메일 에러 판정
   useEffect(() => {
-    if (email.length > 0 && /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
+    if (email.length > 0 && /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
       setEmailVaild(true);
     } else {
       setEmailVaild(false);
