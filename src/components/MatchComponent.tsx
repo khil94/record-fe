@@ -12,6 +12,15 @@ interface IProps {
 export default function MatchComponent({ matchData, userName }: IProps) {
   const [show, setShow] = useState(false);
   const { matchId, queueId, participants } = matchData;
+  const sortedParticipants = participants.sort((a, b) => {
+    if (b.win && !a.win) {
+      return 1;
+    }
+    if (!b.win && a.win) {
+      return -1;
+    }
+    return 0;
+  });
 
   const target = participants.find((v) => v.summonerName === userName)!;
   // 승/패 팀 나누어서 표기 할것 => 두 팀을 나누어서 변수화 해라
@@ -132,7 +141,7 @@ export default function MatchComponent({ matchData, userName }: IProps) {
       {show ? (
         <div className="match_detail_wrapper">
           <div className="match_detail">
-            {participants.slice(0, 5).map((v) => (
+            {sortedParticipants.slice(0, 5).map((v) => (
               <ParticipantComponent
                 key={`${v.summonerName}+${matchId}`}
                 {...v}
@@ -140,7 +149,7 @@ export default function MatchComponent({ matchData, userName }: IProps) {
             ))}
           </div>
           <div className="match_detail">
-            {participants.slice(5).map((v) => (
+            {sortedParticipants.slice(5).map((v) => (
               <ParticipantComponent
                 key={`${v.summonerName}+${matchId}`}
                 {...v}
