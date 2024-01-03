@@ -18,16 +18,14 @@ interface IProp {
 const MatchesComponent = React.memo(({ data, q }: IProp) => {
   const pageNumber = useRef(1);
   const [gameListData, setGameListData] = useState<ISimpleMatch[]>(
-    data.matches
+    filtering(data.matches)
   );
   const [isMoreLoading, setIsMoreLoading] = useState(false);
   const [userGameList, setUserGameList] = useState<ISimpleParticipant[]>([]);
 
   function filtering(data: ISimpleMatch[]) {
-    // console.log("inside filtering func", data);
     return q ? data.filter((t) => t.queueId === q) : data;
   }
-  // console.log(userGameList, q, data);
 
   useEffect(() => {
     const target = filtering(gameListData);
@@ -42,7 +40,6 @@ const MatchesComponent = React.memo(({ data, q }: IProp) => {
         temp.push(ttarget);
       }
     });
-    console.log("inside ue", target, q, userGameList, temp);
 
     setUserGameList(temp);
   }, [gameListData, q, data]);
@@ -96,11 +93,6 @@ const MatchesComponent = React.memo(({ data, q }: IProp) => {
       </div>
     </div>
   );
-}, propsAreEqual);
-
-function propsAreEqual(prev: Readonly<IProp>, next: Readonly<IProp>) {
-  console.log(prev.q === next.q);
-  return prev.q === next.q;
-}
+});
 
 export default MatchesComponent;
