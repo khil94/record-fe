@@ -1,40 +1,18 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import MultiTabLayout from "../Layouts/MultiTabLayout";
-import { GetGameList, useSummonerInfo, useSummonerInfoById } from "../api/apis";
+import { useSummonerInfo, useSummonerInfoById } from "../api/apis";
 import Loading from "../components/Loading";
-import MatchComponent from "../components/MatchComponent";
-import UserRecentInfoComponent from "../components/UserRecentInfoComponent";
-import {
-  ILeagueEntry,
-  IProfile,
-  IQueueId,
-  ISimpleMatch,
-  ISimpleParticipant,
-  ISummonerProfile,
-} from "../types/types";
+import MatchesComponent from "../components/MatchesComponent";
+import { ILeagueEntry, ISummonerProfile } from "../types/types";
 import { getFullTierName } from "../utils/generalFunctions";
 import "./SummonerPage.scss";
 
 export default function SummonerPage() {
   const { summonerName, tagName, id } = useParams();
-  const [gameListData, setGameListData] = useState<ISimpleMatch[]>([]);
-  const [summonerProfileData, setSummonerProfileData] = useState<IProfile>();
-  const [isMoreLoading, setIsMoreLoading] = useState(false);
+  const [gameData, setGameData] = useState<ISummonerProfile>();
   const dataByName = useSummonerInfo(summonerName, tagName);
   const dataById = useSummonerInfoById(id);
-
-  const pageNumber = useRef(1);
-
-  const getMoreGameList = async (puid: string) => {
-    const targetNumber = pageNumber.current + 1;
-    const gameData = await GetGameList(puid, targetNumber);
-    if (gameData) {
-      setGameListData([...gameListData, ...gameData.data]);
-      pageNumber.current = pageNumber.current + 1;
-      setIsMoreLoading(false);
-    }
-  };
 
   useEffect(() => {
     if (
@@ -42,8 +20,7 @@ export default function SummonerPage() {
       !dataByName.isValidating &&
       dataByName.data?.matches
     ) {
-      setGameListData(dataByName.data.matches);
-      setSummonerProfileData(dataByName.data.profile);
+      setGameData(dataByName.data);
     }
   }, [
     dataByName.isLoading,
@@ -58,8 +35,7 @@ export default function SummonerPage() {
       !dataById.isValidating &&
       dataById.data?.matches
     ) {
-      setGameListData(dataById.data.matches);
-      setSummonerProfileData(dataById.data.profile);
+      setGameData(dataById.data);
     }
   }, [
     dataById.isLoading,
@@ -102,63 +78,6 @@ export default function SummonerPage() {
     );
   };
 
-  function MatchComp(
-    targetData: ISimpleMatch[],
-    profileData?: IProfile,
-    v?: IQueueId
-  ) {
-    const target = v ? targetData.filter((t) => t.queueId === v) : targetData;
-    const userName = profileData?.summonerName || "";
-    const temp: ISimpleParticipant[] = [];
-    if (target.length === 0) {
-      return (
-        <div className="summoner_detail_wrapper">
-          매칭기록이 존재하지 않습니다.
-        </div>
-      );
-    }
-    target.forEach((v) => {
-      const ttarget = v.participants.find(
-        (t) => t.summonerName.toLowerCase() === userName.toLowerCase()
-      );
-      if (ttarget) {
-        temp.push(ttarget);
-      }
-    });
-
-    return (
-      <div className="summoner_detail_wrapper">
-        <UserRecentInfoComponent userData={temp} />
-        <div className="matches_container">
-          {target.map((v) => {
-            return (
-              <MatchComponent
-                key={v.matchId}
-                matchData={v}
-                userName={userName}
-              />
-            );
-          })}
-          <div className="more_match">
-            {isMoreLoading ? (
-              <Loading width={18} />
-            ) : (
-              <button
-                onClick={() => {
-                  setIsMoreLoading(true);
-                  getMoreGameList(profileData?.puuid || "");
-                }}
-                type="button"
-              >
-                더보기
-              </button>
-            )}
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   function SummonerProfile(data: ISummonerProfile) {
     return (
       <>
@@ -179,22 +98,18 @@ export default function SummonerPage() {
           </div>
         </div>
         <div className="multi_tab_wrapper">
-          <MultiTabLayout
-            tabList={["전체", "솔로 랭크", "자유 랭크", "기타"]}
-            tabPageList={[
-              MatchComp(gameListData, summonerProfileData),
-              MatchComp(gameListData, summonerProfileData, "SOLO_RANK_GAME"),
-              MatchComp(gameListData, summonerProfileData, "FLEX_RANK_GAME"),
-              MatchComp(
-                gameListData.filter(
-                  (v) =>
-                    v.queueId !== "FLEX_RANK_GAME" &&
-                    v.queueId !== "SOLO_RANK_GAME"
-                ),
-                summonerProfileData
-              ),
-            ]}
-          />
+          {gameData && (
+            <MultiTabLayout
+              tabList={["전체", "솔로 랭크", "자유 랭크", "일반", "기타"]}
+              tabPageList={[
+                <MatchesComponent data={gameData} />,
+                <MatchesComponent data={gameData} q="SOLO_RANK_GAME" />,
+                <MatchesComponent data={gameData} q="FLEX_RANK_GAME" />,
+                <MatchesComponent data={gameData} q="NORMAL_GAME" />,
+                <MatchesComponent data={gameData} q="OTHER_GAME" />,
+              ]}
+            />
+          )}
         </div>
       </>
     );
