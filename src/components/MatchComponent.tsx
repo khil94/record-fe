@@ -53,13 +53,7 @@ export default function MatchComponent({ matchData, userName }: IProps) {
                   key={matchId + userName + v.name + i}
                   className="item_icon"
                 >
-                  {v.imageUrl && (
-                    <ObjImgComponent
-                      {...v}
-                      image={v.imageUrl}
-                      description={v.plaintext}
-                    />
-                  )}
+                  {v && <ObjImgComponent {...v} description={v.plaintext} />}
                 </div>
               );
             }
@@ -113,12 +107,8 @@ export default function MatchComponent({ matchData, userName }: IProps) {
                       key={matchId + userName + v.name + i}
                       className="item_icon"
                     >
-                      {v.imageUrl && (
-                        <ObjImgComponent
-                          {...v}
-                          image={v.imageUrl}
-                          description={v.plaintext}
-                        />
+                      {v && (
+                        <ObjImgComponent {...v} description={v.plaintext} />
                       )}
                     </div>
                   );

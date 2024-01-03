@@ -79,7 +79,7 @@ export interface IChampion {
 export interface IItem {
   name: string;
   plaintext: string;
-  imageUrl: string;
+  image: string;
 }
 
 export interface ISpell {
