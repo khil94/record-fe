@@ -38,9 +38,37 @@ export function useRankingInfo(
   return resp;
 }
 
-export function useSummonerInfo(summonerName: string, tagName: string) {
+export function useSummonerInfo(summonerName?: string, tagName?: string) {
   const resp = useSWR(
-    `/summoner/${summonerName}-${tagName}`,
+    summonerName && tagName ? `/summoner/${summonerName}-${tagName}` : null,
+    (url: string) => {
+      return API.get<ISummonerProfile>(url).then((res) => res.data);
+    },
+    {
+      revalidateOnFocus: false,
+    }
+  );
+
+  return resp;
+}
+
+export function useSummonerInfoById(summonerId: string) {
+  const resp = useSWR(
+    summonerId ? `/summoner/summonerId/${summonerId}` : null,
+    (url: string) => {
+      return API.get<ISummonerProfile>(url).then((res) => res.data);
+    },
+    {
+      revalidateOnFocus: false,
+    }
+  );
+
+  return resp;
+}
+
+export function useSummonerInfoByPuuid(puuid: string) {
+  const resp = useSWR(
+    puuid ? `/summoner/puuid/${puuid}` : null,
     (url: string) => {
       return API.get<ISummonerProfile>(url).then((res) => res.data);
     },
