@@ -170,6 +170,7 @@ export default function SummonerPage() {
             </div>
             <div className="summoner_name">
               <span>{data.profile.summonerName}</span>
+              <span className="summoner_tag">{`#${data.profile.tagLine}`}</span>
             </div>
           </div>
           <div className="summoner_league_container">
