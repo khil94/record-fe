@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useRankingInfo } from "../api/apis";
 import Loading from "../components/Loading";
 import { ILeaderBoardQueueTyep } from "../types/types";
@@ -9,9 +9,10 @@ export default function RankingPage() {
   const [currentQueueType, setCurrentQueueType] =
     useState<ILeaderBoardQueueTyep>("RANKED_SOLO_5x5");
   const [currentPage, setCurrentPage] = useState(0);
+
+  const navigator = useNavigate();
   const MAX_PAGE_NUMBER = 100;
   const { data, isLoading } = useRankingInfo(currentQueueType, 1);
-  console.log(data?.players.length);
 
   function WinRateComponent({ wins, loses }: { wins: number; loses: number }) {
     const total = wins + loses;
@@ -63,7 +64,7 @@ export default function RankingPage() {
             <div className="ranking_content">
               <table>
                 <colgroup>
-                  <col />
+                  <col width={60} />
                   <col />
                   <col />
                   <col />
@@ -85,15 +86,22 @@ export default function RankingPage() {
                     .map((v, i) => {
                       return (
                         <tr key={v.summonerName}>
-                          <td>{currentPage * 100 + i + 1}</td>
                           <td>
-                            <Link to={`/summoner/${v.summonerName}`}>
-                              <span className="rank_summoner_name">
-                                {v.summonerName}
-                              </span>
-                            </Link>
+                            <span>{currentPage * 100 + i + 1}</span>
                           </td>
-                          <td>{v.leaguePoints}</td>
+                          <td
+                            onClick={() =>
+                              navigator(`/summoner/${v.summonerName}`)
+                            }
+                            className="ranker_td"
+                          >
+                            <span className="rank_summoner_name">
+                              {v.summonerName}
+                            </span>
+                          </td>
+                          <td>
+                            <span>{v.leaguePoints}</span>
+                          </td>
                           <WinRateComponent wins={v.wins} loses={v.loses} />
                         </tr>
                       );
@@ -102,7 +110,7 @@ export default function RankingPage() {
               </table>
             </div>
             <div className="page_wrapper">
-              {Array((data?.players.length || 0) / 100)
+              {Array(Math.ceil((data?.players.length || 0) / 100))
                 .fill("")
                 .map((_, i) => {
                   return (

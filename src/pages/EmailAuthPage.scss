@@ -1,0 +1,25 @@
+@import "../variable";
+
+.email_auth_page_wrapper {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  h1 {
+    margin-bottom: 2.4rem;
+    font-weight: bold;
+  }
+  .subtitle {
+    font-size: 1.4rem;
+    display: flex;
+    flex-direction: column;
+    color: $color-dark-border;
+    margin-bottom: 2rem;
+  }
+  form {
+    display: flex;
+    width: 32rem;
+    justify-content: space-between;
+  }
+}

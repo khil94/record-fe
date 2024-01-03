@@ -1,6 +1,7 @@
 import useSWR from "swr";
 import {
   ILeaderBoardQueueTyep,
+  ILoginResp,
   IRanking,
   ISimpleMatch,
   ISummonerProfile,
@@ -50,3 +51,49 @@ export function useSummonerInfo(summonerName: string, tagName: string) {
 
   return resp;
 }
+
+export const PostLogin = async (email: string, password: string) => {
+  const resp = await API.post<ILoginResp>(`/user/login`, {
+    email,
+    password,
+  });
+  return resp;
+};
+
+export const PostRegister = async (
+  email: string,
+  password: string,
+  passwordCheck: string
+) => {
+  const resp = await API.post("/user", {
+    email,
+    password,
+    passwordCheck,
+  });
+  return resp;
+};
+
+export const APITEST = async () => {
+  const resp = await API.post("/user/auth/test");
+  return resp;
+};
+
+export const PostLoginTest = async (email: string, password: string) => {
+  const resp = await API.post<ILoginResp>(`/user/login/test`, {
+    email,
+    password,
+  });
+  return resp;
+};
+
+export const PostRefresh = async () => {
+  const resp = await API.post<ILoginResp>("/user/refresh");
+  return resp;
+};
+
+export const PutVerifyEmail = async (verificationCode: string) => {
+  const resp = await API.put("/user/verify", {
+    verificationCode,
+  });
+  return resp;
+};

@@ -1,13 +1,46 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import SearchInput from "../components/SearchInput";
 import { MENU_LIST } from "../constants/Enum";
 import { addRecentSearchVal } from "../utils/generalFunctions";
+import { useOnClickOutside } from "../utils/useOnClickOutside";
+import useUser from "../utils/useUser";
 import "./Header.scss";
 
 export default function Header() {
   const [searchVal, setSearchVal] = useState("");
+  const [showDropdown, setShowDropdown] = useState(false);
+  const ref = useRef(null);
+
+  const { data, logout } = useUser();
   const navigation = useNavigate();
+
+  useOnClickOutside(ref, () => setShowDropdown(false));
+
+  const UserComponent = () => {
+    return (
+      <div
+        onClick={() => {
+          data?.auth ? setShowDropdown(!showDropdown) : navigation("/login");
+        }}
+        className="user_wrapper"
+        ref={ref}
+      >
+        <span>{data?.auth ? "메뉴" : "로그인"}</span>
+        <div className={`user_dropdown ${showDropdown ? "show" : ""}`}>
+          <div>마이페이지</div>
+          <div
+            onClick={() => {
+              logout();
+              navigation("/login");
+            }}
+          >
+            로그아웃
+          </div>
+        </div>
+      </div>
+    );
+  };
 
   return (
     <header className="header" id="header">
@@ -27,18 +60,21 @@ export default function Header() {
               ))}
             </ul>
           </nav>
-          <SearchInput
-            value={searchVal}
-            onSubmit={() => {
-              const val = searchVal.trim();
-              const [name, tag] = val.split("#");
-              setSearchVal("");
-              addRecentSearchVal(val);
-              navigation(`summoner/${name}${tag ? `/${tag}` : "/KR1"}`);
-            }}
-            placeholder="소환사 검색"
-            onChange={(v) => setSearchVal(v)}
-          />
+          <div className="header_right_wrapper">
+            <SearchInput
+              value={searchVal}
+              onSubmit={() => {
+                const val = searchVal.trim();
+                const [name, tag] = val.split("#");
+                setSearchVal("");
+                addRecentSearchVal(val);
+                navigation(`summoner/${name}${tag ? `/${tag}` : "/KR1"}`);
+              }}
+              placeholder="소환사 검색"
+              onChange={(v) => setSearchVal(v)}
+            />
+            <UserComponent />
+          </div>
         </div>
       </div>
     </header>
