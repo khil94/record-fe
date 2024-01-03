@@ -4,6 +4,7 @@ import SearchInput from "../components/SearchInput";
 import {
   addRecentSearchVal,
   deleteRecentSearchVal,
+  makeTagName,
 } from "../utils/generalFunctions";
 import "./MainPage.scss";
 
@@ -50,10 +51,9 @@ export default function MainPage() {
       <SearchInput
         value={searchVal}
         onSubmit={() => {
-          const val = searchVal.trim();
-          const [name, tag] = val.split("#");
-          addRecentSearchVal(name + (tag ? `#${tag}` : `#KR1`));
-          navigation(`summoner/${name}${tag ? `/${tag}` : "/KR1"}`);
+          const { name, tag } = makeTagName(searchVal);
+          addRecentSearchVal(name, tag);
+          navigation(`summoner/${name}/${tag}`);
         }}
         onFocus={() => {
           setShowRecent(true);
