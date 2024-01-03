@@ -91,7 +91,7 @@ export default function RankingPage() {
                           </td>
                           <td
                             onClick={() =>
-                              navigator(`/summoner/${v.summonerName}`)
+                              navigator(`/summoner/${v.summonerId}`)
                             }
                             className="ranker_td"
                           >
