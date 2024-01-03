@@ -52,7 +52,7 @@ export function useSummonerInfo(summonerName?: string, tagName?: string) {
   return resp;
 }
 
-export function useSummonerInfoById(summonerId: string) {
+export function useSummonerInfoById(summonerId?: string) {
   const resp = useSWR(
     summonerId ? `/summoner/summonerId/${summonerId}` : null,
     (url: string) => {
@@ -66,7 +66,7 @@ export function useSummonerInfoById(summonerId: string) {
   return resp;
 }
 
-export function useSummonerInfoByPuuid(puuid: string) {
+export function useSummonerInfoByPuuid(puuid?: string) {
   const resp = useSWR(
     puuid ? `/summoner/puuid/${puuid}` : null,
     (url: string) => {
