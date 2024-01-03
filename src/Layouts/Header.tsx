@@ -67,7 +67,7 @@ export default function Header() {
                 const val = searchVal.trim();
                 const [name, tag] = val.split("#");
                 setSearchVal("");
-                addRecentSearchVal(val);
+                addRecentSearchVal(name + (tag ? `#${tag}` : `#KR1`));
                 navigation(`summoner/${name}${tag ? `/${tag}` : "/KR1"}`);
               }}
               placeholder="소환사 검색"
