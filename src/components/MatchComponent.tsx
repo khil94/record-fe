@@ -69,7 +69,7 @@ export default function MatchComponent({ matchData, userName }: IProps) {
                   {v && (
                     <ObjImgComponent
                       {...v}
-                      description={v.plaintext}
+                      description={v.description}
                       src={v.image}
                     />
                   )}
@@ -133,7 +133,7 @@ export default function MatchComponent({ matchData, userName }: IProps) {
                       {v && (
                         <ObjImgComponent
                           {...v}
-                          description={v.plaintext}
+                          description={v.description}
                           src={v.image}
                         />
                       )}

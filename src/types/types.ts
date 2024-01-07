@@ -78,7 +78,7 @@ export interface IChampion {
 }
 export interface IItem {
   name: string;
-  plaintext: string;
+  description: string;
   image: string;
 }
 
