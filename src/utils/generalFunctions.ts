@@ -77,11 +77,12 @@ export function getGameType(queueType: IQueueId) {
   }
 }
 
-export function addRecentSearchVal(val: string) {
+export function addRecentSearchVal(name: string, tag: string) {
   const temp = localStorage.getItem("recent");
+  const tempVal = name + `#${tag}`;
   const ttemp = temp ? (JSON.parse(temp) as string[]) : [];
-  const tttemp = ttemp.filter((v) => v !== val);
-  tttemp.unshift(val);
+  const tttemp = ttemp.filter((v) => v !== tempVal);
+  tttemp.unshift(tempVal);
   localStorage.setItem("recent", JSON.stringify(tttemp));
 }
 
@@ -90,4 +91,10 @@ export function deleteRecentSearchVal(val: string) {
   const ttemp = temp ? (JSON.parse(temp) as string[]) : [];
   const tttemp = ttemp.filter((v) => v !== val);
   localStorage.setItem("recent", JSON.stringify(tttemp));
+}
+
+export function makeTagName(val: string) {
+  const searchVal = val.trim();
+  const [name, tag] = searchVal.split("#");
+  return { name, tag: tag ? `${tag}` : "KR1" };
 }

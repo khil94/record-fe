@@ -1,13 +1,14 @@
-import { useState } from "react";
+import parse from "html-react-parser";
+import React, { useState } from "react";
 import "./ObjImgComponent.scss";
 
-interface IProp {
+interface IProp extends React.ImgHTMLAttributes<HTMLImageElement> {
   name: string;
   description: string;
   image: string;
 }
 
-export default function ObjImgComponent({ name, description, image }: IProp) {
+export default function ObjImgComponent({ name, description, ...rest }: IProp) {
   const [showDesc, setShowDesc] = useState(false);
 
   return (
@@ -15,13 +16,14 @@ export default function ObjImgComponent({ name, description, image }: IProp) {
       <img
         onMouseEnter={() => setShowDesc(true)}
         onMouseLeave={() => setShowDesc(false)}
-        src={image}
+        src={rest.src}
         alt={name}
+        {...rest}
       />
-      {showDesc && (
+      {showDesc && description && (
         <div className="obj_description">
           <span className="obj_name">{name}</span>
-          <span>{description}</span>
+          <span>{parse(description)}</span>
         </div>
       )}
     </div>

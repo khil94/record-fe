@@ -21,6 +21,7 @@ function App() {
             path="/summoner/:summonerName/:tagName"
             element={<SummonerPage />}
           />
+          <Route path="/summoner/:id" element={<SummonerPage />} />
           <Route path="/ranking" element={<RankingPage />} />
           <Route
             path="/test"

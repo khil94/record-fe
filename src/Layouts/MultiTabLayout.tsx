@@ -23,7 +23,18 @@ export default function MultiTabLayout({ tabList, tabPageList }: IProp) {
           );
         })}
       </div>
-      <div className="tab_page_list">{tabPageList[tabIdx]}</div>
+      <div className="tab_page_list">
+        {tabPageList.map((v, i) => {
+          return (
+            <div
+              className={`tab_page ${i === tabIdx ? "visible" : ""}`}
+              key={`tab_page_${v}_${i}`}
+            >
+              {v}
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }

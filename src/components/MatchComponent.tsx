@@ -12,6 +12,15 @@ interface IProps {
 export default function MatchComponent({ matchData, userName }: IProps) {
   const [show, setShow] = useState(false);
   const { matchId, queueId, participants } = matchData;
+  const sortedParticipants = participants.sort((a, b) => {
+    if (b.win && !a.win) {
+      return 1;
+    }
+    if (!b.win && a.win) {
+      return -1;
+    }
+    return 0;
+  });
 
   const target = participants.find((v) => v.summonerName === userName)!;
   // 승/패 팀 나누어서 표기 할것 => 두 팀을 나누어서 변수화 해라
@@ -27,15 +36,19 @@ export default function MatchComponent({ matchData, userName }: IProps) {
         </div>
         <div className="spell_wrapper wrapper">
           {target.spells.map((v, i) => (
-            <ObjImgComponent key={`spell-${target.summonerName}-${i}`} {...v} />
+            <ObjImgComponent
+              key={`spell-${target.summonerName}-${i}`}
+              {...v}
+              src={v.image}
+            />
           ))}
         </div>
         <div className="rune_wrapper wrapper">
-          <ObjImgComponent {...target.mainRune} />
-          <ObjImgComponent {...target.subRune} />
+          <ObjImgComponent {...target.mainRune} src={target.mainRune.image} />
+          <ObjImgComponent {...target.subRune} src={target.subRune.image} />
         </div>
         <div className="summoner_info_wrapper wrapper">
-          <Link to={`/summoner/${target.summonerName}`}>
+          <Link to={`/summoner/${target.summonerId}`}>
             {target.summonerName}
           </Link>
           <span className="summoner_level">{`Level ${target.summonerLevel}`}</span>
@@ -53,8 +66,12 @@ export default function MatchComponent({ matchData, userName }: IProps) {
                   key={matchId + userName + v.name + i}
                   className="item_icon"
                 >
-                  {v.image && (
-                    <ObjImgComponent {...v} description={v.plaintext} />
+                  {v && (
+                    <ObjImgComponent
+                      {...v}
+                      description={v.description}
+                      src={v.image}
+                    />
                   )}
                 </div>
               );
@@ -89,12 +106,16 @@ export default function MatchComponent({ matchData, userName }: IProps) {
                 <ObjImgComponent
                   key={`spell-${target.summonerName}-${i}`}
                   {...v}
+                  src={v.image}
                 />
               ))}
             </div>
             <div className="rune_wrapper wrapper">
-              <ObjImgComponent {...target.mainRune} />
-              <ObjImgComponent {...target.subRune} />
+              <ObjImgComponent
+                {...target.mainRune}
+                src={target.mainRune.image}
+              />
+              <ObjImgComponent {...target.subRune} src={target.subRune.image} />
             </div>
             <div className="kda_wrapper">
               <span>{target.kills} /</span>
@@ -109,8 +130,12 @@ export default function MatchComponent({ matchData, userName }: IProps) {
                       key={matchId + userName + v.name + i}
                       className="item_icon"
                     >
-                      {v.image && (
-                        <ObjImgComponent {...v} description={v.plaintext} />
+                      {v && (
+                        <ObjImgComponent
+                          {...v}
+                          description={v.description}
+                          src={v.image}
+                        />
                       )}
                     </div>
                   );
@@ -134,20 +159,24 @@ export default function MatchComponent({ matchData, userName }: IProps) {
       {show ? (
         <div className="match_detail_wrapper">
           <div className="match_detail">
-            {participants.slice(0, 5).map((v) => (
-              <ParticipantComponent
-                key={`${v.summonerName}+${matchId}`}
-                {...v}
-              />
-            ))}
+            {sortedParticipants
+              .slice(0, sortedParticipants.length / 2)
+              .map((v) => (
+                <ParticipantComponent
+                  key={`${v.summonerName}+${matchId}`}
+                  {...v}
+                />
+              ))}
           </div>
           <div className="match_detail">
-            {participants.slice(5).map((v) => (
-              <ParticipantComponent
-                key={`${v.summonerName}+${matchId}`}
-                {...v}
-              />
-            ))}
+            {sortedParticipants
+              .slice(sortedParticipants.length / 2)
+              .map((v) => (
+                <ParticipantComponent
+                  key={`${v.summonerName}+${matchId}`}
+                  {...v}
+                />
+              ))}
           </div>
         </div>
       ) : (

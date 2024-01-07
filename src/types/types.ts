@@ -30,6 +30,8 @@ export interface ILeagueEntry {
 
 export interface IProfile {
   puuid: string;
+  gameName: string;
+  tagLine: string;
   summonerName: string;
   summonerLevel: number;
   profileIcon: string;
@@ -38,22 +40,21 @@ export interface IProfile {
 }
 
 export interface ISimpleParticipant {
+  summonerId: string;
   summonerName: string;
   summonerLevel: number;
-  championLevel: number;
-  lane: string;
-  role: string;
-  teamId: number;
   kills: number;
   deaths: number;
   assists: number;
-  summoner1Casts: number;
-  summoner2Casts: number;
+  goldEarned: number;
+  goldSpent: number;
+  teamId: number;
   items: IItem[];
   spells: ISpell[];
   mainRune: IRune;
   subRune: IRune;
   champion: IChampion;
+  championLevel: number;
   win: boolean;
 }
 
@@ -77,7 +78,7 @@ export interface IChampion {
 }
 export interface IItem {
   name: string;
-  plaintext: string;
+  description: string;
   image: string;
 }
 

@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import SearchInput from "../components/SearchInput";
 import { MENU_LIST } from "../constants/Enum";
-import { addRecentSearchVal } from "../utils/generalFunctions";
+import { addRecentSearchVal, makeTagName } from "../utils/generalFunctions";
 import { useOnClickOutside } from "../utils/useOnClickOutside";
 import useUser from "../utils/useUser";
 import "./Header.scss";
@@ -64,11 +64,10 @@ export default function Header() {
             <SearchInput
               value={searchVal}
               onSubmit={() => {
-                const val = searchVal.trim();
-                const [name, tag] = val.split("#");
+                const { name, tag } = makeTagName(searchVal);
                 setSearchVal("");
-                addRecentSearchVal(val);
-                navigation(`summoner/${name}${tag ? `/${tag}` : "/KR1"}`);
+                addRecentSearchVal(name, tag);
+                navigation(`summoner/${name}/${tag}`);
               }}
               placeholder="소환사 검색"
               onChange={(v) => setSearchVal(v)}
