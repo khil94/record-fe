@@ -36,12 +36,16 @@ export default function MatchComponent({ matchData, userName }: IProps) {
         </div>
         <div className="spell_wrapper wrapper">
           {target.spells.map((v, i) => (
-            <ObjImgComponent key={`spell-${target.summonerName}-${i}`} {...v} />
+            <ObjImgComponent
+              key={`spell-${target.summonerName}-${i}`}
+              {...v}
+              src={v.image}
+            />
           ))}
         </div>
         <div className="rune_wrapper wrapper">
-          <ObjImgComponent {...target.mainRune} />
-          <ObjImgComponent {...target.subRune} />
+          <ObjImgComponent {...target.mainRune} src={target.mainRune.image} />
+          <ObjImgComponent {...target.subRune} src={target.subRune.image} />
         </div>
         <div className="summoner_info_wrapper wrapper">
           <Link to={`/summoner/${target.summonerName}`}>
@@ -62,7 +66,13 @@ export default function MatchComponent({ matchData, userName }: IProps) {
                   key={matchId + userName + v.name + i}
                   className="item_icon"
                 >
-                  {v && <ObjImgComponent {...v} description={v.plaintext} />}
+                  {v && (
+                    <ObjImgComponent
+                      {...v}
+                      description={v.plaintext}
+                      src={v.image}
+                    />
+                  )}
                 </div>
               );
             }
@@ -96,12 +106,16 @@ export default function MatchComponent({ matchData, userName }: IProps) {
                 <ObjImgComponent
                   key={`spell-${target.summonerName}-${i}`}
                   {...v}
+                  src={v.image}
                 />
               ))}
             </div>
             <div className="rune_wrapper wrapper">
-              <ObjImgComponent {...target.mainRune} />
-              <ObjImgComponent {...target.subRune} />
+              <ObjImgComponent
+                {...target.mainRune}
+                src={target.mainRune.image}
+              />
+              <ObjImgComponent {...target.subRune} src={target.subRune.image} />
             </div>
             <div className="kda_wrapper">
               <span>{target.kills} /</span>
@@ -117,7 +131,11 @@ export default function MatchComponent({ matchData, userName }: IProps) {
                       className="item_icon"
                     >
                       {v && (
-                        <ObjImgComponent {...v} description={v.plaintext} />
+                        <ObjImgComponent
+                          {...v}
+                          description={v.plaintext}
+                          src={v.image}
+                        />
                       )}
                     </div>
                   );
