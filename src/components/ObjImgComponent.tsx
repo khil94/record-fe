@@ -1,4 +1,5 @@
-import { useState } from "react";
+import parse from "html-react-parser";
+import React, { useState } from "react";
 import "./ObjImgComponent.scss";
 
 interface IProp extends React.ImgHTMLAttributes<HTMLImageElement> {
@@ -22,7 +23,7 @@ export default function ObjImgComponent({ name, description, ...rest }: IProp) {
       {showDesc && description && (
         <div className="obj_description">
           <span className="obj_name">{name}</span>
-          <span>{description}</span>
+          <span>{parse(description)}</span>
         </div>
       )}
     </div>
