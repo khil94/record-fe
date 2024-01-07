@@ -19,7 +19,7 @@ export default function ObjImgComponent({ name, description, ...rest }: IProp) {
         alt={name}
         {...rest}
       />
-      {showDesc && (
+      {showDesc && description && (
         <div className="obj_description">
           <span className="obj_name">{name}</span>
           <span>{description}</span>
