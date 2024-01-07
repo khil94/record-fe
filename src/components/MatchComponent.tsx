@@ -48,7 +48,7 @@ export default function MatchComponent({ matchData, userName }: IProps) {
           <ObjImgComponent {...target.subRune} src={target.subRune.image} />
         </div>
         <div className="summoner_info_wrapper wrapper">
-          <Link to={`/summoner/${target.summonerName}`}>
+          <Link to={`/summoner/${target.summonerId}`}>
             {target.summonerName}
           </Link>
           <span className="summoner_level">{`Level ${target.summonerLevel}`}</span>
