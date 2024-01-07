@@ -141,20 +141,24 @@ export default function MatchComponent({ matchData, userName }: IProps) {
       {show ? (
         <div className="match_detail_wrapper">
           <div className="match_detail">
-            {sortedParticipants.slice(0, 5).map((v) => (
-              <ParticipantComponent
-                key={`${v.summonerName}+${matchId}`}
-                {...v}
-              />
-            ))}
+            {sortedParticipants
+              .slice(0, sortedParticipants.length / 2)
+              .map((v) => (
+                <ParticipantComponent
+                  key={`${v.summonerName}+${matchId}`}
+                  {...v}
+                />
+              ))}
           </div>
           <div className="match_detail">
-            {sortedParticipants.slice(5).map((v) => (
-              <ParticipantComponent
-                key={`${v.summonerName}+${matchId}`}
-                {...v}
-              />
-            ))}
+            {sortedParticipants
+              .slice(sortedParticipants.length / 2)
+              .map((v) => (
+                <ParticipantComponent
+                  key={`${v.summonerName}+${matchId}`}
+                  {...v}
+                />
+              ))}
           </div>
         </div>
       ) : (
