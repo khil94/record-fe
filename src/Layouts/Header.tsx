@@ -47,7 +47,7 @@ export default function Header() {
       <div className="header_inner">
         <h1>
           <Link to="/">
-            <img src="logo.png" width={44} />
+            <img src="/logo.png" width={44} />
           </Link>
         </h1>
         <div className="header_content">

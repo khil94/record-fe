@@ -74,7 +74,7 @@ export default function RegisterPage() {
   return (
     <div className="register_page_wrapper">
       <div className="logo_wrapper">
-        <img src="logo.png" width={88} />
+        <img src="/logo.png" width={88} />
         <div>회원가입</div>
       </div>
       <div className="register_form_wrapper">

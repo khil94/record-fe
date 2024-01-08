@@ -38,7 +38,7 @@ export default function SearchInput({
           onChange={(e) => onChange(e.target.value)}
         />
         <button className="btn_search" type="submit">
-          <img src="search icon.png" width={16} />
+          <img src="/search icon.png" width={16} />
         </button>
       </form>
     </div>

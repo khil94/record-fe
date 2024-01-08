@@ -37,7 +37,7 @@ export default function LoginPage() {
   return (
     <div className="login_page_wrapper">
       <div className="logo_wrapper">
-        <img src="logo.png" width={88} />
+        <img src="/logo.png" width={88} />
       </div>
       <div className="login_form_wrapper">
         <form
