@@ -125,3 +125,8 @@ export const PutVerifyEmail = async (verificationCode: string) => {
   });
   return resp;
 };
+
+export const DeleteUser = async () => {
+  const resp = await API.delete("/user");
+  return resp;
+};
