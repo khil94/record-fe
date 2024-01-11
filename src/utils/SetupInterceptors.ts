@@ -34,6 +34,7 @@ const SetupInterceptors = (navigate: NavigateFunction) => {
                     return (await axios.request(config)).data;
                   }
                 } catch (e) {
+                  await logout();
                   navigate("/");
                   return Promise.reject(e);
                 }
@@ -64,7 +65,7 @@ const SetupInterceptors = (navigate: NavigateFunction) => {
                   return await axios.request(config);
                 }
               } catch (e) {
-                logout();
+                await logout();
                 navigate("/");
 
                 return config;
