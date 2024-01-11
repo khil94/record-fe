@@ -31,5 +31,11 @@
   .sidetab_page_list {
     border: 1px solid $color-light-border;
     width: 100%;
+    .sidetab_page {
+      display: none;
+      &.visible {
+        display: block;
+      }
+    }
   }
 }
