@@ -33,21 +33,3 @@
     width: 100%;
   }
 }
-
-@keyframes duration {
-  from {
-    background-color: white;
-  }
-  to {
-    background-color: #ddd;
-  }
-}
-
-@keyframes duration-selected {
-  from {
-    background-color: white;
-  }
-  to {
-    background-color: $color-main;
-  }
-}

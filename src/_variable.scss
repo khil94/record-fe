@@ -15,3 +15,12 @@ $color-lose-bold: #ff6c81;
 $color-lose-med: #ffd8d9;
 $color-disabled: #dddddd;
 $default-border-radius: 6px;
+
+@keyframes duration {
+  from {
+    background-color: white;
+  }
+  to {
+    background-color: #ddd;
+  }
+}
