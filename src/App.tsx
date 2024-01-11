@@ -5,6 +5,7 @@ import AuthRouter from "./components/AuthRouter";
 import EmailAuthPage from "./pages/EmailAuthPage";
 import LoginPage from "./pages/LoginPage";
 import MainPage from "./pages/MainPage";
+import MyPage from "./pages/MyPage";
 import RankingPage from "./pages/RankingPage";
 import RegisterPage from "./pages/RegisterPage";
 import SummonerPage from "./pages/SummonerPage";
@@ -38,6 +39,10 @@ function App() {
           <Route
             path="/email_auth"
             element={<AuthRouter children={<EmailAuthPage />} />}
+          />
+          <Route
+            path="/mypage"
+            element={<AuthRouter children={<MyPage />} />}
           />
         </Routes>
       </GlobalLayout>

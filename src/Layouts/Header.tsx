@@ -28,7 +28,13 @@ export default function Header() {
       >
         <span>{data?.auth ? "메뉴" : "로그인"}</span>
         <div className={`user_dropdown ${showDropdown ? "show" : ""}`}>
-          <div>마이페이지</div>
+          <div
+            onClick={() => {
+              navigation("/mypage");
+            }}
+          >
+            마이페이지
+          </div>
           <div
             onClick={() => {
               logout();
