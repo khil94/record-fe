@@ -1,0 +1,53 @@
+@import "../variable";
+
+.multi_sidetab_wrapper {
+  border: 1px solid $color-light-border;
+  margin: 1.2rem;
+  padding: 1.6rem;
+  display: flex;
+  flex-direction: row;
+  .sidetab_list {
+    display: flex;
+    flex-direction: column;
+    // padding: 10rem;
+    div {
+      width: 24rem;
+      border: 1px solid $color-light-border;
+      padding: 2.4rem;
+      &:hover {
+        animation: duration 200ms forwards;
+      }
+      &.selected_sidetab {
+        background-color: $color-bar;
+        color: $color-white;
+        &:hover {
+          animation: none;
+        }
+        border: 1px solid;
+        border-color: #dee2e6 #dee2e6 #fff;
+      }
+    }
+  }
+  .sidetab_page_list {
+    border: 1px solid $color-light-border;
+    width: 100%;
+  }
+}
+
+@keyframes duration {
+  from {
+    background-color: white;
+  }
+  to {
+    background-color: #ddd;
+  }
+}
+
+@keyframes duration-selected {
+  from {
+    background-color: white;
+  }
+  to {
+    background-color: $color-main;
+  }
+}
