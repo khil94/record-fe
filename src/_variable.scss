@@ -15,6 +15,9 @@ $color-lose-bold: #ff6c81;
 $color-lose-med: #ffd8d9;
 $color-disabled: #dddddd;
 $default-border-radius: 6px;
+$header-height: 9rem;
+$footer-height: 10rem;
+$header-footer-height: $footer-height + $header-height;
 
 @keyframes duration {
   from {
