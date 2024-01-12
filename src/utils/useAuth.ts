@@ -1,7 +1,7 @@
 import useSWRMutation from "swr";
 import API from "../api/api";
 import { IUser } from "../types/types";
-export const USER_KEY = "/user-data";
+export const USER_KEY = "/auth-data";
 
 export default function useAuth() {
   const { data, mutate } = useSWRMutation<IUser>(USER_KEY, {
