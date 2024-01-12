@@ -43,7 +43,7 @@ const SetupInterceptors = (navigate: NavigateFunction) => {
               }
               break;
             case 1003:
-              navigate("/email_auth");
+              navigate("/email_auth", { state: { isValid: true } });
               break;
             case 1005:
               try {
