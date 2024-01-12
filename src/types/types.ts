@@ -113,6 +113,13 @@ export interface IPlayerRankingInfo {
 export interface ILoginResp {
   accessToken: string;
   refreshToken: string;
+  userInfo: IUserInfo;
+}
+
+export interface IUserInfo {
+  userId: number;
+  email: string;
+  verified: boolean;
 }
 
 export interface IUser {
