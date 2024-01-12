@@ -3,8 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import SearchInput from "../components/SearchInput";
 import { MENU_LIST } from "../constants/Enum";
 import { addRecentSearchVal, makeTagName } from "../utils/generalFunctions";
+import userAuth from "../utils/useAuth";
 import { useOnClickOutside } from "../utils/useOnClickOutside";
-import useUser from "../utils/useUser";
 import "./Header.scss";
 
 export default function Header() {
@@ -12,7 +12,7 @@ export default function Header() {
   const [showDropdown, setShowDropdown] = useState(false);
   const ref = useRef(null);
 
-  const { data, logout } = useUser();
+  const { data, logout } = userAuth();
   const navigation = useNavigate();
 
   useOnClickOutside(ref, () => setShowDropdown(false));

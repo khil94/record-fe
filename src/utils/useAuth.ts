@@ -3,7 +3,7 @@ import API from "../api/api";
 import { IUser } from "../types/types";
 export const USER_KEY = "/user-data";
 
-export default function useUser() {
+export default function useAuth() {
   const { data, mutate } = useSWRMutation<IUser>(USER_KEY, {
     fallbackData: {
       auth:

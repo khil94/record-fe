@@ -4,7 +4,7 @@ import API from "../api/api";
 import { PostLogin } from "../api/apis";
 import CommonModal from "../components/CommonModal";
 import StyledInput from "../components/StyledInput";
-import useUser from "../utils/useUser";
+import useAuth from "../utils/useAuth";
 import "./LoginPage.scss";
 
 export default function LoginPage() {
@@ -12,7 +12,7 @@ export default function LoginPage() {
   const [pwd, setPwd] = useState("");
   const [showModal, setShowModal] = useState(false);
   const navigator = useNavigate();
-  const { login } = useUser();
+  const { login } = useAuth();
 
   async function HandleLogin() {
     try {

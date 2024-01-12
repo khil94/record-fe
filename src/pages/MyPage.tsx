@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import MultiSideTabLayout from "../Layouts/MultiSideTabLayout";
 import { DeleteUser } from "../api/apis";
 import CommonModal from "../components/CommonModal";
-import useUser from "../utils/useUser";
+import useAuth from "../utils/useAuth";
 import "./MyPage.scss";
 
 export default function MyPage() {
@@ -11,7 +11,7 @@ export default function MyPage() {
   const [showDeleteUserModal, setShowDeleteUserModal] = useState(false);
   const [showErrDeleteUserModal, setErrShowDeleteUserModal] = useState(false);
 
-  const { logout } = useUser();
+  const { logout } = useAuth();
   function DeleteUserPage() {
     return (
       <div className="mypage_delete_user">

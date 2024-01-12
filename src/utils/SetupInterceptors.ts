@@ -4,10 +4,10 @@ import { NavigateFunction } from "react-router-dom";
 import API from "../api/api";
 import { PostRefresh } from "../api/apis";
 import { IError } from "../types/types";
-import useUser from "./useUser";
+import useAuth from "./useAuth";
 
 const SetupInterceptors = (navigate: NavigateFunction) => {
-  const { logout } = useUser();
+  const { logout } = useAuth();
   const [once, setOnce] = useState(true);
   if (once) {
     API.interceptors.response.use(

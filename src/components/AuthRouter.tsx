@@ -1,6 +1,6 @@
 import { ReactNode, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import useUser from "../utils/useUser";
+import useAuth from "../utils/useAuth";
 
 interface IProp {
   children: ReactNode;
@@ -8,7 +8,7 @@ interface IProp {
 }
 
 export default function AuthRouter({ children, reverse = false }: IProp) {
-  const { data } = useUser();
+  const { data } = useAuth();
   const navigator = useNavigate();
 
   useEffect(() => {
