@@ -31,7 +31,7 @@ const SetupInterceptors = (navigate: NavigateFunction) => {
                   ] = `Bearer ${resp.data.accessToken}`;
                   if (config) {
                     config.headers.Authorization = `Bearer ${resp.data.accessToken}`;
-                    return (await axios.request(config)).data;
+                    return axios.request(config);
                   }
                 } catch (e) {
                   await logout();
