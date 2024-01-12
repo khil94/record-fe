@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MultiSideTabLayout from "../Layouts/MultiSideTabLayout";
+import { DeleteUser } from "../api/apis";
 import CommonModal from "../components/CommonModal";
 import useUser from "../utils/useUser";
 import "./MyPage.scss";
@@ -17,7 +18,7 @@ export default function MyPage() {
         <button
           onClick={async () => {
             try {
-              // await DeleteUser();
+              await DeleteUser();
               setShowDeleteUserModal(true);
             } catch {
               setErrShowDeleteUserModal(true);
@@ -43,8 +44,8 @@ export default function MyPage() {
           message="회원탈퇴에 성공하였습니다. 그동안 이용해주셔서 감사합니다."
           onDisapppear={async () => {
             setShowDeleteUserModal(false);
-            // await logout();
-            // navigator("/");
+            await logout();
+            navigator("/");
           }}
         />
         <CommonModal
