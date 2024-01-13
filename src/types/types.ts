@@ -130,3 +130,44 @@ export interface IError {
   message: string;
   data: unknown;
 }
+
+export interface IDuoResp {
+  myDuo: IDuoObj;
+  duoList: IDuoObj[];
+}
+export interface IDuoObj {
+  id: 0;
+  userId: 0;
+  gameName: string;
+  tagLine: string;
+  puuid: string;
+  line: string;
+  tier: ITierType;
+  wishLines: string[];
+  wishTiers: ITierType[];
+  createdAt: Date;
+  expiredAt: Date;
+  tickets: IDuo[];
+  matched: boolean;
+}
+
+export interface IDuo {
+  id: number;
+  userId: number;
+  duoId: number;
+  gameName: string;
+  tagLine: string;
+  line: string;
+  tier: ITierType;
+  memo: string;
+  createdAt: Date;
+}
+
+export interface IDuoPost {
+  gameName: string;
+  tagLine: string;
+  line: string;
+  wishLines: string[];
+  wishTiers: ITierType[];
+  memo: string;
+}
