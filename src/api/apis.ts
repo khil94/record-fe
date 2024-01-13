@@ -1,5 +1,7 @@
 import useSWR from "swr";
 import {
+  IDuoObj,
+  IDuoPost,
   ILeaderBoardQueueTyep,
   ILoginResp,
   IRanking,
@@ -128,5 +130,20 @@ export const PutVerifyEmail = async (verificationCode: string) => {
 
 export const DeleteUser = async () => {
   const resp = await API.delete("/user");
+  return resp;
+};
+
+export const getDuoList = async (page: number) => {
+  const resp = await API.get("/duo", { params: { page, filter: "ALL" } });
+  return resp;
+};
+
+export const postDuo = async (data: IDuoPost) => {
+  const resp = await API.post("/duo", { ...data });
+  return resp;
+};
+
+export const getDuoDetail = async (duoId: number) => {
+  const resp = await API.get<IDuoObj>(`/duo/${duoId}`);
   return resp;
 };
