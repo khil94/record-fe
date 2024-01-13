@@ -60,7 +60,7 @@ export default function Header() {
           <nav className="navbar">
             <ul>
               {MENU_LIST.map((v) => (
-                <li key={`menu_key_${v}`}>
+                <li key={`menu_key_${v.name}`}>
                   <Link to={`/${v.url.toLowerCase()}`}>{v.name}</Link>
                 </li>
               ))}
