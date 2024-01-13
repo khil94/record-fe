@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
+import { PostDuo } from "../api/apis";
 import { TIER_TYPE_LIST } from "../constants/Enum";
-import { ITierType } from "../types/types";
+import { IDuoPost, ITierType } from "../types/types";
 import "./DuoModal.scss";
 import StyledInput from "./StyledInput";
 
@@ -14,7 +15,6 @@ import StyledInput from "./StyledInput";
 // }
 interface IProp {
   showModal: boolean;
-
   onDisapppear: () => void;
 }
 export default function DuoModal({
@@ -27,6 +27,24 @@ export default function DuoModal({
   const [wishLines, setWishLines] = useState<string[]>([]);
   const [wishTiers, setWishTiers] = useState<ITierType[]>([]);
   const [show, setShow] = useState(showModal);
+  const [memo, setMemo] = useState("");
+
+  async function postDuo() {
+    const postData: IDuoPost = {
+      gameName,
+      tagLine,
+      line,
+      wishLines,
+      wishTiers,
+      memo,
+    };
+    try {
+      await PostDuo(postData);
+      // onDisapppear();
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
   function setMyLine(val: string) {
     if (line === val) {
@@ -58,7 +76,7 @@ export default function DuoModal({
     setShow(showModal);
   }, [showModal]);
 
-  console.log(line, wishLines);
+  // console.log(line, wishLines, wishTiers, gameName, tagLine, memo);
 
   return show ? (
     <div
@@ -71,7 +89,11 @@ export default function DuoModal({
         onClick={(e) => e.stopPropagation()}
         className="duomodal_inner_wrapper"
       >
-        <form>
+        <form
+          onSubmit={() => {
+            postDuo();
+          }}
+        >
           <div className="duomodal_name_wrapper">
             <StyledInput
               onChange={(e) => setGameName(e.target.value)}
@@ -98,35 +120,35 @@ export default function DuoModal({
                 className={`${line === "TOP" ? "selected" : ""}`}
                 value={"TOP"}
               >
-                <img src="/Position_Top.png" />
+                <img src="/Position_top.png" />
               </button>
               <button
                 type="button"
                 className={`${line === "JUNGLE" ? "selected" : ""}`}
                 value={"JUNGLE"}
               >
-                <img src="/Position_Jungle.png" />
+                <img src="/Position_jungle.png" />
               </button>
               <button
                 type="button"
                 className={`${line === "MID" ? "selected" : ""}`}
                 value={"MID"}
               >
-                <img src="/Position_Mid.png" />
+                <img src="/Position_mid.png" />
               </button>
               <button
                 type="button"
                 className={`${line === "BOT" ? "selected" : ""}`}
                 value={"BOT"}
               >
-                <img src="/Position_Bot.png" />
+                <img src="/Position_bot.png" />
               </button>
               <button
                 type="button"
                 className={`${line === "SUPPORT" ? "selected" : ""}`}
                 value={"SUPPORT"}
               >
-                <img src="/Position_Support.png" />
+                <img src="/Position_support.png" />
               </button>
             </div>
           </div>
@@ -144,35 +166,35 @@ export default function DuoModal({
                 className={`${wishLines.includes("TOP") ? "selected" : ""}`}
                 value={"TOP"}
               >
-                <img src="/Position_Top.png" />
+                <img src="/Position_top.png" />
               </button>
               <button
                 type="button"
                 className={`${wishLines.includes("JUNGLE") ? "selected" : ""}`}
                 value={"JUNGLE"}
               >
-                <img src="/Position_Jungle.png" />
+                <img src="/Position_jungle.png" />
               </button>
               <button
                 type="button"
                 className={`${wishLines.includes("MID") ? "selected" : ""}`}
                 value={"MID"}
               >
-                <img src="/Position_Mid.png" />
+                <img src="/Position_mid.png" />
               </button>
               <button
                 type="button"
                 className={`${wishLines.includes("BOT") ? "selected" : ""}`}
                 value={"BOT"}
               >
-                <img src="/Position_Bot.png" />
+                <img src="/Position_bot.png" />
               </button>
               <button
                 type="button"
                 className={`${wishLines.includes("SUPPORT") ? "selected" : ""}`}
                 value={"SUPPORT"}
               >
-                <img src="/Position_Support.png" />
+                <img src="/Position_support.png" />
               </button>
             </div>
           </div>
@@ -189,6 +211,7 @@ export default function DuoModal({
                 return (
                   <button
                     type="button"
+                    key={`button_${v}`}
                     className={`${wishTiers.includes(v) ? "selected" : ""}`}
                     value={v}
                   >
@@ -207,8 +230,12 @@ export default function DuoModal({
             </div>
           </div> */}
           <div className="duo_memo">
-            <textarea></textarea>
+            <textarea
+              value={memo}
+              onChange={(e) => setMemo(e.target.value)}
+            ></textarea>
           </div>
+          <button type="submit">제출</button>
         </form>
       </div>
     </div>
