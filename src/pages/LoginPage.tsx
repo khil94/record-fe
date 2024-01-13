@@ -5,6 +5,7 @@ import { PostLogin } from "../api/apis";
 import CommonModal from "../components/CommonModal";
 import StyledInput from "../components/StyledInput";
 import useAuth from "../utils/useAuth";
+import useUser from "../utils/useUser";
 import "./LoginPage.scss";
 
 export default function LoginPage() {
@@ -13,6 +14,7 @@ export default function LoginPage() {
   const [showModal, setShowModal] = useState(false);
   const navigator = useNavigate();
   const { login } = useAuth();
+  const { mutate } = useUser();
 
   async function HandleLogin() {
     try {
@@ -22,6 +24,7 @@ export default function LoginPage() {
         "Authorization"
       ] = `Bearer ${resp.data.accessToken}`;
       login();
+      mutate({ ...resp.data.userInfo });
       navigator("/");
     } catch {
       setShowModal(true);
