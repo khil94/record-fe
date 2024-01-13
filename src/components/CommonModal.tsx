@@ -7,7 +7,7 @@ interface IProp {
   message: string;
   width?: number;
   height?: number;
-  onDisapppear?: () => void;
+  onDisapppear: () => void;
 }
 
 export default function CommonModal({
@@ -27,7 +27,6 @@ export default function CommonModal({
   return show ? (
     <div
       onClick={() => {
-        setShow(false);
         onDisapppear();
       }}
       className="modal_outer_wrapper"
