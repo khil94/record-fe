@@ -1,4 +1,7 @@
-export const MENU_LIST = ["RANKING"] as const;
+export const MENU_LIST = [
+  { url: "ranking", name: "랭킹" },
+  { url: "duo", name: "듀오 찾기" },
+] as const;
 
 export const QUEUE_TYPE_LIST = [
   "RANKED_SOLO",

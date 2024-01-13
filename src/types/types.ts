@@ -2,14 +2,12 @@ import {
   GAME_MODE_LIST,
   GAME_TYPE_LIST,
   LEADERBOARD_QUEUE_TYPE_LIST,
-  MENU_LIST,
   QUEUE_ID_LIST,
   QUEUE_TYPE_LIST,
   RANK_NUMBER_LIST,
   TIER_TYPE_LIST,
 } from "../constants/Enum";
 
-export type IMenu = (typeof MENU_LIST)[number];
 export type IQueueType = (typeof QUEUE_TYPE_LIST)[number];
 export type ITierType = (typeof TIER_TYPE_LIST)[number];
 export type IRankNumber = (typeof RANK_NUMBER_LIST)[number];

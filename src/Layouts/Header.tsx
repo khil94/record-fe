@@ -61,7 +61,7 @@ export default function Header() {
             <ul>
               {MENU_LIST.map((v) => (
                 <li key={`menu_key_${v}`}>
-                  <Link to={`/${v.toLowerCase()}`}>{v}</Link>
+                  <Link to={`/${v.url.toLowerCase()}`}>{v.name}</Link>
                 </li>
               ))}
             </ul>
