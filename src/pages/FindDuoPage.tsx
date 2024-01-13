@@ -1,31 +1,13 @@
+import { useRef } from "react";
+import { useDuoList } from "../api/apis";
 import "./FindDuoPage.scss";
 
 export default function FindDuoPage() {
   // const [currentQueuType,setCurrentQueueType] = useState();
   // const [currentLane,setCurrentLane] = useState()
-  const tableData = [
-    {
-      소환사: "소환사1",
-      주포지션: "탑",
-      찾는포지션: "미드",
-      티어: "다이아몬드",
-      승률: "60%",
-      kda: "3.5",
-      메모: "좋은 팀원 찾습니다.",
-      등록일시: "2022-01-01",
-    },
-    {
-      소환사: "소환사2",
-      주포지션: "서포터",
-      찾는포지션: "정글",
-      티어: "플래티넘",
-      승률: "55%",
-      kda: "2.8",
-      메모: "랭크 도우미 구합니다.",
-      등록일시: "2022-01-02",
-    },
-    // 추가적인 데이터는 여기에 추가해주세요.
-  ];
+
+  const currentPage = useRef(1);
+  const { data, isLoading } = useDuoList(currentPage.current);
 
   return (
     <div className="duo_page_wrapper">
@@ -73,16 +55,16 @@ export default function FindDuoPage() {
             </tr>
           </thead>
           <tbody>
-            {tableData.map((data, index) => (
-              <tr key={index}>
-                <td>{data.소환사}</td>
-                <td>{data.주포지션}</td>
-                <td>{data.찾는포지션}</td>
-                <td>{data.티어}</td>
-                <td>{data.승률}</td>
-                <td>{data.kda}</td>
-                <td>{data.메모}</td>
-                <td>{data.등록일시}</td>
+            {data?.data.duoList.map((v, i) => (
+              <tr key={i}>
+                <td>{v.gameName}</td>
+                <td>{v.line}</td>
+                <td>{v.wishLines}</td>
+                <td>{v.tier}</td>
+                <td>{"dd"}</td>
+                <td>{"kda"}</td>
+                <td>{v.tickets[0].memo}</td>
+                <td>{v.createdAt.toString()}</td>
               </tr>
             ))}
           </tbody>
