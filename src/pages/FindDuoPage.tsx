@@ -62,12 +62,28 @@ export default function FindDuoPage() {
             {data?.data.duoList.map((v, i) => (
               <tr key={i}>
                 <td>{v.gameName}</td>
-                <td>{v.line}</td>
-                <td>{v.wishLines}</td>
-                <td>{v.tier}</td>
+                <td>
+                  <img
+                    src={`/Position_${v.line.toLowerCase()}.png`}
+                    width={32}
+                  />
+                </td>
+                <td>
+                  {v.wishLines.map((t) => {
+                    return (
+                      <img
+                        src={`/Position_${t.toLowerCase()}.png`}
+                        width={32}
+                      />
+                    );
+                  })}
+                </td>
+                <td>
+                  <img src={`/${v.tier.toLowerCase()}.webp`} width={32} />
+                </td>
                 <td>{"dd"}</td>
                 <td>{"kda"}</td>
-                <td>{v.tickets[0].memo}</td>
+                {/* <td>{v.ti}</td> */}
                 <td>{v.createdAt.toString()}</td>
               </tr>
             ))}
