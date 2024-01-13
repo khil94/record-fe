@@ -6,10 +6,10 @@
   padding: 1.6rem;
   display: flex;
   flex-direction: row;
+  width: 100%;
   .sidetab_list {
     display: flex;
     flex-direction: column;
-    // padding: 10rem;
     div {
       width: 24rem;
       border: 1px solid $color-light-border;
