@@ -143,12 +143,12 @@ export const useDuoList = (page: number) => {
   return resp;
 };
 
-export const postDuo = async (data: IDuoPost) => {
+export const PostDuo = async (data: IDuoPost) => {
   const resp = await API.post("/duo", { ...data });
   return resp;
 };
 
-export const getDuoDetail = async (duoId: number) => {
+export const GetDuoDetail = async (duoId: number) => {
   const resp = await API.get<IDuoObj>(`/duo/${duoId}`);
   return resp;
 };
