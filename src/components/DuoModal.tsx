@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TIER_TYPE_LIST } from "../constants/Enum";
 import { ITierType } from "../types/types";
 import "./DuoModal.scss";
@@ -15,7 +15,7 @@ import StyledInput from "./StyledInput";
 interface IProp {
   showModal: boolean;
 
-  onDisapppear?: () => void;
+  onDisapppear: () => void;
 }
 export default function DuoModal({
   showModal,
@@ -27,7 +27,7 @@ export default function DuoModal({
   const [wishLines, setWishLines] = useState<string[]>([]);
   const [wishTiers, setWishTiers] = useState<ITierType[]>([]);
   const [show, setShow] = useState(showModal);
-  console.log(show);
+
   function setMyLine(val: string) {
     if (line === val) {
       setLine("");
@@ -54,12 +54,15 @@ export default function DuoModal({
     }
   }
 
+  useEffect(() => {
+    setShow(showModal);
+  }, [showModal]);
+
   console.log(line, wishLines);
 
   return show ? (
     <div
       onClick={(e) => {
-        setShow(false);
         onDisapppear();
       }}
       className="duomodal_outer_wrapper"

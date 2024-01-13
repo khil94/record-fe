@@ -1,11 +1,12 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useDuoList } from "../api/apis";
+import DuoModal from "../components/DuoModal";
 import "./FindDuoPage.scss";
 
 export default function FindDuoPage() {
   // const [currentQueuType,setCurrentQueueType] = useState();
   // const [currentLane,setCurrentLane] = useState()
-
+  const [showModal, setShowModal] = useState(false);
   const currentPage = useRef(1);
   const { data, isLoading } = useDuoList(currentPage.current);
 
@@ -36,7 +37,10 @@ export default function FindDuoPage() {
             <img src="/Position_Support.png" />
           </button>
         </div> */}
-        <button className="create_duo_wrapper duo_comp_wrapper">
+        <button
+          onClick={() => setShowModal(true)}
+          className="create_duo_wrapper duo_comp_wrapper"
+        >
           듀오찾기
         </button>
       </div>
@@ -70,6 +74,10 @@ export default function FindDuoPage() {
           </tbody>
         </table>
       </div>
+      <DuoModal
+        showModal={showModal}
+        onDisapppear={() => setShowModal(false)}
+      />
     </div>
   );
 }
