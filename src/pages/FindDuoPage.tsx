@@ -1,6 +1,8 @@
-import { useRef, useState } from "react";
-import { useDuoList } from "../api/apis";
+import { useEffect, useRef, useState } from "react";
+import { GetDuoDetail, getDuoList } from "../api/apis";
+import DuoDetailModal from "../components/DuoDetailModal";
 import DuoModal from "../components/DuoModal";
+import { IDuoObj } from "../types/types";
 import "./FindDuoPage.scss";
 
 export default function FindDuoPage() {
@@ -8,7 +10,24 @@ export default function FindDuoPage() {
   // const [currentLane,setCurrentLane] = useState()
   const [showModal, setShowModal] = useState(false);
   const currentPage = useRef(1);
-  const { data, isLoading } = useDuoList(currentPage.current);
+  const [duoListData, setDuoListData] = useState<IDuoObj[]>([]);
+  const [showDetailModal, setShowDetailModal] = useState(false);
+  const [detailData, setDetailData] = useState<IDuoObj>();
+
+  useEffect(() => {
+    const getData = async () => {
+      const { data } = await getDuoList(currentPage.current);
+      setDuoListData(data.duoList);
+      console.log(data);
+    };
+    getData();
+  }, []);
+
+  async function getDetailData(duoid: number) {
+    const resp = await GetDuoDetail(duoid);
+    setDetailData(resp.data.duo);
+  }
+  console.log(detailData);
 
   return (
     <div className="duo_page_wrapper">
@@ -59,8 +78,14 @@ export default function FindDuoPage() {
             </tr>
           </thead>
           <tbody>
-            {data?.data.duoList.map((v, i) => (
-              <tr key={i}>
+            {duoListData.map((v, i) => (
+              <tr
+                onClick={() => {
+                  getDetailData(v.id);
+                  setShowDetailModal(true);
+                }}
+                key={i}
+              >
                 <td>{v.gameName}</td>
                 <td>
                   <img
@@ -72,6 +97,7 @@ export default function FindDuoPage() {
                   {v.wishLines.map((t) => {
                     return (
                       <img
+                        key={`wishlines_${t}`}
                         src={`/Position_${t.toLowerCase()}.png`}
                         width={32}
                       />
@@ -94,6 +120,13 @@ export default function FindDuoPage() {
         showModal={showModal}
         onDisapppear={() => setShowModal(false)}
       />
+      {detailData && (
+        <DuoDetailModal
+          showModal={showDetailModal}
+          onDisapppear={() => setShowDetailModal(false)}
+          obj={detailData}
+        />
+      )}
     </div>
   );
 }
