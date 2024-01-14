@@ -31,6 +31,9 @@
       button {
         border: 1px solid $color-light-border;
         padding: 0.8rem;
+        &:hover {
+          background-color: $color-lighter-border;
+        }
         &.selected {
           background-color: $color-light-border;
         }
