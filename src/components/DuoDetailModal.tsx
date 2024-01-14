@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { TIER_TYPE_LIST } from "../constants/Enum";
 import { IDuoObj } from "../types/types";
-import "./DuoModal.scss";
+import "./DuoDetailModal.scss";
 import StyledInput from "./StyledInput";
 
 // export interface IDuoPost {
@@ -37,11 +37,11 @@ export default function DuoDetailModal({
       onClick={(e) => {
         onDisapppear();
       }}
-      className="duomodal_outer_wrapper"
+      className="duo_detailmodal_outer_wrapper"
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="duomodal_inner_wrapper"
+        className="duo_detailmodal_inner_wrapper"
       >
         <form>
           <div className="duomodal_name_wrapper">

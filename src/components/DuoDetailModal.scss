@@ -1,0 +1,66 @@
+@import "../variable";
+
+.duo_detailmodal_outer_wrapper {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  top: 0;
+  .duo_detailmodal_inner_wrapper {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2rem;
+    border-radius: $default-border-radius;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    width: 80rem;
+    background-color: $color-white;
+    height: 50rem;
+
+    input:disabled {
+      background-color: $color-light-border;
+    }
+    .duomodal_name_wrapper {
+      display: flex;
+      flex-direction: row;
+    }
+    .select_wrapper {
+      display: flex;
+      flex-direction: row;
+
+      button {
+        border: 1px solid $color-light-border;
+        padding: 0.8rem;
+
+        &.selected {
+          background-color: $color-light-border;
+        }
+        &:first-child {
+          border-top-left-radius: $default-border-radius;
+          border-bottom-left-radius: $default-border-radius;
+        }
+        &:last-child {
+          border-top-right-radius: $default-border-radius;
+          border-bottom-right-radius: $default-border-radius;
+        }
+        img {
+          width: 3.2rem;
+          pointer-events: none;
+        }
+      }
+    }
+
+    .duo_queuetype_dropbox {
+      position: relative;
+      .select_queue_type {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+      }
+    }
+  }
+}
