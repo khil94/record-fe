@@ -151,6 +151,10 @@ export interface IDuoObj {
   matched: boolean;
 }
 
+export interface IDuoDetailResp {
+  duo: IDuoObj;
+}
+
 export interface IDuo {
   id: number;
   userId: number;
