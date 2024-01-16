@@ -90,7 +90,8 @@ export default function DuoModal({
         className="duomodal_inner_wrapper"
       >
         <form
-          onSubmit={() => {
+          onSubmit={(e) => {
+            e.preventDefault();
             postDuo();
           }}
         >
