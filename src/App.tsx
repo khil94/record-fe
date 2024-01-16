@@ -27,27 +27,37 @@ function App() {
           <Route path="/ranking" element={<RankingPage />} />
           <Route
             path="/test"
-            element={<AuthRouter children={<RankingPage />} />}
+            element={<AuthRouter key={"RANKING"} children={<RankingPage />} />}
           />
           <Route
             path="login"
-            element={<AuthRouter reverse children={<LoginPage />} />}
+            element={
+              <AuthRouter key={"LOGIN"} reverse children={<LoginPage />} />
+            }
           />
           <Route
             path="register"
-            element={<AuthRouter reverse children={<RegisterPage />} />}
+            element={
+              <AuthRouter
+                key={"REGISTER"}
+                reverse
+                children={<RegisterPage />}
+              />
+            }
           />
           <Route
             path="/email_auth"
-            element={<AuthRouter children={<EmailAuthPage />} />}
+            element={
+              <AuthRouter key={"EMAILAUTH"} children={<EmailAuthPage />} />
+            }
           />
           <Route
             path="/mypage"
-            element={<AuthRouter children={<MyPage />} />}
+            element={<AuthRouter key={"MY"} children={<MyPage />} />}
           />
           <Route
             path="/duo"
-            element={<AuthRouter children={<FindDuoPage />} />}
+            element={<AuthRouter key={"FINDDUO"} children={<FindDuoPage />} />}
           />
         </Routes>
       </GlobalLayout>
