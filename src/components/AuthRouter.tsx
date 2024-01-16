@@ -13,10 +13,10 @@ export default function AuthRouter({ children, reverse = false }: IProp) {
 
   useEffect(() => {
     if (data?.auth && reverse) {
-      navigator("/");
+      navigator("/login");
     }
     if (!data?.auth && !reverse) {
-      navigator("/");
+      navigator("/login");
     }
   }, [data?.auth, reverse]);
 
