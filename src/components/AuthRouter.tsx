@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { getXOR } from "../utils/generalFunctions";
 import useAuth from "../utils/useAuth";
@@ -10,10 +10,6 @@ interface IProp {
 
 export default function AuthRouter({ children, reverse = false }: IProp) {
   const { data } = useAuth();
-
-  return getXOR(data?.auth || false, reverse) ? (
-    <>{children}</>
-  ) : (
-    <Navigate to={"/login"} />
-  );
+  const [show, setShow] = useState(getXOR(data?.auth || false, reverse));
+  return show ? <>{children}</> : <Navigate to={"/login"} />;
 }
