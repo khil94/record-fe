@@ -98,3 +98,13 @@ export function makeTagName(val: string) {
   const [name, tag] = searchVal.split("#");
   return { name, tag: tag ? `${tag}` : "KR1" };
 }
+
+export function getXOR(a: boolean, b: boolean) {
+  if (!a && b) {
+    return true;
+  }
+  if (a && !b) {
+    return true;
+  }
+  return false;
+}

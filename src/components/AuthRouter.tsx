@@ -1,20 +1,11 @@
 import { ReactNode } from "react";
 import { Navigate } from "react-router-dom";
+import { getXOR } from "../utils/generalFunctions";
 import useAuth from "../utils/useAuth";
 
 interface IProp {
   children: ReactNode;
   reverse?: boolean;
-}
-
-function getXOR(a: boolean, b: boolean) {
-  if (!a && b) {
-    return true;
-  }
-  if (a && !b) {
-    return true;
-  }
-  return false;
 }
 
 export default function AuthRouter({ children, reverse = false }: IProp) {
