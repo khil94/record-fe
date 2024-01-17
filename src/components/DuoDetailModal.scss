@@ -9,9 +9,6 @@
   top: 0;
   .duo_detailmodal_inner_wrapper {
     position: absolute;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
     padding: 2rem;
     border-radius: $default-border-radius;
     top: 50%;
@@ -21,45 +18,68 @@
     background-color: $color-white;
     height: 50rem;
 
-    input:disabled {
-      background-color: $color-light-border;
-    }
-    .duomodal_name_wrapper {
+    .duo_detailmodal_header {
       display: flex;
-      flex-direction: row;
-    }
-    .select_wrapper {
-      display: flex;
-      flex-direction: row;
-
-      button {
-        border: 1px solid $color-light-border;
-        padding: 0.8rem;
-
-        &.selected {
-          background-color: $color-light-border;
-        }
-        &:first-child {
-          border-top-left-radius: $default-border-radius;
-          border-bottom-left-radius: $default-border-radius;
-        }
-        &:last-child {
-          border-top-right-radius: $default-border-radius;
-          border-bottom-right-radius: $default-border-radius;
-        }
-        img {
-          width: 3.2rem;
-          pointer-events: none;
+      position: relative;
+      .duo_detailmodal_x {
+        position: absolute;
+        font-size: 2rem;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        &:hover {
+          color: $color-dark-border;
+          cursor: pointer;
         }
       }
     }
 
-    .duo_queuetype_dropbox {
-      position: relative;
-      .select_queue_type {
-        position: absolute;
+    .duo_detailmodal_inner {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 100%;
+
+      input:disabled {
+        background-color: $color-light-border;
+      }
+      .duomodal_name_wrapper {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
+      }
+      .select_wrapper {
+        display: flex;
+        flex-direction: row;
+
+        button {
+          border: 1px solid $color-light-border;
+          padding: 0.8rem;
+
+          &.selected {
+            background-color: $color-light-border;
+          }
+          &:first-child {
+            border-top-left-radius: $default-border-radius;
+            border-bottom-left-radius: $default-border-radius;
+          }
+          &:last-child {
+            border-top-right-radius: $default-border-radius;
+            border-bottom-right-radius: $default-border-radius;
+          }
+          img {
+            width: 3.2rem;
+            pointer-events: none;
+          }
+        }
+      }
+
+      .duo_queuetype_dropbox {
+        position: relative;
+        .select_queue_type {
+          position: absolute;
+          display: flex;
+          flex-direction: column;
+        }
       }
     }
   }
