@@ -185,8 +185,14 @@ export interface IDuoPost {
   lines: ILineType[];
   wishLines: ILineType[];
   wishTiers: ITierType[];
+  duoQueueId: IDuoQueueId;
   memo: string;
 }
+
+export type IDuoQueueId = Extract<
+  IQueueId,
+  "SOLO_RANK_GAME" | "FLEX_RANK_GAME" | "QUICK_PLAY"
+>;
 
 export interface ITicketPost {
   gameName: string;
