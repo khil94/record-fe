@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { PostDuo } from "../api/apis";
 import { TIER_TYPE_LIST } from "../constants/Enum";
-import { IDuoPost, ITierType } from "../types/types";
+import { IDuoPost, ILineType, ITierType } from "../types/types";
 import "./DuoModal.scss";
 import StyledInput from "./StyledInput";
 
@@ -23,8 +23,8 @@ export default function DuoModal({
 }: IProp) {
   const [gameName, setGameName] = useState("");
   const [tagLine, setTagLine] = useState("");
-  const [line, setLine] = useState("");
-  const [wishLines, setWishLines] = useState<string[]>([]);
+  const [lines, setLines] = useState<ILineType[]>([]);
+  const [wishLines, setWishLines] = useState<ILineType[]>([]);
   const [wishTiers, setWishTiers] = useState<ITierType[]>([]);
   const [show, setShow] = useState(showModal);
   const [memo, setMemo] = useState("");
@@ -33,43 +33,32 @@ export default function DuoModal({
     const postData: IDuoPost = {
       gameName,
       tagLine,
-      line,
+      lines,
       wishLines,
       wishTiers,
       memo,
     };
     try {
       await PostDuo(postData);
-      // onDisapppear();
     } catch (e) {
       console.log(e);
     }
   }
 
-  function setMyLine(val: string) {
-    if (line === val) {
-      setLine("");
+  function Setter<T>(
+    target: T[],
+    setter: Dispatch<SetStateAction<T[]>>,
+    val: T
+  ) {
+    if (target.includes(val)) {
+      setter(target.filter((v) => v !== val));
     } else {
-      setLine(val);
+      setter([...target, val]);
     }
   }
 
-  function setLines(val: string) {
-    const lines = wishLines;
-    if (lines.includes(val)) {
-      setWishLines(wishLines.filter((v) => v !== val));
-    } else {
-      setWishLines([...wishLines, val]);
-    }
-  }
-
-  function setTiers(val: ITierType) {
-    const tiers = wishTiers;
-    if (tiers.includes(val)) {
-      setWishTiers(wishTiers.filter((v) => v !== val));
-    } else {
-      setWishTiers([...wishTiers, val]);
-    }
+  function getPositionClassName<T>(list: T[], target: T) {
+    return list.includes(target) ? "selected" : "";
   }
 
   useEffect(() => {
@@ -112,42 +101,42 @@ export default function DuoModal({
             <div
               onClick={(e) => {
                 e.preventDefault();
-                setMyLine(e.target.value);
+                Setter(lines, setLines, e.target.value);
               }}
               className="select_wrapper"
             >
               <button
                 type="button"
-                className={`${line === "TOP" ? "selected" : ""}`}
+                className={getPositionClassName(lines, "TOP")}
                 value={"TOP"}
               >
                 <img src="/Position_top.png" />
               </button>
               <button
                 type="button"
-                className={`${line === "JUNGLE" ? "selected" : ""}`}
-                value={"JUNGLE"}
+                className={getPositionClassName(lines, "JG")}
+                value={"JG"}
               >
                 <img src="/Position_jungle.png" />
               </button>
               <button
                 type="button"
-                className={`${line === "MID" ? "selected" : ""}`}
+                className={getPositionClassName(lines, "MID")}
                 value={"MID"}
               >
                 <img src="/Position_mid.png" />
               </button>
               <button
                 type="button"
-                className={`${line === "BOT" ? "selected" : ""}`}
-                value={"BOT"}
+                className={getPositionClassName(lines, "AD")}
+                value={"AD"}
               >
                 <img src="/Position_bot.png" />
               </button>
               <button
                 type="button"
-                className={`${line === "SUPPORT" ? "selected" : ""}`}
-                value={"SUPPORT"}
+                className={getPositionClassName(lines, "SUP")}
+                value={"SUP"}
               >
                 <img src="/Position_support.png" />
               </button>
@@ -158,42 +147,42 @@ export default function DuoModal({
             <div
               onClick={(e) => {
                 e.preventDefault();
-                setLines(e.target.value);
+                Setter(wishLines, setWishLines, e.target.value);
               }}
               className="select_wrapper"
             >
               <button
                 type="button"
-                className={`${wishLines.includes("TOP") ? "selected" : ""}`}
+                className={getPositionClassName(wishLines, "TOP")}
                 value={"TOP"}
               >
                 <img src="/Position_top.png" />
               </button>
               <button
                 type="button"
-                className={`${wishLines.includes("JUNGLE") ? "selected" : ""}`}
-                value={"JUNGLE"}
+                className={getPositionClassName(wishLines, "JG")}
+                value={"JG"}
               >
                 <img src="/Position_jungle.png" />
               </button>
               <button
                 type="button"
-                className={`${wishLines.includes("MID") ? "selected" : ""}`}
+                className={getPositionClassName(wishLines, "MID")}
                 value={"MID"}
               >
                 <img src="/Position_mid.png" />
               </button>
               <button
                 type="button"
-                className={`${wishLines.includes("BOT") ? "selected" : ""}`}
-                value={"BOT"}
+                className={getPositionClassName(wishLines, "AD")}
+                value={"AD"}
               >
                 <img src="/Position_bot.png" />
               </button>
               <button
                 type="button"
-                className={`${wishLines.includes("SUPPORT") ? "selected" : ""}`}
-                value={"SUPPORT"}
+                className={getPositionClassName(wishLines, "SUP")}
+                value={"SUP"}
               >
                 <img src="/Position_support.png" />
               </button>
@@ -204,7 +193,7 @@ export default function DuoModal({
             <div
               onClick={(e) => {
                 e.preventDefault();
-                setTiers(e.target.value);
+                Setter(wishTiers, setWishTiers, e.target.value);
               }}
               className="select_wrapper"
             >

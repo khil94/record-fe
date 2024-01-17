@@ -182,8 +182,8 @@ export interface IDuo {
 export interface IDuoPost {
   gameName: string;
   tagLine: string;
-  line: string;
-  wishLines: string[];
+  lines: ILineType[];
+  wishLines: ILineType[];
   wishTiers: ITierType[];
   memo: string;
 }
