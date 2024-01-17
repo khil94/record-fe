@@ -3,6 +3,8 @@ export const MENU_LIST = [
   { url: "duo", name: "듀오 찾기" },
 ] as const;
 
+export const LANE_LIST = ["TOP", "JG", "MID", "AD", "SUP"] as const;
+
 export const QUEUE_TYPE_LIST = [
   "RANKED_SOLO",
   "RANKED_TEAM",
@@ -60,7 +62,7 @@ export const QUEUE_ID_LIST = [
   "DRAFT_GAME",
   "DYNAMIC_RANK_GAME",
   "SOLO_RANK_GAME",
-  "NORMAL_GAME",
+  "QUICK_PLAY",
   "FLEX_RANK_GAME",
   "OTHER_GAME",
 ] as const;

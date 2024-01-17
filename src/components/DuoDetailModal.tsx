@@ -22,7 +22,7 @@ export default function DuoDetailModal({
   onDisapppear = () => {},
   obj,
 }: IProp) {
-  const { gameName, tagLine, line, wishLines, wishTiers } = obj;
+  const { gameName, tagLine, lines, wishLines, wishTiers } = obj;
   console.log(obj, wishLines);
   const [show, setShow] = useState(showModal);
 
@@ -53,36 +53,36 @@ export default function DuoDetailModal({
             <div className="select_wrapper">
               <button
                 type="button"
-                className={`${line === "TOP" ? "selected" : ""}`}
+                className={`${lines.includes("TOP") ? "selected" : ""}`}
                 value={"TOP"}
               >
                 <img src="/Position_top.png" />
               </button>
               <button
                 type="button"
-                className={`${line === "JUNGLE" ? "selected" : ""}`}
-                value={"JUNGLE"}
+                className={`${lines.includes("JG") ? "selected" : ""}`}
+                value={"JG"}
               >
                 <img src="/Position_jungle.png" />
               </button>
               <button
                 type="button"
-                className={`${line === "MID" ? "selected" : ""}`}
+                className={`${lines.includes("MID") ? "selected" : ""}`}
                 value={"MID"}
               >
                 <img src="/Position_mid.png" />
               </button>
               <button
                 type="button"
-                className={`${line === "BOT" ? "selected" : ""}`}
-                value={"BOT"}
+                className={`${lines.includes("AD") ? "selected" : ""}`}
+                value={"AD"}
               >
                 <img src="/Position_bot.png" />
               </button>
               <button
                 type="button"
-                className={`${line === "SUPPORT" ? "selected" : ""}`}
-                value={"SUPPORT"}
+                className={`${lines.includes("SUP") ? "selected" : ""}`}
+                value={"SUP"}
               >
                 <img src="/Position_support.png" />
               </button>
@@ -100,8 +100,8 @@ export default function DuoDetailModal({
               </button>
               <button
                 type="button"
-                className={`${wishLines.includes("JUNGLE") ? "selected" : ""}`}
-                value={"JUNGLE"}
+                className={`${wishLines.includes("JG") ? "selected" : ""}`}
+                value={"JG"}
               >
                 <img src="/Position_jungle.png" />
               </button>
@@ -114,15 +114,15 @@ export default function DuoDetailModal({
               </button>
               <button
                 type="button"
-                className={`${wishLines.includes("BOT") ? "selected" : ""}`}
-                value={"BOT"}
+                className={`${wishLines.includes("AD") ? "selected" : ""}`}
+                value={"AD"}
               >
                 <img src="/Position_bot.png" />
               </button>
               <button
                 type="button"
-                className={`${wishLines.includes("SUPPORT") ? "selected" : ""}`}
-                value={"SUPPORT"}
+                className={`${wishLines.includes("SUP") ? "selected" : ""}`}
+                value={"SUP"}
               >
                 <img src="/Position_support.png" />
               </button>

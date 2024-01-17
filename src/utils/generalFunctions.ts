@@ -63,7 +63,7 @@ export function getGameType(queueType: IQueueId) {
       return "커스텀 게임";
     case "DRAFT_GAME":
       return "일반 교차 선택";
-    case "NORMAL_GAME":
+    case "QUICK_PLAY":
       return "일반 게임";
     case "URF_GAME":
       return "우르프 모드";
