@@ -42,7 +42,7 @@ export default function DuoDetailModal({
     }
   }
 
-  function getPositionClassName(list: ILineType[], target: ILineType) {
+  function getPositionClassName<T>(list: T[], target: T) {
     return list.includes(target) ? "selected" : "";
   }
 
@@ -214,11 +214,10 @@ export default function DuoDetailModal({
                   <button
                     type="button"
                     key={`button_${v}`}
-                    className={`${
-                      (ticketMode ? userWishTiers : wishTiers).includes(v)
-                        ? "selected"
-                        : ""
-                    }`}
+                    className={getPositionClassName(
+                      ticketMode ? userWishTiers : wishTiers,
+                      v
+                    )}
                     value={v}
                   >
                     <img src={`/${v.toLowerCase()}.webp`} />
