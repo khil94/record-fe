@@ -117,7 +117,7 @@ export default function DuoModal({
                 className={getPositionClassName(lines, "JG")}
                 value={"JG"}
               >
-                <img src="/Position_jungle.png" />
+                <img src="/Position_jg.png" />
               </button>
               <button
                 type="button"
@@ -131,14 +131,14 @@ export default function DuoModal({
                 className={getPositionClassName(lines, "AD")}
                 value={"AD"}
               >
-                <img src="/Position_bot.png" />
+                <img src="/Position_ad.png" />
               </button>
               <button
                 type="button"
                 className={getPositionClassName(lines, "SUP")}
                 value={"SUP"}
               >
-                <img src="/Position_support.png" />
+                <img src="/Position_sup.png" />
               </button>
             </div>
           </div>
@@ -163,7 +163,7 @@ export default function DuoModal({
                 className={getPositionClassName(wishLines, "JG")}
                 value={"JG"}
               >
-                <img src="/Position_jungle.png" />
+                <img src="/Position_jg.png" />
               </button>
               <button
                 type="button"
@@ -177,14 +177,14 @@ export default function DuoModal({
                 className={getPositionClassName(wishLines, "AD")}
                 value={"AD"}
               >
-                <img src="/Position_bot.png" />
+                <img src="/Position_ad.png" />
               </button>
               <button
                 type="button"
                 className={getPositionClassName(wishLines, "SUP")}
                 value={"SUP"}
               >
-                <img src="/Position_support.png" />
+                <img src="/Position_sup.png" />
               </button>
             </div>
           </div>
