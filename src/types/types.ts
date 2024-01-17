@@ -187,3 +187,10 @@ export interface IDuoPost {
   wishTiers: ITierType[];
   memo: string;
 }
+
+export interface ITicketPost {
+  gameName: string;
+  tagLine: string;
+  lines: ILineType[];
+  memo: string;
+}

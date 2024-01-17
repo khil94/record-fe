@@ -8,6 +8,7 @@ import {
   IRanking,
   ISimpleMatch,
   ISummonerProfile,
+  ITicketPost,
 } from "../types/types";
 import API from "./api";
 
@@ -149,5 +150,10 @@ export const PostDuo = async (data: IDuoPost) => {
 
 export const GetDuoDetail = async (duoId: number) => {
   const resp = await API.get<IDuoDetailResp>(`/duo/${duoId}`);
+  return resp;
+};
+
+export const PostTicket = async (duoId: number, data: ITicketPost) => {
+  const resp = await API.post(`/duo/${duoId}`, { ...data });
   return resp;
 };
