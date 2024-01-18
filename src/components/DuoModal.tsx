@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { PostDuo } from "../api/apis";
 import { TIER_TYPE_LIST } from "../constants/Enum";
-import { IDuoPost, ILineType, ITierType } from "../types/types";
+import { IDuoPost, IDuoQueueId, ILineType, ITierType } from "../types/types";
 import "./DuoModal.scss";
 import StyledInput from "./StyledInput";
 
@@ -28,6 +28,7 @@ export default function DuoModal({
   const [wishTiers, setWishTiers] = useState<ITierType[]>([]);
   const [show, setShow] = useState(showModal);
   const [memo, setMemo] = useState("");
+  const [queueType, setQueueType] = useState<IDuoQueueId>("SOLO_RANK_GAME");
 
   async function postDuo() {
     const postData: IDuoPost = {
@@ -37,6 +38,7 @@ export default function DuoModal({
       wishLines,
       wishTiers,
       memo,
+      duoQueueId: queueType,
     };
     try {
       await PostDuo(postData);
@@ -211,14 +213,15 @@ export default function DuoModal({
               })}
             </div>
           </div>
-          {/* <div className="duo_queuetype_dropbox">
-            <div className=" select_queue_type">
-              <button type="button">{"솔로랭크"}</button>
-              <span>솔로 랭크</span>
-              <span>자유 랭크</span>
-              <span>일반</span>
-            </div>
-          </div> */}
+          <div className="duo_queuetype_dropbox">
+            <select
+              onChange={(e) => setQueueType(e.target.value as IDuoQueueId)}
+            >
+              <option value={"SOLO_RANK_GAME"}>솔로 랭크</option>
+              <option value={"FLEX_RANK_GAME"}>자유 랭크</option>
+              <option value={"QUICK_PLAY"}>일반 게임</option>
+            </select>
+          </div>
           <div className="duo_memo">
             <textarea
               value={memo}
