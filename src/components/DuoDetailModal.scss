@@ -21,16 +21,22 @@
     .duo_detailmodal_header {
       display: flex;
       position: relative;
+      font-size: 2rem;
+      span:hover {
+        color: $color-dark-border;
+        cursor: pointer;
+      }
+      .duo_detailmodal_back {
+        position: absolute;
+        left: 0;
+        top: 0%;
+        transform: translateY(-50%);
+      }
       .duo_detailmodal_x {
         position: absolute;
-        font-size: 2rem;
         right: 0;
-        top: 50%;
+        top: 0%;
         transform: translateY(-50%);
-        &:hover {
-          color: $color-dark-border;
-          cursor: pointer;
-        }
       }
     }
 

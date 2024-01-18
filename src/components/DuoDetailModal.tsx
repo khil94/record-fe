@@ -15,7 +15,16 @@ export default function DuoDetailModal({
   onDisapppear = () => {},
   obj,
 }: IProp) {
-  const { gameName, tagLine, lines, wishLines, wishTiers, id, tickets } = obj;
+  const {
+    gameName,
+    tagLine,
+    lines,
+    wishLines,
+    wishTiers,
+    id,
+    tickets,
+    duoQueueId,
+  } = obj;
 
   const [ticketMode, setTicketMode] = useState(false);
   const [name, setName] = useState("");
@@ -71,6 +80,14 @@ export default function DuoDetailModal({
         className="duo_detailmodal_inner_wrapper"
       >
         <div className="duo_detailmodal_header">
+          {ticketMode && (
+            <span
+              className="duo_detailmodal_back"
+              onClick={() => setTicketMode(false)}
+            >
+              {"<"}
+            </span>
+          )}
           <span
             onClick={() => {
               onDisapppear();
@@ -226,14 +243,7 @@ export default function DuoDetailModal({
             ) : (
               <></>
             )}
-            {/* <div className="duo_queuetype_dropbox">
-            <div className=" select_queue_type">
-              <button type="button">{"솔로랭크"}</button>
-              <span>솔로 랭크</span>
-              <span>자유 랭크</span>
-              <span>일반</span>
-            </div>
-          </div> */}
+            <div>{duoQueueId}</div>
             <div className="duo_memo">
               {ticketMode && (
                 <textarea
