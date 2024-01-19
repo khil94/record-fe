@@ -103,6 +103,8 @@
           height: 4rem;
           border: none;
           resize: none;
+          border-radius: $default-border-radius;
+          padding: 1rem;
           &:focus {
             outline: none;
             border: none;
