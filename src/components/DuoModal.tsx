@@ -95,19 +95,21 @@ export default function DuoModal({
             postDuo();
           }}
         >
-          <div className="duomodal_name_wrapper">
+          <div className="duomodal_name_wrapper duo_wrapper">
             <StyledInput
+              mode="dark"
               onChange={(e) => setGameName(e.target.value)}
               label="소환사이름"
               value={gameName}
             />
             <StyledInput
+              mode="dark"
               onChange={(e) => setTagLine(e.target.value)}
               label="태그"
               value={tagLine}
             />
           </div>
-          <div className="select_my_line">
+          <div className="select_my_line duo_wrapper">
             나의 포지션
             <div
               onClick={(e) => {
@@ -153,7 +155,7 @@ export default function DuoModal({
               </button>
             </div>
           </div>
-          <div className="select_wish_lines">
+          <div className="select_wish_lines duo_wrapper">
             찾는 포지션
             <div
               onClick={(e) => {
@@ -199,7 +201,7 @@ export default function DuoModal({
               </button>
             </div>
           </div>
-          <div className="select_wish_rank">
+          <div className="select_wish_rank duo_wrapper">
             찾는 랭크
             <div
               onClick={(e) => {
@@ -231,13 +233,18 @@ export default function DuoModal({
               <option value={"QUICK_PLAY"}>일반 게임</option>
             </select>
           </div>
-          <div className="duo_memo">
+          <div className="duo_memo duo_wrapper">
+            메모
             <textarea
               value={memo}
               onChange={(e) => setMemo(e.target.value)}
             ></textarea>
           </div>
-          <button type="submit">제출</button>
+          <div className="duo_submit_btn_wrapper">
+            <button className="duo_submit_btn" type="submit">
+              제출
+            </button>
+          </div>
         </form>
       </div>
       <CommonModal
