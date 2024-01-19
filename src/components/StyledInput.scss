@@ -55,6 +55,8 @@
     }
     input {
       border-color: $color-white;
+      color: $color-white;
+
       &.valid ~ label {
         transform: translateY(-4.2rem);
         font-size: 1.4rem;
