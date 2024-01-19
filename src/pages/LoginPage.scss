@@ -21,6 +21,9 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      .input_wrapper {
+        margin: 2.8rem;
+      }
     }
     .btn_submit {
       width: 100%;
