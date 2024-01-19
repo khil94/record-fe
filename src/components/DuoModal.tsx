@@ -1,7 +1,9 @@
+import axios from "axios";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { PostDuo } from "../api/apis";
 import { TIER_TYPE_LIST } from "../constants/Enum";
 import { IDuoPost, IDuoQueueId, ILineType, ITierType } from "../types/types";
+import CommonModal from "./CommonModal";
 import "./DuoModal.scss";
 import StyledInput from "./StyledInput";
 
@@ -30,6 +32,9 @@ export default function DuoModal({
   const [memo, setMemo] = useState("");
   const [queueType, setQueueType] = useState<IDuoQueueId>("SOLO_RANK_GAME");
 
+  const [showErrModal, setShowErrModal] = useState(false);
+  const [errMsg, setErrMsg] = useState("");
+
   async function postDuo() {
     const postData: IDuoPost = {
       gameName,
@@ -43,7 +48,10 @@ export default function DuoModal({
     try {
       await PostDuo(postData);
     } catch (e) {
-      console.log(e);
+      if (axios.isAxiosError(e)) {
+        setErrMsg(e.response?.data.message);
+        setShowErrModal(true);
+      }
     }
   }
 
@@ -72,6 +80,7 @@ export default function DuoModal({
   return show ? (
     <div
       onClick={(e) => {
+        e.stopPropagation();
         onDisapppear();
       }}
       className="duomodal_outer_wrapper"
@@ -231,6 +240,12 @@ export default function DuoModal({
           <button type="submit">제출</button>
         </form>
       </div>
+      <CommonModal
+        showModal={showErrModal}
+        title="에러 발생"
+        message={errMsg}
+        onDisapppear={() => setShowErrModal(false)}
+      />
     </div>
   ) : (
     <></>
