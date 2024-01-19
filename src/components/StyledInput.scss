@@ -48,4 +48,18 @@
     color: $color-red;
     font-size: 1.2rem;
   }
+
+  &.dark {
+    label {
+      color: $color-white;
+    }
+    input {
+      border-color: $color-white;
+      &.valid ~ label {
+        transform: translateY(-4.2rem);
+        font-size: 1.4rem;
+        color: $color-white;
+      }
+    }
+  }
 }

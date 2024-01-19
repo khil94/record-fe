@@ -6,6 +6,7 @@ interface IProp extends React.InputHTMLAttributes<HTMLInputElement> {
   errMsg?: string;
   label: string;
   value: string;
+  mode?: "common" | "dark";
 }
 
 export default function StyledInput({
@@ -14,11 +15,13 @@ export default function StyledInput({
   value,
   err,
   errMsg,
+  mode = "common",
   label = "",
+
   ...rest
 }: IProp) {
   return (
-    <div className="input_wrapper">
+    <div className={`input_wrapper ${mode === "common" ? "" : "dark"}`}>
       <input
         className={`${value.length === 0 ? "" : !err ? "valid" : "invalid"}`}
         onChange={onChange}
