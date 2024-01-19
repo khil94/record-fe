@@ -1,7 +1,10 @@
+import axios from "axios";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { PostTicket } from "../api/apis";
 import { TIER_TYPE_LIST } from "../constants/Enum";
-import { IDuoObj, ILineType, ITicketPost } from "../types/types";
+import { IDuo, IDuoObj, ILineType, ITicketPost } from "../types/types";
+import CommonModal from "./CommonModal";
 import "./DuoDetailModal.scss";
 import StyledInput from "./StyledInput";
 
@@ -34,6 +37,9 @@ export default function DuoDetailModal({
   const [memo, setMemo] = useState("");
   const [show, setShow] = useState(showModal);
 
+  const [showErrModal, setShowErrModal] = useState(false);
+  const [errMsg, setErrMsg] = useState("");
+
   useEffect(() => {
     setShow(showModal);
   }, [showModal]);
@@ -63,14 +69,31 @@ export default function DuoDetailModal({
         memo,
       } as ITicketPost;
       const resp = await PostTicket(id, data);
-    } catch {
-      console.log("test");
+    } catch (e) {
+      if (axios.isAxiosError(e)) {
+        setErrMsg(e.response?.data.message);
+        setShowErrModal(true);
+      }
     }
+  }
+
+  function TicketComponent(ticket: IDuo) {
+    return (
+      <div className="ticket_wrapper">
+        <Link to={`/summoner/${ticket.gameName}/${ticket.tagLine}`}>
+          <span>{ticket.gameName}</span>
+        </Link>
+        <span>{ticket.tier}</span>
+        <span>{ticket.createdAt.toString()}</span>
+        <span>{ticket.memo}</span>
+      </div>
+    );
   }
 
   return show ? (
     <div
       onClick={(e) => {
+        e.stopPropagation();
         onDisapppear();
       }}
       className="duo_detailmodal_outer_wrapper"
@@ -99,13 +122,14 @@ export default function DuoDetailModal({
         </div>
         <div className="duo_detailmodal_inner">
           <form>
-            <div className="duomodal_name_wrapper">
+            <div className="duomodal_name_wrapper duo_detail_wrapper">
               <StyledInput
                 disabled={!ticketMode}
                 label="소환사이름"
                 onChange={(e) => {
                   ticketMode && setName(e.target.value);
                 }}
+                mode="dark"
                 value={!ticketMode ? gameName : name}
               />
               <StyledInput
@@ -113,11 +137,12 @@ export default function DuoDetailModal({
                 onChange={(e) => {
                   ticketMode && setTag(e.target.value);
                 }}
+                mode="dark"
                 label="태그"
                 value={!ticketMode ? tagLine : tag}
               />
             </div>
-            <div className="select_my_line">
+            <div className="select_my_line duo_detail_wrapper">
               나의 포지션
               <div
                 onClick={(e) => {
@@ -180,7 +205,7 @@ export default function DuoDetailModal({
             </div>
             {!ticketMode ? (
               <>
-                <div className="select_wish_lines">
+                <div className="select_wish_lines duo_detail_wrapper">
                   찾는 포지션
                   <div className="select_wrapper">
                     <button
@@ -221,7 +246,7 @@ export default function DuoDetailModal({
                   </div>
                 </div>
                 {
-                  <div className="select_wish_rank">
+                  <div className="select_wish_rank duo_detail_wrapper">
                     찾는 랭크
                     <div className="select_wrapper">
                       {TIER_TYPE_LIST.map((v) => {
@@ -244,7 +269,7 @@ export default function DuoDetailModal({
               <></>
             )}
             <div>{duoQueueId}</div>
-            <div className="duo_memo">
+            <div className="duo_memo duo_detail_wrapper">
               {ticketMode && (
                 <textarea
                   value={memo}
@@ -252,17 +277,42 @@ export default function DuoDetailModal({
                 ></textarea>
               )}
             </div>
-            <button
-              onClick={() => {
-                ticketMode ? postTicket() : setTicketMode(!ticketMode);
-              }}
-              type="button"
-            >
-              신청
-            </button>
+            <div className="duo_submit_btn_wrapper duo_detail_wrapper">
+              <button
+                className="duo_submit_btn"
+                onClick={() => {
+                  ticketMode ? postTicket() : setTicketMode(!ticketMode);
+                }}
+                type="button"
+              >
+                신청
+              </button>
+            </div>
           </form>
         </div>
+        {tickets.length > 0 && (
+          <>
+            신청 목록
+            <div className="tickets_wrapper duo_detail_wrapper">
+              {tickets.map((v) => {
+                return (
+                  <>
+                    <TicketComponent {...v} />
+                    <TicketComponent {...v} />
+                    <TicketComponent {...v} />
+                  </>
+                );
+              })}
+            </div>
+          </>
+        )}
       </div>
+      <CommonModal
+        showModal={showErrModal}
+        title="에러 발생"
+        message={errMsg}
+        onDisapppear={() => setShowErrModal(false)}
+      />
     </div>
   ) : (
     <></>
