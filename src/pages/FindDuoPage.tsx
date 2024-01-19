@@ -10,7 +10,9 @@ export default function FindDuoPage() {
   const [showModal, setShowModal] = useState(false);
   const currentPage = useRef(1);
   const [duoListData, setDuoListData] = useState<IDuoObj[]>([]);
+  const [myDuoData, setMyDuoData] = useState<IDuoObj>();
   const [showDetailModal, setShowDetailModal] = useState(false);
+  const [showMyModal, setShowMyModal] = useState(false);
   const [detailData, setDetailData] = useState<IDuoObj>();
   const [isLoading, setIsLoading] = useState(true);
 
@@ -18,6 +20,7 @@ export default function FindDuoPage() {
     const getData = async () => {
       const { data } = await getDuoList(currentPage.current);
       setDuoListData(data.duoList);
+      setMyDuoData(data.myDuo);
       setIsLoading(false);
     };
     getData();
@@ -41,6 +44,16 @@ export default function FindDuoPage() {
             >
               듀오찾기
             </button>
+            {myDuoData && (
+              <button
+                onClick={() => {
+                  setShowMyModal(true);
+                }}
+                className="create_duo_wrapper duo_comp_wrapper"
+              >
+                내 듀오 찾기
+              </button>
+            )}
           </div>
           <div className="duo_page_list_wrapper">
             <table className="duo_table">
@@ -112,6 +125,15 @@ export default function FindDuoPage() {
                 setDetailData(undefined);
               }}
               obj={detailData}
+            />
+          )}
+          {myDuoData && (
+            <DuoDetailModal
+              showModal={showMyModal}
+              onDisapppear={() => {
+                setShowMyModal(false);
+              }}
+              obj={myDuoData}
             />
           )}
         </>
