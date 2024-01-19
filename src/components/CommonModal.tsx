@@ -26,7 +26,8 @@ export default function CommonModal({
 
   return show ? (
     <div
-      onClick={() => {
+      onClick={(e) => {
+        e.stopPropagation();
         onDisapppear();
       }}
       className="modal_outer_wrapper"
