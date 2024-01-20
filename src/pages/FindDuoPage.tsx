@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import { GetDuoDetail, getDuoList } from "../api/apis";
 import DuoDetailModal from "../components/DuoDetailModal";
 import DuoModal from "../components/DuoModal";
@@ -78,7 +79,11 @@ export default function FindDuoPage() {
                     }}
                     key={i}
                   >
-                    <td>{v.gameName}</td>
+                    <td>
+                      <Link to={`/summoner/${v.gameName}/${v.tagLine}`}>
+                        {v.gameName}
+                      </Link>
+                    </td>
                     <td>
                       {v.lines.map((t, i) => {
                         return (
