@@ -133,19 +133,15 @@ export default function DuoDetailModal({
         className="duo_detailmodal_inner_wrapper"
       >
         <div className="duo_detailmodal_header">
-          {ticketMode && (
-            <span
-              className="duo_detailmodal_back"
-              onClick={() => setTicketMode(false)}
-            >
-              {"<"}
+          {
+            <span onClick={() => setTicketMode(false)}>
+              {ticketMode ? "<" : ""}
             </span>
-          )}
+          }
           <span
             onClick={() => {
               onDisapppear();
             }}
-            className="duo_detailmodal_x"
           >
             x
           </span>
@@ -299,7 +295,7 @@ export default function DuoDetailModal({
               <></>
             )}
             <div>{duoQueueId}</div>
-            {!ticketMode && (
+            {ticketMode && (
               <div className="duo_detail_wrapper duo_detail_recent_wrapper">
                 {recentMatches.length > 0 ? (
                   <span>
@@ -339,6 +335,8 @@ export default function DuoDetailModal({
               {tickets.map((v) => {
                 return (
                   <>
+                    <TicketComponent {...v} />
+                    <TicketComponent {...v} />
                     <TicketComponent {...v} />
                   </>
                 );
