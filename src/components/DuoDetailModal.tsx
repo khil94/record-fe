@@ -3,9 +3,16 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { PostTicket } from "../api/apis";
 import { TIER_TYPE_LIST } from "../constants/Enum";
-import { IDuo, IDuoObj, ILineType, ITicketPost } from "../types/types";
+import {
+  IDuo,
+  IDuoObj,
+  IDuoRecentMatch,
+  ILineType,
+  ITicketPost,
+} from "../types/types";
 import CommonModal from "./CommonModal";
 import "./DuoDetailModal.scss";
+import ObjImgComponent from "./ObjImgComponent";
 import StyledInput from "./StyledInput";
 
 interface IProp {
@@ -27,6 +34,7 @@ export default function DuoDetailModal({
     id,
     tickets,
     duoQueueId,
+    recentMatches,
   } = obj;
 
   const [ticketMode, setTicketMode] = useState(false);
@@ -59,6 +67,7 @@ export default function DuoDetailModal({
   function getPositionClassName<T>(list: T[], target: T) {
     return list.includes(target) ? "selected" : "";
   }
+  console.log(recentMatches);
 
   async function postTicket() {
     try {
@@ -69,6 +78,7 @@ export default function DuoDetailModal({
         memo,
       } as ITicketPost;
       const resp = await PostTicket(id, data);
+      onDisapppear();
     } catch (e) {
       if (axios.isAxiosError(e)) {
         setErrMsg(e.response?.data.message);
@@ -79,13 +89,33 @@ export default function DuoDetailModal({
 
   function TicketComponent(ticket: IDuo) {
     return (
-      <div className="ticket_wrapper">
+      <div key={ticket.id} className="ticket_wrapper">
         <Link to={`/summoner/${ticket.gameName}/${ticket.tagLine}`}>
           <span>{ticket.gameName}</span>
         </Link>
         <span>{ticket.tier}</span>
         <span>{ticket.createdAt.toString()}</span>
         <span>{ticket.memo}</span>
+      </div>
+    );
+  }
+
+  function RecentChampComp({ data }: { data: IDuoRecentMatch[] }) {
+    console.log(data);
+    return (
+      <div className="duo_detail_recent_match">
+        {data.map((v) => {
+          return (
+            <div key={v.championDto.image}>
+              <ObjImgComponent
+                description={`최근 KDA : ${v.kills}/${v.deaths}/${v.assists}`}
+                src={v.championDto.image}
+                name={v.championDto.name}
+                width={48}
+              />
+            </div>
+          );
+        })}
       </div>
     );
   }
@@ -269,6 +299,16 @@ export default function DuoDetailModal({
               <></>
             )}
             <div>{duoQueueId}</div>
+            <div className="duo_detail_wrapper duo_detail_recent_wrapper">
+              {recentMatches.length > 0 ? (
+                <span>
+                  최근 전적
+                  <RecentChampComp data={recentMatches} />
+                </span>
+              ) : (
+                <span>최근 전적이 없습니다.</span>
+              )}
+            </div>
             <div className="duo_memo duo_detail_wrapper">
               {ticketMode && (
                 <textarea
@@ -297,8 +337,6 @@ export default function DuoDetailModal({
               {tickets.map((v) => {
                 return (
                   <>
-                    <TicketComponent {...v} />
-                    <TicketComponent {...v} />
                     <TicketComponent {...v} />
                   </>
                 );

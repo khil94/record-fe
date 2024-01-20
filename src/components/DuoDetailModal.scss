@@ -87,6 +87,11 @@
           }
         }
       }
+      .duo_detail_recent_match {
+        display: flex;
+        flex-direction: row;
+        position: relative;
+      }
 
       .duo_queuetype_dropbox {
         position: relative;
