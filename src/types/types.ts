@@ -1,4 +1,5 @@
 import {
+  DUO_MATCH_TYPE_LIST,
   GAME_MODE_LIST,
   GAME_TYPE_LIST,
   LANE_LIST,
@@ -18,6 +19,7 @@ export type IGameType = (typeof GAME_TYPE_LIST)[number];
 export type ILeaderBoardQueueTyep =
   (typeof LEADERBOARD_QUEUE_TYPE_LIST)[number];
 export type ILineType = (typeof LANE_LIST)[number];
+export type IDuoMatchType = (typeof DUO_MATCH_TYPE_LIST)[number];
 
 export interface ILeagueEntry {
   queueType: IQueueType;
@@ -147,8 +149,8 @@ export interface IDuoObj {
   tier: ITierType;
   wishLines: ILineType[];
   wishTiers: ITierType[];
-  createdAt: Date;
-  expiredAt: Date;
+  createdAt: string;
+  expiredAt: string;
   tickets: IDuo[];
   duoQueueId: IQueueType;
   recentMatches: IDuoRecentMatch[];
@@ -176,7 +178,7 @@ export interface IDuo {
   line: string;
   tier: ITierType;
   memo: string;
-  createdAt: Date;
+  createdAt: string;
 }
 
 export interface IDuoPost {
@@ -193,6 +195,8 @@ export type IDuoQueueId = Extract<
   IQueueId,
   "SOLO_RANK_GAME" | "FLEX_RANK_GAME" | "QUICK_PLAY"
 >;
+
+export type IPostDuoQueueId = IDuoQueueId | "ALL";
 
 export interface ITicketPost {
   gameName: string;

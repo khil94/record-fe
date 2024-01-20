@@ -11,6 +11,8 @@ export const QUEUE_TYPE_LIST = [
   "UNKNOWN",
 ] as const;
 
+export const DUO_MATCH_TYPE_LIST = ["ALL", "MATCHING", "MATCHED"] as const;
+
 export const TIER_TYPE_LIST = [
   "CHALLENGER",
   "GRANDMASTER",
