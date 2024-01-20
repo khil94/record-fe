@@ -4,7 +4,7 @@ import { GetDuoDetail, getDuoList } from "../api/apis";
 import DuoDetailModal from "../components/DuoDetailModal";
 import DuoModal from "../components/DuoModal";
 import Loading from "../components/Loading";
-import { IDuoObj } from "../types/types";
+import { IDuoMatchType, IDuoObj, IPostDuoQueueId } from "../types/types";
 import { getMMDDHHmm } from "../utils/generalFunctions";
 import "./FindDuoPage.scss";
 
@@ -17,16 +17,19 @@ export default function FindDuoPage() {
   const [showMyModal, setShowMyModal] = useState(false);
   const [detailData, setDetailData] = useState<IDuoObj>();
   const [isLoading, setIsLoading] = useState(true);
+  const [match, setMatch] = useState<IDuoMatchType>("ALL");
+  const [queue, setQueue] = useState<IPostDuoQueueId>("ALL");
 
   useEffect(() => {
     const getData = async () => {
-      const { data } = await getDuoList(currentPage.current);
+      const { data } = await getDuoList(currentPage.current, match, queue);
+      console.log(data);
       setDuoListData(data.duoList);
       setMyDuoData(data.myDuo);
       setIsLoading(false);
     };
     getData();
-  }, []);
+  }, [match, queue]);
 
   async function getDetailData(duoid: number) {
     const resp = await GetDuoDetail(duoid);
@@ -40,22 +43,47 @@ export default function FindDuoPage() {
       ) : (
         <>
           <div className="duo_page_head_wrapper">
-            <button
-              onClick={() => setShowModal(true)}
-              className="create_duo_wrapper duo_comp_wrapper"
+            <div
+              onClick={(e) => {
+                e.preventDefault();
+                setMatch(e.target.value);
+              }}
+              className=" duo_comp_wrapper"
             >
-              듀오찾기
-            </button>
-            {myDuoData && (
+              <button value={"ALL"}>모두</button>
+              <button value={"MATCHING"}>매칭중</button>
+              <button value={"MATCHED"}>매칭완료</button>
+            </div>
+            <div
+              onClick={(e) => {
+                e.preventDefault();
+                setQueue(e.target.value);
+              }}
+              className=" duo_comp_wrapper"
+            >
+              <button value={"ALL"}>모두</button>
+              <button value={"SOLO_RANK_GAME"}>솔로랭크</button>
+              <button value={"FLEX_RANK_GAME"}>자유랭크</button>
+              <button value={"QUICK_PLAY"}>일반</button>
+            </div>
+            <div>
               <button
-                onClick={() => {
-                  setShowMyModal(true);
-                }}
+                onClick={() => setShowModal(true)}
                 className="create_duo_wrapper duo_comp_wrapper"
               >
-                내 듀오 찾기
+                듀오찾기
               </button>
-            )}
+              {myDuoData && (
+                <button
+                  onClick={() => {
+                    setShowMyModal(true);
+                  }}
+                  className="create_duo_wrapper duo_comp_wrapper"
+                >
+                  내 듀오찾기
+                </button>
+              )}
+            </div>
           </div>
           <div className="duo_page_list_wrapper">
             <table className="duo_table">

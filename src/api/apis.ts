@@ -1,10 +1,12 @@
 import useSWR from "swr";
 import {
   IDuoDetailResp,
+  IDuoMatchType,
   IDuoPost,
   IDuoResp,
   ILeaderBoardQueueTyep,
   ILoginResp,
+  IPostDuoQueueId,
   IRanking,
   ISimpleMatch,
   ISummonerProfile,
@@ -135,9 +137,13 @@ export const DeleteUser = async () => {
   return resp;
 };
 
-export const getDuoList = async (page: number) => {
+export const getDuoList = async (
+  page: number,
+  match: IDuoMatchType,
+  queue: IPostDuoQueueId
+) => {
   const resp = await API.get<IDuoResp>("/duo", {
-    params: { page, filter: "ALL" },
+    params: { page, match, queue },
   });
 
   return resp;
