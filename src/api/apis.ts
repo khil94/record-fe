@@ -157,3 +157,8 @@ export const PostTicket = async (duoId: number, data: ITicketPost) => {
   const resp = await API.post(`/duo/${duoId}`, { ...data });
   return resp;
 };
+
+export const PostAcceptTicket = async (duoId: number, ticketId: number) => {
+  const resp = await API.post(`/duo/${duoId}/${ticketId}/accept`);
+  return resp;
+};
