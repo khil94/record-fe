@@ -5,6 +5,7 @@ import DuoDetailModal from "../components/DuoDetailModal";
 import DuoModal from "../components/DuoModal";
 import Loading from "../components/Loading";
 import { IDuoObj } from "../types/types";
+import { getMMDDHHmm } from "../utils/generalFunctions";
 import "./FindDuoPage.scss";
 
 export default function FindDuoPage() {
@@ -66,8 +67,9 @@ export default function FindDuoPage() {
                   <th>티어</th>
                   <th>승률</th>
                   <th>KDA</th>
-                  <th>메모</th>
-                  <th>등록일시</th>
+                  <th>등록일자</th>
+                  <th>만료일자</th>
+                  <th>매칭여부</th>
                 </tr>
               </thead>
               <tbody>
@@ -112,7 +114,9 @@ export default function FindDuoPage() {
                     <td>{"dd"}</td>
                     <td>{"kda"}</td>
                     {/* <td>{v.ti}</td> */}
-                    <td>{v.createdAt.toString()}</td>
+                    <td>{getMMDDHHmm(new Date(v.createdAt))}</td>
+                    <td>{getMMDDHHmm(new Date(v.expiredAt))}</td>
+                    <td>{v.matched ? "매칭완료" : "매칭중"}</td>
                   </tr>
                 ))}
               </tbody>
@@ -139,6 +143,7 @@ export default function FindDuoPage() {
                 setShowMyModal(false);
               }}
               obj={myDuoData}
+              own={true}
             />
           )}
         </>
