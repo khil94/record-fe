@@ -1,33 +1,38 @@
 @import "../variable";
 
-.obj_description {
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  padding: 1.2rem;
-  z-index: 100;
-  background-color: $color-black;
-  color: $color-white;
-  animation: fade-in 500ms ease;
-  position: absolute;
-  max-width: 24rem;
-  min-width: 8rem;
-  transform: translateY(-100%) translateY(-3.2rem) translateX(-50%)
-    translateX(1.2rem);
-
-  .obj_name {
-    color: $color-aqua;
-  }
-
-  &::after {
-    position: absolute;
-    content: "";
-    width: 0.8rem;
-    height: 0.8rem;
-    border-top: 10px solid $color-black;
-    border-right: 10px solid $color-black;
+.obj_wrapper {
+  position: relative;
+  .obj_description {
+    top: 0;
     left: 50%;
-    bottom: 0;
-    transform: translateX(-50%) translateY(0.6rem) rotate(135deg);
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    padding: 1.2rem;
+    z-index: 100;
+    background-color: $color-black;
+    color: $color-white;
+    animation: fade-in 500ms ease;
+    max-width: 48rem;
+    min-width: 8rem;
+    border-radius: $default-border-radius;
+    // transform: translateY(-100%) translateY(-3.2rem) translateX(-50%)
+    //   translateX(1.2rem);
+    transform: translateX(-50%) translateY(-100%) translateY(-1.2rem);
+    .obj_name {
+      color: $color-aqua;
+    }
+
+    &::after {
+      position: absolute;
+      content: "";
+      width: 0.8rem;
+      height: 0.8rem;
+      border-top: 10px solid $color-black;
+      border-right: 10px solid $color-black;
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%) translateY(0.6rem) rotate(135deg);
+    }
   }
 }

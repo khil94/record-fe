@@ -5,18 +5,23 @@ import "./ObjImgComponent.scss";
 interface IProp extends React.ImgHTMLAttributes<HTMLImageElement> {
   name: string;
   description: string;
-  image: string;
+  src: string;
 }
 
-export default function ObjImgComponent({ name, description, ...rest }: IProp) {
+export default function ObjImgComponent({
+  name,
+  description,
+  src,
+  ...rest
+}: IProp) {
   const [showDesc, setShowDesc] = useState(false);
 
   return (
-    <div>
+    <div className="obj_wrapper">
       <img
         onMouseEnter={() => setShowDesc(true)}
         onMouseLeave={() => setShowDesc(false)}
-        src={rest.src}
+        src={src}
         alt={name}
         {...rest}
       />
