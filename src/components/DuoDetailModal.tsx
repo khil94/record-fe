@@ -299,16 +299,18 @@ export default function DuoDetailModal({
               <></>
             )}
             <div>{duoQueueId}</div>
-            <div className="duo_detail_wrapper duo_detail_recent_wrapper">
-              {recentMatches.length > 0 ? (
-                <span>
-                  최근 전적
-                  <RecentChampComp data={recentMatches} />
-                </span>
-              ) : (
-                <span>최근 전적이 없습니다.</span>
-              )}
-            </div>
+            {!ticketMode && (
+              <div className="duo_detail_wrapper duo_detail_recent_wrapper">
+                {recentMatches.length > 0 ? (
+                  <span>
+                    최근 전적
+                    <RecentChampComp data={recentMatches} />
+                  </span>
+                ) : (
+                  <span>최근 전적이 없습니다.</span>
+                )}
+              </div>
+            )}
             <div className="duo_memo duo_detail_wrapper">
               {ticketMode && (
                 <textarea
