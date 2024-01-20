@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { PostTicket } from "../api/apis";
+import { PostAcceptTicket, PostTicket } from "../api/apis";
 import { TIER_TYPE_LIST } from "../constants/Enum";
 import {
   IDuo,
@@ -19,11 +19,13 @@ interface IProp {
   showModal: boolean;
   onDisapppear: () => void;
   obj: IDuoObj;
+  own?: boolean;
 }
 export default function DuoDetailModal({
   showModal,
   onDisapppear = () => {},
   obj,
+  own = false,
 }: IProp) {
   const {
     gameName,
@@ -96,6 +98,17 @@ export default function DuoDetailModal({
         <span>{ticket.tier}</span>
         <span>{ticket.createdAt.toString()}</span>
         <span>{ticket.memo}</span>
+        {own && (
+          <button
+            className="duo_submit_btn"
+            onClick={async () => {
+              await PostAcceptTicket(ticket.duoId, ticket.id);
+            }}
+            type="button"
+          >
+            신청
+          </button>
+        )}
       </div>
     );
   }
@@ -295,7 +308,7 @@ export default function DuoDetailModal({
               <></>
             )}
             <div>{duoQueueId}</div>
-            {ticketMode && (
+            {!ticketMode && (
               <div className="duo_detail_wrapper duo_detail_recent_wrapper">
                 {recentMatches.length > 0 ? (
                   <span>
