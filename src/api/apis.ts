@@ -52,6 +52,7 @@ export function useSummonerInfo(summonerName?: string, tagName?: string) {
     },
     {
       revalidateOnFocus: false,
+      shouldRetryOnError: false,
     }
   );
 
@@ -66,6 +67,7 @@ export function useSummonerInfoById(summonerId?: string) {
     },
     {
       revalidateOnFocus: false,
+      shouldRetryOnError: false,
     }
   );
 
