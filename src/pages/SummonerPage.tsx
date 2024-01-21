@@ -22,12 +22,7 @@ export default function SummonerPage() {
     ) {
       setGameData(dataByName.data);
     }
-  }, [
-    dataByName.isLoading,
-    dataByName.isValidating,
-    dataByName.data?.matches,
-    dataByName.data?.profile,
-  ]);
+  }, [dataByName.isLoading, dataByName.isValidating, dataByName.data?.matches]);
 
   useEffect(() => {
     if (
@@ -37,12 +32,7 @@ export default function SummonerPage() {
     ) {
       setGameData(dataById.data);
     }
-  }, [
-    dataById.isLoading,
-    dataById.isValidating,
-    dataById.data?.matches,
-    dataById.data?.profile,
-  ]);
+  }, [dataById.isLoading, dataById.isValidating, dataById.data?.matches]);
 
   const LeagueComponent = (props: ILeagueEntry) => {
     const qType = props.queueType === "RANKED_SOLO" ? "솔로 랭크" : "자유 랭크";
