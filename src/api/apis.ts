@@ -11,6 +11,7 @@ import {
   ISimpleMatch,
   ISummonerProfile,
   ITicketPost,
+  IUserInfo,
 } from "../types/types";
 import API from "./api";
 
@@ -177,5 +178,10 @@ export const PostTicket = async (duoId: number, data: ITicketPost) => {
 
 export const PostAcceptTicket = async (duoId: number, ticketId: number) => {
   const resp = await API.post(`/duo/${duoId}/${ticketId}/accept`);
+  return resp;
+};
+
+export const GetMe = async () => {
+  const resp = await API.get<IUserInfo>("/user/me");
   return resp;
 };
