@@ -10,6 +10,7 @@ import {
   ILineType,
   ITicketPost,
 } from "../types/types";
+import { getDateDiff } from "../utils/generalFunctions";
 import CommonModal from "./CommonModal";
 import "./DuoDetailModal.scss";
 import ObjImgComponent from "./ObjImgComponent";
@@ -37,6 +38,8 @@ export default function DuoDetailModal({
     tickets,
     duoQueueId,
     recentMatches,
+    matched,
+    expiredAt,
   } = obj;
 
   const [ticketMode, setTicketMode] = useState(false);
@@ -49,6 +52,10 @@ export default function DuoDetailModal({
 
   const [showErrModal, setShowErrModal] = useState(false);
   const [errMsg, setErrMsg] = useState("");
+
+  const [isExpired, setIsExpired] = useState(
+    matched || getDateDiff(new Date(expiredAt)) !== 0
+  );
 
   useEffect(() => {
     setShow(showModal);
@@ -329,15 +336,17 @@ export default function DuoDetailModal({
               )}
             </div>
             <div className="duo_submit_btn_wrapper duo_detail_wrapper">
-              <button
-                className="duo_submit_btn"
-                onClick={() => {
-                  ticketMode ? postTicket() : setTicketMode(!ticketMode);
-                }}
-                type="button"
-              >
-                신청
-              </button>
+              {!isExpired && (
+                <button
+                  className="duo_submit_btn"
+                  onClick={() => {
+                    ticketMode ? postTicket() : setTicketMode(!ticketMode);
+                  }}
+                  type="button"
+                >
+                  신청
+                </button>
+              )}
             </div>
           </form>
         </div>
