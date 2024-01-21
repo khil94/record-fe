@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { useSWRConfig } from "swr";
 import { GetDuoDetail, useDuoList } from "../api/apis";
 import DuoDetailModal from "../components/DuoDetailModal";
 import DuoModal from "../components/DuoModal";
@@ -20,7 +21,7 @@ export default function FindDuoPage() {
   const [queue, setQueue] = useState<IPostDuoQueueId>("ALL");
 
   const { data, isLoading } = useDuoList(currentPage.current, match, queue);
-
+  const { mutate } = useSWRConfig();
   useEffect(() => {
     if (data) {
       setDuoListData(data.data.duoList);
@@ -150,7 +151,10 @@ export default function FindDuoPage() {
         </div>
         <DuoModal
           showModal={showModal}
-          onDisapppear={() => setShowModal(false)}
+          onDisapppear={() => {
+            setShowModal(false);
+            mutate(["/duo", currentPage.current, match, queue]);
+          }}
         />
         {detailData && (
           <DuoDetailModal
