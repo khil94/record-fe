@@ -249,7 +249,7 @@ export default function DuoDetailModal({
                 </button>
               </div>
             </div>
-            {!ticketMode ? (
+            {!ticketMode && (
               <>
                 <div className="select_wish_lines duo_detail_wrapper">
                   찾는 포지션
@@ -291,41 +291,38 @@ export default function DuoDetailModal({
                     </button>
                   </div>
                 </div>
-                {
-                  <div className="select_wish_rank duo_detail_wrapper">
-                    찾는 랭크
-                    <div className="select_wrapper">
-                      {TIER_TYPE_LIST.map((v) => {
-                        return (
-                          <button
-                            type="button"
-                            key={`button_${v}`}
-                            className={getPositionClassName(wishTiers, v)}
-                            value={v}
-                          >
-                            <img src={`/${v.toLowerCase()}.webp`} />
-                          </button>
-                        );
-                      })}
-                    </div>
+
+                <div className="select_wish_rank duo_detail_wrapper">
+                  찾는 랭크
+                  <div className="select_wrapper">
+                    {TIER_TYPE_LIST.map((v) => {
+                      return (
+                        <button
+                          type="button"
+                          key={`button_${v}`}
+                          className={getPositionClassName(wishTiers, v)}
+                          value={v}
+                        >
+                          <img src={`/${v.toLowerCase()}.webp`} />
+                        </button>
+                      );
+                    })}
                   </div>
-                }
+                </div>
+
+                <div>{duoQueueId}</div>
+
+                <div className="duo_detail_wrapper duo_detail_recent_wrapper">
+                  {recentMatches.length > 0 ? (
+                    <span>
+                      최근 전적
+                      <RecentChampComp data={recentMatches} />
+                    </span>
+                  ) : (
+                    <span>최근 전적이 없습니다.</span>
+                  )}
+                </div>
               </>
-            ) : (
-              <></>
-            )}
-            <div>{duoQueueId}</div>
-            {!ticketMode && (
-              <div className="duo_detail_wrapper duo_detail_recent_wrapper">
-                {recentMatches.length > 0 ? (
-                  <span>
-                    최근 전적
-                    <RecentChampComp data={recentMatches} />
-                  </span>
-                ) : (
-                  <span>최근 전적이 없습니다.</span>
-                )}
-              </div>
             )}
             <div className="duo_memo duo_detail_wrapper">
               {ticketMode && (
