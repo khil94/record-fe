@@ -41,6 +41,12 @@ const MatchesComponent = React.memo(({ data, q }: IProp) => {
   }
 
   useEffect(() => {
+    if (gameListData.length === 0) {
+      getMoreGameList();
+    }
+  }, []);
+
+  useEffect(() => {
     const target = filtering(gameListData);
     const temp: ISimpleParticipant[] = [];
     target.forEach((v) => {
@@ -57,7 +63,8 @@ const MatchesComponent = React.memo(({ data, q }: IProp) => {
     setUserGameList(temp);
   }, [gameListData, q, data]);
 
-  const getMoreGameList = async (puid: string) => {
+  const getMoreGameList = async () => {
+    const puid = data.profile.puuid;
     const targetNumber = pageNumber.current + 1;
     const gameData = await GetGameList(puid, targetNumber, q || "ALL");
     if (gameData) {
@@ -89,7 +96,7 @@ const MatchesComponent = React.memo(({ data, q }: IProp) => {
                 <button
                   onClick={() => {
                     setIsMoreLoading(true);
-                    getMoreGameList(data.profile.puuid);
+                    getMoreGameList();
                   }}
                   type="button"
                 >
