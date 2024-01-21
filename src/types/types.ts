@@ -196,7 +196,7 @@ export type IDuoQueueId = Extract<
   "SOLO_RANK_GAME" | "FLEX_RANK_GAME" | "QUICK_PLAY"
 >;
 
-export type IPostDuoQueueId = IDuoQueueId | "ALL";
+export type IPostQueueId = IDuoQueueId | "ALL";
 
 export interface ITicketPost {
   gameName: string;

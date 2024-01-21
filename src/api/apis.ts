@@ -6,7 +6,7 @@ import {
   IDuoResp,
   ILeaderBoardQueueTyep,
   ILoginResp,
-  IPostDuoQueueId,
+  IPostQueueId,
   IRanking,
   ISimpleMatch,
   ISummonerProfile,
@@ -142,7 +142,7 @@ export const DeleteUser = async () => {
 export const useDuoList = (
   page: number,
   match: IDuoMatchType,
-  queue: IPostDuoQueueId
+  queue: IPostQueueId
 ) => {
   const resp = useSWR(
     ["/duo", page, match, queue],

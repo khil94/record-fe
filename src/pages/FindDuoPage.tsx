@@ -5,7 +5,7 @@ import { GetDuoDetail, useDuoList } from "../api/apis";
 import DuoDetailModal from "../components/DuoDetailModal";
 import DuoModal from "../components/DuoModal";
 import Loading from "../components/Loading";
-import { IDuoMatchType, IDuoObj, IPostDuoQueueId } from "../types/types";
+import { IDuoMatchType, IDuoObj, IPostQueueId } from "../types/types";
 import { getMMDDHHmm } from "../utils/generalFunctions";
 import "./FindDuoPage.scss";
 
@@ -18,7 +18,7 @@ export default function FindDuoPage() {
   const [showMyModal, setShowMyModal] = useState(false);
   const [detailData, setDetailData] = useState<IDuoObj>();
   const [match, setMatch] = useState<IDuoMatchType>("ALL");
-  const [queue, setQueue] = useState<IPostDuoQueueId>("ALL");
+  const [queue, setQueue] = useState<IPostQueueId>("ALL");
 
   const { data, isLoading } = useDuoList(currentPage.current, match, queue);
   const { mutate } = useSWRConfig();
