@@ -133,3 +133,11 @@ export const getMMDDHHmm = (date: Date) => {
 
   return `${get24Time(MM)}-${get24Time(DD)} ${get24Time(HH)}:${get24Time(mm)}`;
 };
+
+export const getDateDiff = (date: Date) => {
+  const now = new Date();
+  const diff = now.getTime() - date.getTime();
+  const diffDate = diff / (1000 * 3600 * 24);
+
+  return Math.round(diffDate);
+};
