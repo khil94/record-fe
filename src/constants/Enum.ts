@@ -67,6 +67,7 @@ export const QUEUE_ID_LIST = [
   "QUICK_PLAY",
   "FLEX_RANK_GAME",
   "OTHER_GAME",
+  "NORMAL_GAME",
 ] as const;
 
 export const GAME_TYPE_LIST = [
