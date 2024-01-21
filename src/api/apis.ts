@@ -14,10 +14,15 @@ import {
 } from "../types/types";
 import API from "./api";
 
-export const GetGameList = async (puid: string, pageNumber: number) => {
+export const GetGameList = async (
+  puid: string,
+  pageNumber: number,
+  queue: IPostQueueId
+) => {
   const resp = await API.get<ISimpleMatch[]>(`/matches/${puid}`, {
     params: {
       page: pageNumber,
+      queue,
     },
   });
   return resp;

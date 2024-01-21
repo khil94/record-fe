@@ -92,11 +92,11 @@ export default function SummonerPage() {
             <MultiTabLayout
               tabList={["전체", "솔로 랭크", "자유 랭크", "일반", "기타"]}
               tabPageList={[
-                <MatchesComponent data={gameData} />,
+                <MatchesComponent data={gameData} q="ALL" />,
                 <MatchesComponent data={gameData} q="SOLO_RANK_GAME" />,
                 <MatchesComponent data={gameData} q="FLEX_RANK_GAME" />,
-                <MatchesComponent data={gameData} q="NORMAL_GAME" />,
-                <MatchesComponent data={gameData} q="OTHER_GAME" />,
+                <MatchesComponent data={gameData} q="QUICK_PLAY" />,
+                <MatchesComponent data={gameData} />,
               ]}
             />
           )}

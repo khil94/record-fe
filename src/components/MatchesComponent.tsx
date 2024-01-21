@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { GetGameList } from "../api/apis";
 import {
-  IQueueId,
+  IPostQueueId,
   ISimpleMatch,
   ISimpleParticipant,
   ISummonerProfile,
@@ -12,7 +12,7 @@ import UserRecentInfoComponent from "./UserRecentInfoComponent";
 
 interface IProp {
   data: ISummonerProfile;
-  q?: IQueueId;
+  q?: IPostQueueId;
 }
 
 const MatchesComponent = React.memo(({ data, q }: IProp) => {
@@ -24,7 +24,20 @@ const MatchesComponent = React.memo(({ data, q }: IProp) => {
   const [userGameList, setUserGameList] = useState<ISimpleParticipant[]>([]);
 
   function filtering(data: ISimpleMatch[]) {
-    return q ? data.filter((t) => t.queueId === q) : data;
+    switch (q) {
+      case "ALL":
+        return data;
+      case undefined:
+        return data.filter((t) => {
+          return (
+            t.queueId !== "SOLO_RANK_GAME" &&
+            t.queueId !== "FLEX_RANK_GAME" &&
+            t.queueId !== "QUICK_PLAY"
+          );
+        });
+      default:
+        return data.filter((t) => t.queueId === q);
+    }
   }
 
   useEffect(() => {
@@ -46,7 +59,7 @@ const MatchesComponent = React.memo(({ data, q }: IProp) => {
 
   const getMoreGameList = async (puid: string) => {
     const targetNumber = pageNumber.current + 1;
-    const gameData = await GetGameList(puid, targetNumber);
+    const gameData = await GetGameList(puid, targetNumber, q || "ALL");
     if (gameData) {
       setGameListData(filtering([...gameListData, ...gameData.data]));
       pageNumber.current = pageNumber.current + 1;
