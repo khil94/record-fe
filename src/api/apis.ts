@@ -139,15 +139,19 @@ export const DeleteUser = async () => {
   return resp;
 };
 
-export const getDuoList = async (
+export const useDuoList = (
   page: number,
   match: IDuoMatchType,
   queue: IPostDuoQueueId
 ) => {
-  const resp = await API.get<IDuoResp>("/duo", {
-    params: { page, match, queue },
-  });
-
+  const resp = useSWR(
+    ["/duo", page, match, queue],
+    ([url, page, match, queue]) => {
+      return API.get<IDuoResp>(url, {
+        params: { page, match, queue },
+      });
+    }
+  );
   return resp;
 };
 

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { GetDuoDetail, getDuoList } from "../api/apis";
+import { GetDuoDetail, useDuoList } from "../api/apis";
 import DuoDetailModal from "../components/DuoDetailModal";
 import DuoModal from "../components/DuoModal";
 import Loading from "../components/Loading";
@@ -16,21 +16,17 @@ export default function FindDuoPage() {
   const [showDetailModal, setShowDetailModal] = useState(false);
   const [showMyModal, setShowMyModal] = useState(false);
   const [detailData, setDetailData] = useState<IDuoObj>();
-  const [isLoading, setIsLoading] = useState(true);
   const [match, setMatch] = useState<IDuoMatchType>("ALL");
   const [queue, setQueue] = useState<IPostDuoQueueId>("ALL");
 
+  const { data, isLoading } = useDuoList(currentPage.current, match, queue);
+
   useEffect(() => {
-    const getData = async () => {
-      setIsLoading(true);
-      const { data } = await getDuoList(currentPage.current, match, queue);
-      console.log(data);
-      setDuoListData(data.duoList);
-      setMyDuoData(data.myDuo);
-      setIsLoading(false);
-    };
-    getData();
-  }, [match, queue]);
+    if (data) {
+      setDuoListData(data.data.duoList);
+      setMyDuoData(data.data.myDuo);
+    }
+  }, [data]);
 
   async function getDetailData(duoid: number) {
     const resp = await GetDuoDetail(duoid);
