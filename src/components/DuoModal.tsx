@@ -47,6 +47,7 @@ export default function DuoModal({
     };
     try {
       await PostDuo(postData);
+      onDisapppear();
     } catch (e) {
       if (axios.isAxiosError(e)) {
         setErrMsg(e.response?.data.message);
