@@ -22,6 +22,7 @@ export default function FindDuoPage() {
 
   useEffect(() => {
     const getData = async () => {
+      setIsLoading(true);
       const { data } = await getDuoList(currentPage.current, match, queue);
       console.log(data);
       setDuoListData(data.duoList);
@@ -38,54 +39,54 @@ export default function FindDuoPage() {
 
   return (
     <div className="duo_page_wrapper">
-      {isLoading ? (
-        <Loading width={48} />
-      ) : (
-        <>
-          <div className="duo_page_head_wrapper">
-            <div
-              onClick={(e) => {
-                e.preventDefault();
-                setMatch(e.target.value);
-              }}
-              className=" duo_comp_wrapper"
+      <>
+        <div className="duo_page_head_wrapper">
+          <div
+            onClick={(e) => {
+              e.preventDefault();
+              setMatch(e.target.value);
+            }}
+            className=" duo_comp_wrapper"
+          >
+            <button value={"ALL"}>모두</button>
+            <button value={"MATCHING"}>매칭중</button>
+            <button value={"MATCHED"}>매칭완료</button>
+          </div>
+          <div
+            onClick={(e) => {
+              e.preventDefault();
+              setQueue(e.target.value);
+            }}
+            className=" duo_comp_wrapper"
+          >
+            <button value={"ALL"}>모두</button>
+            <button value={"SOLO_RANK_GAME"}>솔로랭크</button>
+            <button value={"FLEX_RANK_GAME"}>자유랭크</button>
+            <button value={"QUICK_PLAY"}>일반</button>
+          </div>
+          <div>
+            <button
+              onClick={() => setShowModal(true)}
+              className="create_duo_wrapper duo_comp_wrapper"
             >
-              <button value={"ALL"}>모두</button>
-              <button value={"MATCHING"}>매칭중</button>
-              <button value={"MATCHED"}>매칭완료</button>
-            </div>
-            <div
-              onClick={(e) => {
-                e.preventDefault();
-                setQueue(e.target.value);
-              }}
-              className=" duo_comp_wrapper"
-            >
-              <button value={"ALL"}>모두</button>
-              <button value={"SOLO_RANK_GAME"}>솔로랭크</button>
-              <button value={"FLEX_RANK_GAME"}>자유랭크</button>
-              <button value={"QUICK_PLAY"}>일반</button>
-            </div>
-            <div>
+              듀오찾기
+            </button>
+            {myDuoData && (
               <button
-                onClick={() => setShowModal(true)}
+                onClick={() => {
+                  setShowMyModal(true);
+                }}
                 className="create_duo_wrapper duo_comp_wrapper"
               >
-                듀오찾기
+                내 듀오찾기
               </button>
-              {myDuoData && (
-                <button
-                  onClick={() => {
-                    setShowMyModal(true);
-                  }}
-                  className="create_duo_wrapper duo_comp_wrapper"
-                >
-                  내 듀오찾기
-                </button>
-              )}
-            </div>
+            )}
           </div>
-          <div className="duo_page_list_wrapper">
+        </div>
+        <div className="duo_page_list_wrapper">
+          {isLoading ? (
+            <Loading width={48} />
+          ) : (
             <table className="duo_table">
               <thead>
                 <tr>
@@ -149,33 +150,33 @@ export default function FindDuoPage() {
                 ))}
               </tbody>
             </table>
-          </div>
-          <DuoModal
-            showModal={showModal}
-            onDisapppear={() => setShowModal(false)}
+          )}
+        </div>
+        <DuoModal
+          showModal={showModal}
+          onDisapppear={() => setShowModal(false)}
+        />
+        {detailData && (
+          <DuoDetailModal
+            showModal={showDetailModal}
+            onDisapppear={() => {
+              setShowDetailModal(false);
+              setDetailData(undefined);
+            }}
+            obj={detailData}
           />
-          {detailData && (
-            <DuoDetailModal
-              showModal={showDetailModal}
-              onDisapppear={() => {
-                setShowDetailModal(false);
-                setDetailData(undefined);
-              }}
-              obj={detailData}
-            />
-          )}
-          {myDuoData && (
-            <DuoDetailModal
-              showModal={showMyModal}
-              onDisapppear={() => {
-                setShowMyModal(false);
-              }}
-              obj={myDuoData}
-              own={true}
-            />
-          )}
-        </>
-      )}
+        )}
+        {myDuoData && (
+          <DuoDetailModal
+            showModal={showMyModal}
+            onDisapppear={() => {
+              setShowMyModal(false);
+            }}
+            obj={myDuoData}
+            own={true}
+          />
+        )}
+      </>
     </div>
   );
 }
