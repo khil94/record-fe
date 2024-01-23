@@ -34,6 +34,10 @@ export default function FindDuoPage() {
     setDetailData(resp.data.duo);
   }
 
+  function getPositionClassName<T>(val: T, target: T) {
+    return val === target ? "selected" : "";
+  }
+
   return (
     <div className="duo_page_wrapper">
       <>
@@ -43,23 +47,58 @@ export default function FindDuoPage() {
               e.preventDefault();
               setMatch(e.target.value);
             }}
-            className=" duo_comp_wrapper"
+            className=" duo_btn_wrapper"
           >
-            <button value={"ALL"}>모두</button>
-            <button value={"MATCHING"}>매칭중</button>
-            <button value={"MATCHED"}>매칭완료</button>
+            <button
+              className={getPositionClassName("ALL", match)}
+              value={"ALL"}
+            >
+              모두
+            </button>
+            <button
+              className={getPositionClassName("MATCHING", match)}
+              value={"MATCHING"}
+            >
+              매칭중
+            </button>
+            <button
+              className={getPositionClassName("MATCHED", match)}
+              value={"MATCHED"}
+            >
+              매칭완료
+            </button>
           </div>
           <div
             onClick={(e) => {
               e.preventDefault();
               setQueue(e.target.value);
             }}
-            className=" duo_comp_wrapper"
+            className=" duo_btn_wrapper"
           >
-            <button value={"ALL"}>모두</button>
-            <button value={"SOLO_RANK_GAME"}>솔로랭크</button>
-            <button value={"FLEX_RANK_GAME"}>자유랭크</button>
-            <button value={"QUICK_PLAY"}>일반</button>
+            <button
+              className={getPositionClassName("ALL", queue)}
+              value={"ALL"}
+            >
+              모두
+            </button>
+            <button
+              className={getPositionClassName("SOLO_RANK_GAME", queue)}
+              value={"SOLO_RANK_GAME"}
+            >
+              솔로랭크
+            </button>
+            <button
+              className={getPositionClassName("FLEX_RANK_GAME", queue)}
+              value={"FLEX_RANK_GAME"}
+            >
+              자유랭크
+            </button>
+            <button
+              className={getPositionClassName("QUICK_PLAY", queue)}
+              value={"QUICK_PLAY"}
+            >
+              일반
+            </button>
           </div>
           <div>
             <button

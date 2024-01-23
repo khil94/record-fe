@@ -14,6 +14,18 @@
     border: 1px solid $color-bar;
     padding: 1.2rem;
   }
+  .duo_btn_wrapper {
+    border-radius: $default-border-radius;
+    border: 1px solid $color-dark-border;
+    button {
+      padding: 1.2rem;
+      border-right: 1px solid $color-light-border;
+      &.selected {
+        background-color: $color-bar;
+        color: $color-white;
+      }
+    }
+  }
 
   .duo_page_head_wrapper {
     display: flex;
