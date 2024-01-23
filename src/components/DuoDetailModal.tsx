@@ -10,7 +10,7 @@ import {
   ILineType,
   ITicketPost,
 } from "../types/types";
-import { getDateDiff } from "../utils/generalFunctions";
+import { getDateDiff, getMMDDHHmm } from "../utils/generalFunctions";
 import CommonModal from "./CommonModal";
 import "./DuoDetailModal.scss";
 import ObjImgComponent from "./ObjImgComponent";
@@ -103,7 +103,7 @@ export default function DuoDetailModal({
           <span>{ticket.gameName}</span>
         </Link>
         <span>{ticket.tier}</span>
-        <span>{ticket.createdAt.toString()}</span>
+        <span>{getMMDDHHmm(new Date(ticket.createdAt))}</span>
         <span>{ticket.memo}</span>
         {own && (
           <button
@@ -113,7 +113,7 @@ export default function DuoDetailModal({
             }}
             type="button"
           >
-            신청
+            신청수락
           </button>
         )}
       </div>
@@ -153,11 +153,9 @@ export default function DuoDetailModal({
         className="duo_detailmodal_inner_wrapper"
       >
         <div className="duo_detailmodal_header">
-          {
-            <span onClick={() => setTicketMode(false)}>
-              {ticketMode ? "<" : ""}
-            </span>
-          }
+          <span onClick={() => setTicketMode(false)}>
+            {ticketMode ? "<" : ""}
+          </span>
           <span
             onClick={() => {
               onDisapppear();
@@ -169,33 +167,42 @@ export default function DuoDetailModal({
         <div className="duo_detailmodal_inner">
           <form>
             <div className="duomodal_name_wrapper duo_detail_wrapper">
-              <StyledInput
-                disabled={!ticketMode}
-                label="소환사이름"
-                onChange={(e) => {
-                  ticketMode && setName(e.target.value);
-                }}
-                mode="dark"
-                value={!ticketMode ? gameName : name}
-              />
-              <StyledInput
-                disabled={!ticketMode}
-                onChange={(e) => {
-                  ticketMode && setTag(e.target.value);
-                }}
-                mode="dark"
-                label="태그"
-                value={!ticketMode ? tagLine : tag}
-              />
+              {!ticketMode ? (
+                <div className="duo_detail_name_wrapper">
+                  <span>{gameName}</span>
+                  <span>#{tagLine}</span>
+                </div>
+              ) : (
+                <>
+                  <StyledInput
+                    label="소환사이름"
+                    onChange={(e) => {
+                      ticketMode && setName(e.target.value);
+                    }}
+                    mode="dark"
+                    value={name}
+                  />
+                  <StyledInput
+                    onChange={(e) => {
+                      ticketMode && setTag(e.target.value);
+                    }}
+                    mode="dark"
+                    label="태그"
+                    value={tag}
+                  />
+                </>
+              )}
             </div>
             <div className="select_my_line duo_detail_wrapper">
-              나의 포지션
+              주 포지션
               <div
                 onClick={(e) => {
                   e.preventDefault();
                   ticketMode && Setter(userLines, setUserLines, e.target.value);
                 }}
-                className="select_wrapper"
+                className={`select_wrapper ${
+                  ticketMode && "ticket_mode_select"
+                }`}
               >
                 <button
                   type="button"
@@ -253,7 +260,11 @@ export default function DuoDetailModal({
               <>
                 <div className="select_wish_lines duo_detail_wrapper">
                   찾는 포지션
-                  <div className="select_wrapper">
+                  <div
+                    className={`select_wrapper ${
+                      ticketMode && "ticket_mode_select"
+                    }`}
+                  >
                     <button
                       type="button"
                       className={getPositionClassName(wishLines, "TOP")}
@@ -294,7 +305,11 @@ export default function DuoDetailModal({
 
                 <div className="select_wish_rank duo_detail_wrapper">
                   찾는 랭크
-                  <div className="select_wrapper">
+                  <div
+                    className={`select_wrapper ${
+                      ticketMode && "ticket_mode_select"
+                    }`}
+                  >
                     {TIER_TYPE_LIST.map((v) => {
                       return (
                         <button

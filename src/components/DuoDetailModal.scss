@@ -50,6 +50,14 @@
         .input_wrapper {
           margin-right: 8rem;
         }
+        .duo_detail_name_wrapper {
+          font-size: 1.6rem;
+          span {
+            &:nth-child(2) {
+              color: $color-dark-border;
+            }
+          }
+        }
       }
       .select_wrapper {
         display: flex;
@@ -58,6 +66,7 @@
         button {
           border: 1px solid $color-light-border;
           padding: 0.8rem;
+          cursor: default;
 
           &.selected {
             background-color: $color-light-border;
@@ -73,6 +82,11 @@
           img {
             width: 3.2rem;
             pointer-events: none;
+          }
+        }
+        &.ticket_mode_select {
+          button {
+            cursor: pointer;
           }
         }
       }
