@@ -24,6 +24,9 @@
         background-color: $color-bar;
         color: $color-white;
       }
+      &:last-child {
+        border: none;
+      }
     }
   }
 
