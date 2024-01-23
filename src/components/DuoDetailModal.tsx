@@ -2,7 +2,6 @@ import axios from "axios";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { PostAcceptTicket, PostTicket } from "../api/apis";
-import { TIER_TYPE_LIST } from "../constants/Enum";
 import {
   IDuo,
   IDuoObj,
@@ -310,7 +309,7 @@ export default function DuoDetailModal({
                       ticketMode && "ticket_mode_select"
                     }`}
                   >
-                    {TIER_TYPE_LIST.map((v) => {
+                    {wishTiers.map((v) => {
                       return (
                         <button
                           type="button"
