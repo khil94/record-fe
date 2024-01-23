@@ -193,7 +193,7 @@ export default function DuoDetailModal({
               )}
             </div>
             <div className="select_my_line duo_detail_wrapper">
-              주 포지션
+              <div className="duo_detail_title">주 포지션</div>
               <div
                 onClick={(e) => {
                   e.preventDefault();
@@ -258,7 +258,7 @@ export default function DuoDetailModal({
             {!ticketMode && (
               <>
                 <div className="select_wish_lines duo_detail_wrapper">
-                  찾는 포지션
+                  <div className="duo_detail_title">찾는 포지션</div>
                   <div
                     className={`select_wrapper ${
                       ticketMode && "ticket_mode_select"
@@ -303,7 +303,7 @@ export default function DuoDetailModal({
                 </div>
 
                 <div className="select_wish_rank duo_detail_wrapper">
-                  찾는 랭크
+                  <div className="duo_detail_title">찾는 랭크</div>
                   <div
                     className={`select_wrapper ${
                       ticketMode && "ticket_mode_select"
@@ -328,10 +328,10 @@ export default function DuoDetailModal({
 
                 <div className="duo_detail_wrapper duo_detail_recent_wrapper">
                   {recentMatches.length > 0 ? (
-                    <span>
-                      최근 전적
+                    <>
+                      <div className="duo_detail_title">주 포지션</div>
                       <RecentChampComp data={recentMatches} />
-                    </span>
+                    </>
                   ) : (
                     <span>최근 전적이 없습니다.</span>
                   )}
