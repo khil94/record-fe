@@ -152,6 +152,7 @@ export default function DuoDetailModal({
           onClick={(e) => e.stopPropagation()}
           className="duo_detailmodal_inner_wrapper"
         >
+          {isExpired && <img className="expired" src="/expired.png" />}
           <div className="duo_detailmodal_header">
             <span onClick={() => setTicketMode(false)}>
               {ticketMode ? "<" : ""}
