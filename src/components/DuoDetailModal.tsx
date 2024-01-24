@@ -147,243 +147,246 @@ export default function DuoDetailModal({
       }}
       className="duo_detailmodal_outer_wrapper"
     >
-      <div
-        onClick={(e) => e.stopPropagation()}
-        className="duo_detailmodal_inner_wrapper"
-      >
-        <div className="duo_detailmodal_header">
-          <span onClick={() => setTicketMode(false)}>
-            {ticketMode ? "<" : ""}
-          </span>
-          <span
-            onClick={() => {
-              onDisapppear();
-            }}
-          >
-            x
-          </span>
-        </div>
-        <div className="duo_detailmodal_inner">
-          <form>
-            <div className="duomodal_name_wrapper duo_detail_wrapper">
-              {!ticketMode ? (
-                <div className="duo_detail_name_wrapper">
-                  <span>{gameName}</span>
-                  <span>#{tagLine}</span>
+      <div className="duo_detailmodal_middle_wrapper">
+        <div
+          onClick={(e) => e.stopPropagation()}
+          className="duo_detailmodal_inner_wrapper"
+        >
+          <div className="duo_detailmodal_header">
+            <span onClick={() => setTicketMode(false)}>
+              {ticketMode ? "<" : ""}
+            </span>
+            <span
+              onClick={() => {
+                onDisapppear();
+              }}
+            >
+              x
+            </span>
+          </div>
+          <div className="duo_detailmodal_inner">
+            <form>
+              <div className="duomodal_name_wrapper duo_detail_wrapper">
+                {!ticketMode ? (
+                  <div className="duo_detail_name_wrapper">
+                    <span>{gameName}</span>
+                    <span>#{tagLine}</span>
+                  </div>
+                ) : (
+                  <>
+                    <StyledInput
+                      label="소환사이름"
+                      onChange={(e) => {
+                        ticketMode && setName(e.target.value);
+                      }}
+                      mode="dark"
+                      value={name}
+                    />
+                    <StyledInput
+                      onChange={(e) => {
+                        ticketMode && setTag(e.target.value);
+                      }}
+                      mode="dark"
+                      label="태그"
+                      value={tag}
+                    />
+                  </>
+                )}
+              </div>
+              <div className="select_my_line duo_detail_wrapper">
+                <div className="duo_detail_title">주 포지션</div>
+                <div
+                  onClick={(e) => {
+                    e.preventDefault();
+                    ticketMode &&
+                      Setter(userLines, setUserLines, e.target.value);
+                  }}
+                  className={`select_wrapper ${
+                    ticketMode && "ticket_mode_select"
+                  }`}
+                >
+                  <button
+                    type="button"
+                    className={getPositionClassName(
+                      ticketMode ? userLines : lines,
+                      "TOP"
+                    )}
+                    value={"TOP"}
+                  >
+                    <img src="/Position_top.png" />
+                  </button>
+                  <button
+                    type="button"
+                    className={getPositionClassName(
+                      ticketMode ? userLines : lines,
+                      "JG"
+                    )}
+                    value={"JG"}
+                  >
+                    <img src="/Position_jg.png" />
+                  </button>
+                  <button
+                    type="button"
+                    className={getPositionClassName(
+                      ticketMode ? userLines : lines,
+                      "MID"
+                    )}
+                    value={"MID"}
+                  >
+                    <img src="/Position_mid.png" />
+                  </button>
+                  <button
+                    type="button"
+                    className={getPositionClassName(
+                      ticketMode ? userLines : lines,
+                      "AD"
+                    )}
+                    value={"AD"}
+                  >
+                    <img src="/Position_ad.png" />
+                  </button>
+                  <button
+                    type="button"
+                    className={getPositionClassName(
+                      ticketMode ? userLines : lines,
+                      "SUP"
+                    )}
+                    value={"SUP"}
+                  >
+                    <img src="/Position_sup.png" />
+                  </button>
                 </div>
-              ) : (
+              </div>
+              {!ticketMode && (
                 <>
-                  <StyledInput
-                    label="소환사이름"
-                    onChange={(e) => {
-                      ticketMode && setName(e.target.value);
-                    }}
-                    mode="dark"
-                    value={name}
-                  />
-                  <StyledInput
-                    onChange={(e) => {
-                      ticketMode && setTag(e.target.value);
-                    }}
-                    mode="dark"
-                    label="태그"
-                    value={tag}
-                  />
+                  <div className="select_wish_lines duo_detail_wrapper">
+                    <div className="duo_detail_title">찾는 포지션</div>
+                    <div
+                      className={`select_wrapper ${
+                        ticketMode && "ticket_mode_select"
+                      }`}
+                    >
+                      <button
+                        type="button"
+                        className={getPositionClassName(wishLines, "TOP")}
+                        value={"TOP"}
+                      >
+                        <img src="/Position_top.png" />
+                      </button>
+                      <button
+                        type="button"
+                        className={getPositionClassName(wishLines, "JG")}
+                        value={"JG"}
+                      >
+                        <img src="/Position_jg.png" />
+                      </button>
+                      <button
+                        type="button"
+                        className={getPositionClassName(wishLines, "MID")}
+                        value={"MID"}
+                      >
+                        <img src="/Position_mid.png" />
+                      </button>
+                      <button
+                        type="button"
+                        className={getPositionClassName(wishLines, "AD")}
+                        value={"AD"}
+                      >
+                        <img src="/Position_ad.png" />
+                      </button>
+                      <button
+                        type="button"
+                        className={getPositionClassName(wishLines, "SUP")}
+                        value={"SUP"}
+                      >
+                        <img src="/Position_sup.png" />
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="select_wish_rank duo_detail_wrapper">
+                    <div className="duo_detail_title">찾는 랭크</div>
+                    <div
+                      className={`select_wrapper ${
+                        ticketMode && "ticket_mode_select"
+                      }`}
+                    >
+                      {wishTiers.map((v) => {
+                        return (
+                          <button
+                            type="button"
+                            key={`button_${v}`}
+                            className={getPositionClassName(wishTiers, v)}
+                            value={v}
+                          >
+                            <img src={`/${v.toLowerCase()}.webp`} />
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  <div>{duoQueueId}</div>
+
+                  <div className="duo_detail_wrapper duo_detail_recent_wrapper">
+                    {recentMatches.length > 0 ? (
+                      <>
+                        <div className="duo_detail_title">주 포지션</div>
+                        <RecentChampComp data={recentMatches} />
+                      </>
+                    ) : (
+                      <span>최근 전적이 없습니다.</span>
+                    )}
+                  </div>
                 </>
               )}
-            </div>
-            <div className="select_my_line duo_detail_wrapper">
-              <div className="duo_detail_title">주 포지션</div>
-              <div
-                onClick={(e) => {
-                  e.preventDefault();
-                  ticketMode && Setter(userLines, setUserLines, e.target.value);
-                }}
-                className={`select_wrapper ${
-                  ticketMode && "ticket_mode_select"
-                }`}
-              >
-                <button
-                  type="button"
-                  className={getPositionClassName(
-                    ticketMode ? userLines : lines,
-                    "TOP"
-                  )}
-                  value={"TOP"}
-                >
-                  <img src="/Position_top.png" />
-                </button>
-                <button
-                  type="button"
-                  className={getPositionClassName(
-                    ticketMode ? userLines : lines,
-                    "JG"
-                  )}
-                  value={"JG"}
-                >
-                  <img src="/Position_jg.png" />
-                </button>
-                <button
-                  type="button"
-                  className={getPositionClassName(
-                    ticketMode ? userLines : lines,
-                    "MID"
-                  )}
-                  value={"MID"}
-                >
-                  <img src="/Position_mid.png" />
-                </button>
-                <button
-                  type="button"
-                  className={getPositionClassName(
-                    ticketMode ? userLines : lines,
-                    "AD"
-                  )}
-                  value={"AD"}
-                >
-                  <img src="/Position_ad.png" />
-                </button>
-                <button
-                  type="button"
-                  className={getPositionClassName(
-                    ticketMode ? userLines : lines,
-                    "SUP"
-                  )}
-                  value={"SUP"}
-                >
-                  <img src="/Position_sup.png" />
-                </button>
+              <div className="duo_memo duo_detail_wrapper">
+                {ticketMode && (
+                  <textarea
+                    value={memo}
+                    onChange={(e) => setMemo(e.target.value)}
+                  ></textarea>
+                )}
               </div>
-            </div>
-            {!ticketMode && (
-              <>
-                <div className="select_wish_lines duo_detail_wrapper">
-                  <div className="duo_detail_title">찾는 포지션</div>
-                  <div
-                    className={`select_wrapper ${
-                      ticketMode && "ticket_mode_select"
-                    }`}
+              <div className="duo_submit_btn_wrapper duo_detail_wrapper">
+                {!isExpired && (
+                  <button
+                    className="duo_submit_btn"
+                    onClick={() => {
+                      ticketMode ? postTicket() : setTicketMode(!ticketMode);
+                    }}
+                    type="button"
                   >
-                    <button
-                      type="button"
-                      className={getPositionClassName(wishLines, "TOP")}
-                      value={"TOP"}
-                    >
-                      <img src="/Position_top.png" />
-                    </button>
-                    <button
-                      type="button"
-                      className={getPositionClassName(wishLines, "JG")}
-                      value={"JG"}
-                    >
-                      <img src="/Position_jg.png" />
-                    </button>
-                    <button
-                      type="button"
-                      className={getPositionClassName(wishLines, "MID")}
-                      value={"MID"}
-                    >
-                      <img src="/Position_mid.png" />
-                    </button>
-                    <button
-                      type="button"
-                      className={getPositionClassName(wishLines, "AD")}
-                      value={"AD"}
-                    >
-                      <img src="/Position_ad.png" />
-                    </button>
-                    <button
-                      type="button"
-                      className={getPositionClassName(wishLines, "SUP")}
-                      value={"SUP"}
-                    >
-                      <img src="/Position_sup.png" />
-                    </button>
-                  </div>
-                </div>
-
-                <div className="select_wish_rank duo_detail_wrapper">
-                  <div className="duo_detail_title">찾는 랭크</div>
-                  <div
-                    className={`select_wrapper ${
-                      ticketMode && "ticket_mode_select"
-                    }`}
-                  >
-                    {wishTiers.map((v) => {
-                      return (
-                        <button
-                          type="button"
-                          key={`button_${v}`}
-                          className={getPositionClassName(wishTiers, v)}
-                          value={v}
-                        >
-                          <img src={`/${v.toLowerCase()}.webp`} />
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-
-                <div>{duoQueueId}</div>
-
-                <div className="duo_detail_wrapper duo_detail_recent_wrapper">
-                  {recentMatches.length > 0 ? (
+                    신청
+                  </button>
+                )}
+              </div>
+            </form>
+          </div>
+          {tickets.length > 0 && (
+            <>
+              신청 목록
+              <div className="tickets_wrapper duo_detail_wrapper">
+                {tickets.map((v) => {
+                  return (
                     <>
-                      <div className="duo_detail_title">주 포지션</div>
-                      <RecentChampComp data={recentMatches} />
+                      <TicketComponent {...v} />
+                      <TicketComponent {...v} />
+                      <TicketComponent {...v} />
                     </>
-                  ) : (
-                    <span>최근 전적이 없습니다.</span>
-                  )}
-                </div>
-              </>
-            )}
-            <div className="duo_memo duo_detail_wrapper">
-              {ticketMode && (
-                <textarea
-                  value={memo}
-                  onChange={(e) => setMemo(e.target.value)}
-                ></textarea>
-              )}
-            </div>
-            <div className="duo_submit_btn_wrapper duo_detail_wrapper">
-              {!isExpired && (
-                <button
-                  className="duo_submit_btn"
-                  onClick={() => {
-                    ticketMode ? postTicket() : setTicketMode(!ticketMode);
-                  }}
-                  type="button"
-                >
-                  신청
-                </button>
-              )}
-            </div>
-          </form>
+                  );
+                })}
+              </div>
+            </>
+          )}
         </div>
-        {tickets.length > 0 && (
-          <>
-            신청 목록
-            <div className="tickets_wrapper duo_detail_wrapper">
-              {tickets.map((v) => {
-                return (
-                  <>
-                    <TicketComponent {...v} />
-                    <TicketComponent {...v} />
-                    <TicketComponent {...v} />
-                  </>
-                );
-              })}
-            </div>
-          </>
-        )}
+        <CommonModal
+          showModal={showErrModal}
+          title="에러 발생"
+          message={errMsg}
+          onDisapppear={() => setShowErrModal(false)}
+        />
       </div>
-      <CommonModal
-        showModal={showErrModal}
-        title="에러 발생"
-        message={errMsg}
-        onDisapppear={() => setShowErrModal(false)}
-      />
     </div>
   ) : (
     <></>
