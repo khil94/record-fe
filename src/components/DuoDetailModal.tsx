@@ -228,6 +228,7 @@ export default function DuoDetailModal({
                     <div className="duo_detail_input_wrapper">
                       <StyledInput
                         label="소환사이름"
+                        placeholder="소환사 명을 입력해주세요"
                         onChange={(e) => {
                           ticketMode && setName(e.target.value);
                         }}
@@ -238,6 +239,7 @@ export default function DuoDetailModal({
                         onChange={(e) => {
                           ticketMode && setTag(e.target.value);
                         }}
+                        placeholder="태그를 입력해주세요(#제외)"
                         mode="dark"
                         label="태그"
                         value={tag}
