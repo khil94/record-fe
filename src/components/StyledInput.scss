@@ -24,7 +24,8 @@
     border: 1px solid $color-light-border;
     border-radius: $default-border-radius;
     padding: 1.6rem;
-    &:focus {
+    &:focus,
+    &:placeholder-shown {
       outline: none;
       border-color: $color-bar;
       & ~ label {
