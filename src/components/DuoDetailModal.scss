@@ -24,7 +24,14 @@
       transform: translateX(-50%) translateY(-50%);
       width: 80rem;
       height: 50rem auto;
-
+      .duo_detail_recent_match {
+        display: flex;
+        flex-direction: row;
+        position: relative;
+      }
+      .tag_line {
+        color: $color-dark-border;
+      }
       .expired {
         position: absolute;
         left: 50%;
@@ -107,11 +114,6 @@
               cursor: pointer;
             }
           }
-        }
-        .duo_detail_recent_match {
-          display: flex;
-          flex-direction: row;
-          position: relative;
         }
 
         .duo_queuetype_dropbox {
