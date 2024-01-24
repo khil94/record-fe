@@ -32,12 +32,14 @@ export default function CommonModal({
       }}
       className="modal_outer_wrapper"
     >
-      <div
-        style={{ width: width, height: height }}
-        className="modal_inner_wrapper"
-      >
-        <span className="modal_title">{title}</span>
-        <span className="modal_body">{message}</span>
+      <div className="modal_middle_wrapper">
+        <div
+          style={{ width: width, height: height }}
+          className="modal_inner_wrapper"
+        >
+          <span className="modal_title">{title}</span>
+          <span className="modal_body">{message}</span>
+        </div>
       </div>
     </div>
   ) : (

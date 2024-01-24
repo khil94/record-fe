@@ -8,26 +8,30 @@
   z-index: 1000;
   top: 0;
 
-  .modal_inner_wrapper {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 2rem;
-    border-radius: $default-border-radius;
-    top: 50%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-50%);
-    width: 24rem;
-    background-color: $color-white;
-    height: 20rem;
-    .modal_title {
-      font-size: 1.8rem;
-      font-weight: bold;
-    }
-    .modal_body {
-      margin-top: 4rem;
-      font-size: 1.4rem;
+  .modal_middle_wrapper {
+    position: relative;
+    height: 100vh;
+    .modal_inner_wrapper {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 2rem;
+      border-radius: $default-border-radius;
+      top: 50%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-50%);
+      width: 24rem;
+      background-color: $color-white;
+      height: 20rem;
+      .modal_title {
+        font-size: 1.8rem;
+        font-weight: bold;
+      }
+      .modal_body {
+        margin-top: 4rem;
+        font-size: 1.4rem;
+      }
     }
   }
 }
