@@ -161,9 +161,9 @@
         border-top: 1px solid $color-light-border;
         padding: 1rem;
         .ticket_wrapper {
-          display: flex;
-          justify-content: space-around;
           align-items: center;
+          display: grid;
+          grid-template-columns: 1fr 1fr 1.5fr 1.5fr 1fr 1fr;
           margin-bottom: 1rem;
           .ticket_memo_wrapper {
             position: relative;
