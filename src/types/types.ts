@@ -151,7 +151,7 @@ export interface IDuoObj {
   wishTiers: ITierType[];
   createdAt: string;
   expiredAt: string;
-  tickets: IDuo[];
+  tickets: IDuoTicket[];
   duoQueueId: IQueueType;
   recentMatches: IDuoRecentMatch[];
   matched: boolean;
@@ -169,16 +169,18 @@ export interface IDuoDetailResp {
   duo: IDuoObj;
 }
 
-export interface IDuo {
+export interface IDuoTicket {
   id: number;
   userId: number;
   duoId: number;
   gameName: string;
   tagLine: string;
-  line: string;
+  lines: ILineType[];
   tier: ITierType;
   memo: string;
   createdAt: string;
+  recentMatches: IDuoRecentMatch[];
+  puuid: string;
 }
 
 export interface IDuoPost {
