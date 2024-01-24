@@ -155,6 +155,7 @@ export interface IDuoObj {
   duoQueueId: IQueueType;
   recentMatches: IDuoRecentMatch[];
   matched: boolean;
+  memo: string;
 }
 
 export interface IDuoRecentMatch {
