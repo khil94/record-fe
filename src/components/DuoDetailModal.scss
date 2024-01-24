@@ -14,7 +14,7 @@
     .duo_detailmodal_inner_wrapper {
       display: flex;
       flex-direction: column;
-      position: absolute;
+      position: fixed;
       background-color: $color-bar;
       color: $color-white;
       padding: 2rem;
