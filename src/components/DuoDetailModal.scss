@@ -24,6 +24,9 @@
       transform: translateX(-50%) translateY(-50%);
       width: 80rem;
       height: 50rem auto;
+      .duo_detail_main_title {
+        font-size: 1.6rem;
+      }
       .duo_detail_recent_match {
         display: flex;
         flex-direction: row;
@@ -70,8 +73,6 @@
           background-color: $color-light-border;
         }
         .duomodal_name_wrapper {
-          display: flex;
-          flex-direction: row;
           .input_wrapper {
             margin-right: 8rem;
           }
@@ -82,6 +83,11 @@
                 color: $color-dark-border;
               }
             }
+          }
+          .duo_detail_input_wrapper {
+            display: flex;
+            flex-direction: row;
+            margin-top: 4rem;
           }
         }
         .select_wrapper {
@@ -126,9 +132,17 @@
         }
         .duo_memo {
           margin-bottom: 2rem;
+          font-size: 1.2rem;
+
+          .duo_detail_memo {
+            padding: 2rem;
+            width: 10% auto;
+            border-radius: $default-border-radius;
+            background-color: $color-white;
+            color: $color-black;
+          }
           textarea {
-            width: 100%;
-            height: 4rem;
+            width: 50%;
             border: none;
             resize: none;
             border-radius: $default-border-radius;
@@ -151,6 +165,36 @@
           justify-content: space-around;
           align-items: center;
           margin-bottom: 1rem;
+          .ticket_memo_wrapper {
+            position: relative;
+            .memo_description {
+              top: 0;
+              left: 50%;
+              display: flex;
+              flex-direction: column;
+              position: absolute;
+              padding: 1.2rem;
+              z-index: 100;
+              background-color: $color-black;
+              color: $color-white;
+              animation: fade-in 500ms ease;
+              max-width: 48rem;
+              min-width: 8rem;
+              border-radius: $default-border-radius;
+              transform: translateX(-50%) translateY(-100%) translateY(-1.2rem);
+              &::after {
+                position: absolute;
+                content: "";
+                width: 0.8rem;
+                height: 0.8rem;
+                border-top: 10px solid $color-black;
+                border-right: 10px solid $color-black;
+                left: 50%;
+                bottom: 0;
+                transform: translateX(-50%) translateY(0.6rem) rotate(135deg);
+              }
+            }
+          }
         }
       }
       .duo_submit_btn {

@@ -9,7 +9,11 @@ import {
   ILineType,
   ITicketPost,
 } from "../types/types";
-import { getDateDiff, getMMDDHHmm } from "../utils/generalFunctions";
+import {
+  ellipsisString,
+  getDateDiff,
+  getMMDDHHmm,
+} from "../utils/generalFunctions";
 import CommonModal from "./CommonModal";
 import "./DuoDetailModal.scss";
 import ObjImgComponent from "./ObjImgComponent";
@@ -39,6 +43,7 @@ export default function DuoDetailModal({
     recentMatches,
     matched,
     expiredAt,
+    memo,
   } = obj;
 
   const [ticketMode, setTicketMode] = useState(false);
@@ -46,7 +51,7 @@ export default function DuoDetailModal({
   const [tag, setTag] = useState("");
   const [userLines, setUserLines] = useState<ILineType[]>([]);
 
-  const [memo, setMemo] = useState("");
+  const [userMemo, setUserMemo] = useState("");
   const [show, setShow] = useState(showModal);
 
   const [showErrModal, setShowErrModal] = useState(false);
@@ -75,7 +80,6 @@ export default function DuoDetailModal({
   function getPositionClassName<T>(list: T[], target: T) {
     return list.includes(target) ? "selected" : "";
   }
-  console.log(recentMatches);
 
   async function postTicket() {
     try {
@@ -83,7 +87,7 @@ export default function DuoDetailModal({
         gameName: name,
         tagLine: tag,
         lines: userLines,
-        memo,
+        memo: userMemo,
       } as ITicketPost;
       const resp = await PostTicket(id, data);
       onDisapppear();
@@ -96,6 +100,7 @@ export default function DuoDetailModal({
   }
 
   function TicketComponent(ticket: IDuoTicket) {
+    const [showMemo, setShowMemo] = useState(false);
     return (
       <div className="ticket_wrapper">
         <Link to={`/summoner/${ticket.gameName}/${ticket.tagLine}`}>
@@ -126,7 +131,18 @@ export default function DuoDetailModal({
           )}
         </span>
         <span>{getMMDDHHmm(new Date(ticket.createdAt))}</span>
-        <span>{ticket.memo}</span>
+        <div
+          className="ticket_memo_wrapper"
+          onMouseEnter={() => setShowMemo(true)}
+          onMouseLeave={() => setShowMemo(false)}
+        >
+          {ellipsisString(ticket.memo, 8)}
+          {showMemo && ticket.memo && (
+            <div className="memo_description">
+              <span>{ticket.memo}</span>
+            </div>
+          )}
+        </div>
         {own && (
           <button
             className="duo_submit_btn"
@@ -197,6 +213,9 @@ export default function DuoDetailModal({
             </span>
           </div>
           <div className="duo_detailmodal_inner">
+            <div className="duo_detail_main_title">
+              {ticketMode ? "듀오 신청" : ""}
+            </div>
             <form>
               <div className="duomodal_name_wrapper duo_detail_wrapper">
                 {!ticketMode ? (
@@ -206,22 +225,24 @@ export default function DuoDetailModal({
                   </div>
                 ) : (
                   <>
-                    <StyledInput
-                      label="소환사이름"
-                      onChange={(e) => {
-                        ticketMode && setName(e.target.value);
-                      }}
-                      mode="dark"
-                      value={name}
-                    />
-                    <StyledInput
-                      onChange={(e) => {
-                        ticketMode && setTag(e.target.value);
-                      }}
-                      mode="dark"
-                      label="태그"
-                      value={tag}
-                    />
+                    <div className="duo_detail_input_wrapper">
+                      <StyledInput
+                        label="소환사이름"
+                        onChange={(e) => {
+                          ticketMode && setName(e.target.value);
+                        }}
+                        mode="dark"
+                        value={name}
+                      />
+                      <StyledInput
+                        onChange={(e) => {
+                          ticketMode && setTag(e.target.value);
+                        }}
+                        mode="dark"
+                        label="태그"
+                        value={tag}
+                      />
+                    </div>
                   </>
                 )}
               </div>
@@ -377,11 +398,15 @@ export default function DuoDetailModal({
                 </>
               )}
               <div className="duo_memo duo_detail_wrapper">
-                {ticketMode && (
+                <div className="duo_detail_title">메모</div>
+                {ticketMode ? (
                   <textarea
-                    value={memo}
-                    onChange={(e) => setMemo(e.target.value)}
+                    value={userMemo}
+                    onChange={(e) => setUserMemo(e.target.value)}
+                    maxLength={50}
                   ></textarea>
+                ) : (
+                  <div className="duo_detail_memo">{memo}</div>
                 )}
               </div>
               <div className="duo_submit_btn_wrapper duo_detail_wrapper">
