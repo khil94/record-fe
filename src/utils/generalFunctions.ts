@@ -142,3 +142,7 @@ export const getDateDiff = (date: Date) => {
 
   return Math.round(diffDate);
 };
+
+export const ellipsisString = (val: string, targetNum: number) => {
+  return val.length <= targetNum ? val : val.slice(0, targetNum) + "...";
+};
