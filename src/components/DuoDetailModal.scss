@@ -17,7 +17,6 @@
       position: fixed;
       background-color: $color-bar;
       color: $color-white;
-      padding: 2rem;
       border-radius: $default-border-radius;
       top: 50%;
       left: 50%;
@@ -63,6 +62,7 @@
         position: relative;
         justify-content: space-between;
         font-size: 2rem;
+        padding: 1rem 2rem;
         span:hover {
           color: $color-dark-border;
           cursor: pointer;
