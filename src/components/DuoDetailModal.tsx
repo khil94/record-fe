@@ -236,15 +236,12 @@ export default function DuoDetailModal({
     return (
       <div className="select_wish_lines duo_detail_wrapper">
         <div className="duo_detail_title">찾는 포지션</div>
-        <div className={`select_wrapper ${ticketMode && "ticket_mode_select"}`}>
+        <div className={`select_wrapper`}>
           {LINE_LIST.map((v) => {
             return (
               <button
                 type="button"
-                className={getPositionClassName(
-                  ticketMode ? userLines : lines,
-                  v
-                )}
+                className={getPositionClassName(wishLines, v)}
                 value={v}
               >
                 <img src={`/Position_${v.toLowerCase()}.png`} />
