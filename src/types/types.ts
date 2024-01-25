@@ -152,7 +152,7 @@ export interface IDuoObj {
   createdAt: string;
   expiredAt: string;
   tickets: IDuoTicket[];
-  duoQueueId: IQueueType;
+  duoQueueId: IDuoQueueId;
   recentMatches: IDuoRecentMatch[];
   matched: boolean;
   memo: string;
