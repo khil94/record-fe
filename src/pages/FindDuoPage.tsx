@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useSWRConfig } from "swr";
-import { GetDuoDetail, useDuoList } from "../api/apis";
+import { GetDuoDetail, GetMyDuo, useDuoList } from "../api/apis";
+import CommonModal from "../components/CommonModal";
 import DuoDetailModal from "../components/DuoDetailModal";
 import DuoModal from "../components/DuoModal";
 import Loading from "../components/Loading";
@@ -14,19 +15,25 @@ export default function FindDuoPage() {
   const currentPage = useRef(1);
   const [duoListData, setDuoListData] = useState<IDuoObj[]>([]);
   const [myDuoData, setMyDuoData] = useState<IDuoObj>();
+  const [detailData, setDetailData] = useState<IDuoObj>();
+
   const [showDetailModal, setShowDetailModal] = useState(false);
   const [showMyModal, setShowMyModal] = useState(false);
-  const [detailData, setDetailData] = useState<IDuoObj>();
+  const [showErrModal, setShowErrModal] = useState(false);
+
   const [match, setMatch] = useState<IDuoMatchType>("ALL");
   const [queue, setQueue] = useState<IPostQueueId>("ALL");
   const [myDuoId, setMyDuoId] = useState(-1);
 
-  const { data, isLoading } = useDuoList(currentPage.current, match, queue);
+  const { data, isLoading, isValidating } = useDuoList(
+    currentPage.current,
+    match,
+    queue
+  );
   const { mutate } = useSWRConfig();
   useEffect(() => {
     if (data) {
       setDuoListData(data.data.duoList);
-      setMyDuoData(data.data.myDuo);
       setMyDuoId(data.data.myDuo?.id || -1);
     }
   }, [data]);
@@ -34,10 +41,6 @@ export default function FindDuoPage() {
   async function getDetailData(duoid: number) {
     const resp = await GetDuoDetail(duoid);
     setDetailData(resp.data.duo);
-  }
-
-  function getPositionClassName<T>(val: T, target: T) {
-    return val === target ? "selected" : "";
   }
 
   return (
@@ -73,16 +76,21 @@ export default function FindDuoPage() {
             </div>
           </div>
           <div className="duo_func_btn_wrapper">
-            {myDuoData && (
-              <button
-                onClick={() => {
+            <button
+              onClick={async () => {
+                const { data } = await GetMyDuo();
+                if (data.myduo) {
+                  setMyDuoData(data.myduo);
                   setShowMyModal(true);
-                }}
-                className="create_duo_wrapper duo_comp_wrapper"
-              >
-                내 듀오찾기
-              </button>
-            )}
+                } else {
+                  setShowErrModal(true);
+                }
+              }}
+              className="create_duo_wrapper duo_comp_wrapper"
+            >
+              내 듀오찾기
+            </button>
+
             <button
               onClick={() => setShowModal(true)}
               className="create_duo_wrapper duo_comp_wrapper"
@@ -150,7 +158,6 @@ export default function FindDuoPage() {
                     </td>
                     <td>{"dd"}</td>
                     <td>{"kda"}</td>
-                    {/* <td>{v.ti}</td> */}
                     <td>{getMMDDHHmm(new Date(v.createdAt))}</td>
                     <td>{getMMDDHHmm(new Date(v.expiredAt))}</td>
                     <td>{v.matched ? "매칭완료" : "매칭중"}</td>
@@ -188,6 +195,12 @@ export default function FindDuoPage() {
             own={true}
           />
         )}
+        <CommonModal
+          showModal={showErrModal}
+          title="듀오찾기 없음"
+          message="내 듀오찾기가 없습니다. 원하는 상대와 매칭할 수 있는 듀오찾기를 만들어 보세요!"
+          onDisapppear={() => setShowErrModal(false)}
+        />
       </>
     </div>
   );
