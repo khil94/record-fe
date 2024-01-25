@@ -207,3 +207,7 @@ export interface ITicketPost {
   lines: ILineType[];
   memo: string;
 }
+
+export interface IMyDuoResp {
+  myduo: IDuoObj;
+}

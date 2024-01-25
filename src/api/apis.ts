@@ -6,6 +6,7 @@ import {
   IDuoResp,
   ILeaderBoardQueueTyep,
   ILoginResp,
+  IMyDuoResp,
   IPostQueueId,
   IRanking,
   ISimpleMatch,
@@ -168,6 +169,11 @@ export const PostDuo = async (data: IDuoPost) => {
 
 export const GetDuoDetail = async (duoId: number) => {
   const resp = await API.get<IDuoDetailResp>(`/duo/${duoId}`);
+  return resp;
+};
+
+export const GetMyDuo = async () => {
+  const resp = await API.get<IMyDuoResp>(`/duo/my`);
   return resp;
 };
 
