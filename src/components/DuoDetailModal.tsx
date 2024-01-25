@@ -8,6 +8,7 @@ import {
 } from "react";
 import { Link } from "react-router-dom";
 import { PostAcceptTicket, PostTicket } from "../api/apis";
+import { LINE_LIST } from "../constants/Enum";
 import {
   IDuoObj,
   IDuoRecentMatch,
@@ -102,6 +103,7 @@ export default function DuoDetailModal({
       onDisapppear();
     } catch (e) {
       if (axios.isAxiosError(e)) {
+        console.log(e);
         setErrMsg(e.response?.data.message);
         setShowErrModal(true);
       }
@@ -182,7 +184,6 @@ export default function DuoDetailModal({
     data: IDuoRecentMatch[];
     size: number;
   }) {
-    console.log(data);
     return (
       <div className="duo_detail_recent_match">
         {data.map((v, i) => {
@@ -212,56 +213,20 @@ export default function DuoDetailModal({
           }}
           className={`select_wrapper ${ticketMode && "ticket_mode_select"}`}
         >
-          <button
-            type="button"
-            className={getPositionClassName(
-              ticketMode ? userLines : lines,
-              "TOP"
-            )}
-            value={"TOP"}
-          >
-            <img src="/Position_top.png" />
-          </button>
-          <button
-            type="button"
-            className={getPositionClassName(
-              ticketMode ? userLines : lines,
-              "JG"
-            )}
-            value={"JG"}
-          >
-            <img src="/Position_jg.png" />
-          </button>
-          <button
-            type="button"
-            className={getPositionClassName(
-              ticketMode ? userLines : lines,
-              "MID"
-            )}
-            value={"MID"}
-          >
-            <img src="/Position_mid.png" />
-          </button>
-          <button
-            type="button"
-            className={getPositionClassName(
-              ticketMode ? userLines : lines,
-              "AD"
-            )}
-            value={"AD"}
-          >
-            <img src="/Position_ad.png" />
-          </button>
-          <button
-            type="button"
-            className={getPositionClassName(
-              ticketMode ? userLines : lines,
-              "SUP"
-            )}
-            value={"SUP"}
-          >
-            <img src="/Position_sup.png" />
-          </button>
+          {LINE_LIST.map((v) => {
+            return (
+              <button
+                type="button"
+                className={getPositionClassName(
+                  ticketMode ? userLines : lines,
+                  v
+                )}
+                value={v}
+              >
+                <img src={`/Position_${v.toLowerCase()}.png`} />
+              </button>
+            );
+          })}
         </div>
       </div>
     );
@@ -272,47 +237,26 @@ export default function DuoDetailModal({
       <div className="select_wish_lines duo_detail_wrapper">
         <div className="duo_detail_title">찾는 포지션</div>
         <div className={`select_wrapper ${ticketMode && "ticket_mode_select"}`}>
-          <button
-            type="button"
-            className={getPositionClassName(wishLines, "TOP")}
-            value={"TOP"}
-          >
-            <img src="/Position_top.png" />
-          </button>
-          <button
-            type="button"
-            className={getPositionClassName(wishLines, "JG")}
-            value={"JG"}
-          >
-            <img src="/Position_jg.png" />
-          </button>
-          <button
-            type="button"
-            className={getPositionClassName(wishLines, "MID")}
-            value={"MID"}
-          >
-            <img src="/Position_mid.png" />
-          </button>
-          <button
-            type="button"
-            className={getPositionClassName(wishLines, "AD")}
-            value={"AD"}
-          >
-            <img src="/Position_ad.png" />
-          </button>
-          <button
-            type="button"
-            className={getPositionClassName(wishLines, "SUP")}
-            value={"SUP"}
-          >
-            <img src="/Position_sup.png" />
-          </button>
+          {LINE_LIST.map((v) => {
+            return (
+              <button
+                type="button"
+                className={getPositionClassName(
+                  ticketMode ? userLines : lines,
+                  v
+                )}
+                value={v}
+              >
+                <img src={`/Position_${v.toLowerCase()}.png`} />
+              </button>
+            );
+          })}
         </div>
       </div>
     );
   }
 
-  function SeekRank() {
+  const SeekTier = useCallback(() => {
     return (
       <div className="select_wish_rank duo_detail_wrapper">
         <div className="duo_detail_title">찾는 랭크</div>
@@ -332,7 +276,7 @@ export default function DuoDetailModal({
         </div>
       </div>
     );
-  }
+  }, [ticketMode, wishTiers]);
 
   return show ? (
     <div
@@ -403,7 +347,7 @@ export default function DuoDetailModal({
               {!ticketMode && (
                 <>
                   <div className="duo_detail_even_wrapper">
-                    <SeekRank />
+                    <SeekTier />
                     <div className="duo_detail_wrapper duo_detail_recent_wrapper">
                       <div className="duo_detail_title">최근 전적</div>
                       {recentMatches.length > 0 ? (
