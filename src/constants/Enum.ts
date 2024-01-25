@@ -3,7 +3,7 @@ export const MENU_LIST = [
   { url: "duo", name: "듀오 찾기" },
 ] as const;
 
-export const LANE_LIST = ["TOP", "JG", "MID", "AD", "SUP"] as const;
+export const LINE_LIST = ["TOP", "JG", "MID", "AD", "SUP"] as const;
 
 export const QUEUE_TYPE_LIST = [
   "RANKED_SOLO",
