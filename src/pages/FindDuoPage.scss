@@ -41,6 +41,9 @@
       }
 
       select {
+        background-color: $color-bar;
+        color: $color-white;
+
         -o-appearance: none;
         -webkit-appearance: none;
         -moz-appearance: none;
@@ -49,8 +52,10 @@
         height: 3.6rem;
         padding: 5px 30px 5px 10px;
         outline: none;
+
         option {
-          background: $color-white;
+          background-color: $color-bar;
+          color: $color-white;
           padding: 5px 30px 5px 10px;
         }
       }
