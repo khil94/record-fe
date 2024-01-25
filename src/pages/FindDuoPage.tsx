@@ -19,6 +19,7 @@ export default function FindDuoPage() {
   const [detailData, setDetailData] = useState<IDuoObj>();
   const [match, setMatch] = useState<IDuoMatchType>("ALL");
   const [queue, setQueue] = useState<IPostQueueId>("ALL");
+  const [myDuoId, setMyDuoId] = useState(-1);
 
   const { data, isLoading } = useDuoList(currentPage.current, match, queue);
   const { mutate } = useSWRConfig();
@@ -26,6 +27,7 @@ export default function FindDuoPage() {
     if (data) {
       setDuoListData(data.data.duoList);
       setMyDuoData(data.data.myDuo);
+      setMyDuoId(data.data.myDuo?.id || -1);
     }
   }, [data]);
 
@@ -203,6 +205,7 @@ export default function FindDuoPage() {
               setDetailData(undefined);
             }}
             obj={detailData}
+            own={detailData.id === myDuoId}
           />
         )}
         {myDuoData && (
