@@ -31,6 +31,8 @@ export default function DuoModal({
   const [queueType, setQueueType] = useState<IDuoQueueId>("SOLO_RANK_GAME");
 
   const [showErrModal, setShowErrModal] = useState(false);
+  const [showComplete, setShowComplete] = useState(false);
+
   const [errMsg, setErrMsg] = useState("");
 
   async function postDuo() {
@@ -45,7 +47,7 @@ export default function DuoModal({
     };
     try {
       await PostDuo(postData);
-      onDisapppear();
+      setShowComplete(true);
     } catch (e) {
       if (axios.isAxiosError(e)) {
         setErrMsg(e.response?.data.message);
@@ -238,6 +240,15 @@ export default function DuoModal({
           title="에러 발생"
           message={errMsg}
           onDisapppear={() => setShowErrModal(false)}
+        />
+        <CommonModal
+          showModal={showComplete}
+          title="듀오 찾기 생성 완료!"
+          message={"듀오 찾기가 성공적으로 생성 완료 되었습니다!"}
+          onDisapppear={() => {
+            setShowComplete(false);
+            onDisapppear();
+          }}
         />
       </div>
     </div>
