@@ -45,64 +45,66 @@ export default function FindDuoPage() {
 
   return (
     <div className="duo_page_wrapper">
-      <>
-        <div className="duo_page_head_wrapper">
-          <div className="duo_btn_header">
-            <div className="duo_queuetype_dropbox">
-              <div className="duo_title">매칭상태</div>
-              <div className="duo_dropbox_wrapper ">
-                <select
-                  onChange={(e) => setMatch(e.target.value as IDuoMatchType)}
-                >
-                  <option value={"ALL"}>모두</option>
-                  <option value={"MATCHING"}>매칭중</option>
-                  <option value={"MATCHED"}>매칭완료</option>
-                </select>
+      {isLoading ? (
+        <Loading width={48} />
+      ) : (
+        <>
+          <div className="duo_page_head_wrapper">
+            <div className="duo_btn_header">
+              <div className="duo_queuetype_dropbox">
+                <div className="duo_title">매칭상태</div>
+                <div className="duo_dropbox_wrapper ">
+                  <select
+                    value={match}
+                    onChange={(e) => setMatch(e.target.value as IDuoMatchType)}
+                  >
+                    <option value={"ALL"}>모두</option>
+                    <option value={"MATCHING"}>매칭중</option>
+                    <option value={"MATCHED"}>매칭완료</option>
+                  </select>
+                </div>
+              </div>
+              <div className="duo_queuetype_dropbox">
+                <div className="duo_title">큐 타입</div>
+
+                <div className="duo_dropbox_wrapper ">
+                  <select
+                    value={queue}
+                    onChange={(e) => setQueue(e.target.value as IPostQueueId)}
+                  >
+                    <option value={"ALL"}>모두</option>
+                    <option value={"SOLO_RANK_GAME"}>솔로랭크</option>
+                    <option value={"FLEX_RANK_GAME"}>자유랭크</option>
+                    <option value={"QUICK_PLAY"}>일반</option>
+                  </select>
+                </div>
               </div>
             </div>
-            <div className="duo_queuetype_dropbox">
-              <div className="duo_title">큐 타입</div>
+            <div className="duo_func_btn_wrapper">
+              <button
+                onClick={async () => {
+                  const { data } = await GetMyDuo();
+                  if (data.myduo) {
+                    setMyDuoData(data.myduo);
+                    setShowMyModal(true);
+                  } else {
+                    setShowErrModal(true);
+                  }
+                }}
+                className="create_duo_wrapper duo_comp_wrapper"
+              >
+                내 듀오찾기
+              </button>
 
-              <div className="duo_dropbox_wrapper ">
-                <select
-                  onChange={(e) => setQueue(e.target.value as IPostQueueId)}
-                >
-                  <option value={"ALL"}>모두</option>
-                  <option value={"SOLO_RANK_GAME"}>솔로랭크</option>
-                  <option value={"FLEX_RANK_GAME"}>자유랭크</option>
-                  <option value={"QUICK_PLAY"}>일반</option>
-                </select>
-              </div>
+              <button
+                onClick={() => setShowModal(true)}
+                className="create_duo_wrapper duo_comp_wrapper"
+              >
+                듀오찾기
+              </button>
             </div>
           </div>
-          <div className="duo_func_btn_wrapper">
-            <button
-              onClick={async () => {
-                const { data } = await GetMyDuo();
-                if (data.myduo) {
-                  setMyDuoData(data.myduo);
-                  setShowMyModal(true);
-                } else {
-                  setShowErrModal(true);
-                }
-              }}
-              className="create_duo_wrapper duo_comp_wrapper"
-            >
-              내 듀오찾기
-            </button>
-
-            <button
-              onClick={() => setShowModal(true)}
-              className="create_duo_wrapper duo_comp_wrapper"
-            >
-              듀오찾기
-            </button>
-          </div>
-        </div>
-        <div className="duo_page_list_wrapper">
-          {isLoading ? (
-            <Loading width={48} />
-          ) : (
+          <div className="duo_page_list_wrapper">
             <table className="duo_table">
               <thead>
                 <tr>
@@ -165,43 +167,43 @@ export default function FindDuoPage() {
                 ))}
               </tbody>
             </table>
+          </div>
+          <DuoModal
+            showModal={showModal}
+            onDisapppear={() => {
+              setShowModal(false);
+              mutate(["/duo", currentPage.current, match, queue]);
+            }}
+          />
+          {detailData && (
+            <DuoDetailModal
+              showModal={showDetailModal}
+              onDisapppear={() => {
+                setShowDetailModal(false);
+                setDetailData(undefined);
+              }}
+              obj={detailData}
+              own={detailData.id === myDuoId}
+            />
           )}
-        </div>
-        <DuoModal
-          showModal={showModal}
-          onDisapppear={() => {
-            setShowModal(false);
-            mutate(["/duo", currentPage.current, match, queue]);
-          }}
-        />
-        {detailData && (
-          <DuoDetailModal
-            showModal={showDetailModal}
-            onDisapppear={() => {
-              setShowDetailModal(false);
-              setDetailData(undefined);
-            }}
-            obj={detailData}
-            own={detailData.id === myDuoId}
+          {myDuoData && (
+            <DuoDetailModal
+              showModal={showMyModal}
+              onDisapppear={() => {
+                setShowMyModal(false);
+              }}
+              obj={myDuoData}
+              own={true}
+            />
+          )}
+          <CommonModal
+            showModal={showErrModal}
+            title="듀오찾기 없음"
+            message="내 듀오찾기가 없습니다. 원하는 상대와 매칭할 수 있는 듀오찾기를 만들어 보세요!"
+            onDisapppear={() => setShowErrModal(false)}
           />
-        )}
-        {myDuoData && (
-          <DuoDetailModal
-            showModal={showMyModal}
-            onDisapppear={() => {
-              setShowMyModal(false);
-            }}
-            obj={myDuoData}
-            own={true}
-          />
-        )}
-        <CommonModal
-          showModal={showErrModal}
-          title="듀오찾기 없음"
-          message="내 듀오찾기가 없습니다. 원하는 상대와 매칭할 수 있는 듀오찾기를 만들어 보세요!"
-          onDisapppear={() => setShowErrModal(false)}
-        />
-      </>
+        </>
+      )}
     </div>
   );
 }
