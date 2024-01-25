@@ -1,5 +1,11 @@
 import axios from "axios";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import { Link } from "react-router-dom";
 import { PostAcceptTicket, PostTicket } from "../api/apis";
 import {
@@ -195,7 +201,7 @@ export default function DuoDetailModal({
     );
   }
 
-  function MainPosition() {
+  const MainPosition = useCallback(() => {
     return (
       <div className="select_my_line duo_detail_wrapper">
         <div className="duo_detail_title">주 포지션</div>
@@ -259,7 +265,7 @@ export default function DuoDetailModal({
         </div>
       </div>
     );
-  }
+  }, [ticketMode, userLines, lines]);
 
   function SeekPosition() {
     return (
@@ -367,7 +373,7 @@ export default function DuoDetailModal({
                   </div>
                 ) : (
                   <>
-                    <div className="duo_detail_input_wrapper">
+                    <div className="duo_detail_even_wrapper">
                       <StyledInput
                         label="소환사이름"
                         placeholder="소환사 명을 입력해주세요"

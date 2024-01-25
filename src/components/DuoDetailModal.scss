@@ -79,9 +79,8 @@
           background-color: $color-light-border;
         }
         .duomodal_name_wrapper {
-          .input_wrapper {
-            margin-right: 8rem;
-          }
+          margin-top: 4rem;
+
           .duo_detail_name_wrapper {
             font-size: 1.6rem;
             span {
@@ -89,11 +88,6 @@
                 color: $color-dark-border;
               }
             }
-          }
-          .duo_detail_input_wrapper {
-            display: flex;
-            flex-direction: row;
-            margin-top: 4rem;
           }
         }
         .select_wrapper {
@@ -132,6 +126,9 @@
           display: grid;
           grid-template-columns: 1fr 1fr;
           align-items: center;
+          .input_wrapper {
+            width: 80%;
+          }
         }
 
         .duo_queuetype_dropbox {
