@@ -217,6 +217,7 @@ export default function DuoDetailModal({
             return (
               <button
                 type="button"
+                key={`${ticketMode && "ticket"}_main_${v}`}
                 className={getPositionClassName(
                   ticketMode ? userLines : lines,
                   v
@@ -241,6 +242,7 @@ export default function DuoDetailModal({
             return (
               <button
                 type="button"
+                key={`${ticketMode && "ticket"}_seek_${v}`}
                 className={getPositionClassName(wishLines, v)}
                 value={v}
               >
