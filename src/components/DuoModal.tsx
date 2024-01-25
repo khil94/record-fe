@@ -238,6 +238,7 @@ export default function DuoModal({
             메모
             <textarea
               value={memo}
+              maxLength={50}
               onChange={(e) => setMemo(e.target.value)}
             ></textarea>
           </div>
