@@ -1,20 +1,18 @@
 import axios from "axios";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import { PostDuo } from "../api/apis";
-import { TIER_TYPE_LIST } from "../constants/Enum";
+import { LINE_LIST, TIER_TYPE_LIST } from "../constants/Enum";
 import { IDuoPost, IDuoQueueId, ILineType, ITierType } from "../types/types";
 import CommonModal from "./CommonModal";
 import "./DuoModal.scss";
 import StyledInput from "./StyledInput";
 
-// export interface IDuoPost {
-//   gameName: string;
-//   tagLine: string;
-//   line: string;
-//   wishLines: string[];
-//   wishTiers: ITierType[];
-//   memo: string;
-// }
 interface IProp {
   showModal: boolean;
   onDisapppear: () => void;
@@ -56,6 +54,10 @@ export default function DuoModal({
     }
   }
 
+  useEffect(() => {
+    setShow(showModal);
+  }, [showModal]);
+
   function Setter<T>(
     target: T[],
     setter: Dispatch<SetStateAction<T[]>>,
@@ -72,11 +74,87 @@ export default function DuoModal({
     return list.includes(target) ? "selected" : "";
   }
 
-  useEffect(() => {
-    setShow(showModal);
-  }, [showModal]);
+  const MainPosition = useCallback(() => {
+    return (
+      <div className="select_my_line duo_wrapper">
+        <div className="duo_title">주 포지션</div>
+        <div
+          onClick={(e) => {
+            e.preventDefault();
+            Setter(lines, setLines, e.target.value);
+          }}
+          className={`select_wrapper`}
+        >
+          {LINE_LIST.map((v, i) => {
+            return (
+              <button
+                type="button"
+                className={getPositionClassName(lines, v)}
+                value={v}
+              >
+                <img src={`/Position_${v.toLowerCase()}.png`} />
+              </button>
+            );
+          })}
+        </div>
+      </div>
+    );
+  }, [lines]);
 
-  // console.log(line, wishLines, wishTiers, gameName, tagLine, memo);
+  const SeekPosition = useCallback(() => {
+    return (
+      <div className="select_my_line duo_wrapper">
+        <div className="duo_title">찾는 포지션</div>
+        <div
+          onClick={(e) => {
+            e.preventDefault();
+            Setter(wishLines, setWishLines, e.target.value);
+          }}
+          className={`select_wrapper`}
+        >
+          {LINE_LIST.map((v, i) => {
+            return (
+              <button
+                type="button"
+                className={getPositionClassName(wishLines, v)}
+                value={v}
+              >
+                <img src={`/Position_${v.toLowerCase()}.png`} />
+              </button>
+            );
+          })}
+        </div>
+      </div>
+    );
+  }, [wishLines]);
+
+  const SeekTier = useCallback(() => {
+    return (
+      <div className="select_wish_rank duo_wrapper">
+        <div className="duo_title">찾는 랭크</div>
+        <div
+          className={`select_wrapper `}
+          onClick={(e) => {
+            e.preventDefault();
+            Setter(wishTiers, setWishTiers, e.target.value);
+          }}
+        >
+          {TIER_TYPE_LIST.map((v) => {
+            return (
+              <button
+                type="button"
+                key={`button_${v}`}
+                className={getPositionClassName(wishTiers, v)}
+                value={v}
+              >
+                <img src={`/${v.toLowerCase()}.webp`} />
+              </button>
+            );
+          })}
+        </div>
+      </div>
+    );
+  }, [wishTiers]);
 
   return show ? (
     <div
@@ -84,177 +162,84 @@ export default function DuoModal({
         e.stopPropagation();
         onDisapppear();
       }}
-      className="duomodal_outer_wrapper"
+      className="duo_modal_outer_wrapper"
     >
-      <div
-        onClick={(e) => e.stopPropagation()}
-        className="duomodal_inner_wrapper"
-      >
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            postDuo();
-          }}
+      <div className="duo_modal_middle_wrapper">
+        <div
+          onClick={(e) => e.stopPropagation()}
+          className="duo_modal_inner_wrapper"
         >
-          <div className="duomodal_name_wrapper duo_wrapper">
-            <StyledInput
-              mode="dark"
-              onChange={(e) => setGameName(e.target.value)}
-              label="소환사이름"
-              value={gameName}
-            />
-            <StyledInput
-              mode="dark"
-              onChange={(e) => setTagLine(e.target.value)}
-              label="태그"
-              value={tagLine}
-            />
-          </div>
-          <div className="select_my_line duo_wrapper">
-            나의 포지션
-            <div
-              onClick={(e) => {
-                e.preventDefault();
-                Setter(lines, setLines, e.target.value);
+          <div className="duo_modal_header">
+            <span
+              onClick={() => {
+                onDisapppear();
               }}
-              className="select_wrapper"
             >
-              <button
-                type="button"
-                className={getPositionClassName(lines, "TOP")}
-                value={"TOP"}
-              >
-                <img src="/Position_top.png" />
-              </button>
-              <button
-                type="button"
-                className={getPositionClassName(lines, "JG")}
-                value={"JG"}
-              >
-                <img src="/Position_jg.png" />
-              </button>
-              <button
-                type="button"
-                className={getPositionClassName(lines, "MID")}
-                value={"MID"}
-              >
-                <img src="/Position_mid.png" />
-              </button>
-              <button
-                type="button"
-                className={getPositionClassName(lines, "AD")}
-                value={"AD"}
-              >
-                <img src="/Position_ad.png" />
-              </button>
-              <button
-                type="button"
-                className={getPositionClassName(lines, "SUP")}
-                value={"SUP"}
-              >
-                <img src="/Position_sup.png" />
-              </button>
-            </div>
+              x
+            </span>
           </div>
-          <div className="select_wish_lines duo_wrapper">
-            찾는 포지션
-            <div
-              onClick={(e) => {
-                e.preventDefault();
-                Setter(wishLines, setWishLines, e.target.value);
-              }}
-              className="select_wrapper"
-            >
-              <button
-                type="button"
-                className={getPositionClassName(wishLines, "TOP")}
-                value={"TOP"}
-              >
-                <img src="/Position_top.png" />
-              </button>
-              <button
-                type="button"
-                className={getPositionClassName(wishLines, "JG")}
-                value={"JG"}
-              >
-                <img src="/Position_jg.png" />
-              </button>
-              <button
-                type="button"
-                className={getPositionClassName(wishLines, "MID")}
-                value={"MID"}
-              >
-                <img src="/Position_mid.png" />
-              </button>
-              <button
-                type="button"
-                className={getPositionClassName(wishLines, "AD")}
-                value={"AD"}
-              >
-                <img src="/Position_ad.png" />
-              </button>
-              <button
-                type="button"
-                className={getPositionClassName(wishLines, "SUP")}
-                value={"SUP"}
-              >
-                <img src="/Position_sup.png" />
-              </button>
-            </div>
+          <div className="duo_modal_inner">
+            <form>
+              <div className="duomodal_name_wrapper duo_wrapper">
+                <>
+                  <div className="duo_even_wrapper">
+                    <StyledInput
+                      label="소환사이름"
+                      placeholder="소환사 명을 입력해주세요"
+                      onChange={(e) => {
+                        setGameName(e.target.value);
+                      }}
+                      mode="dark"
+                      value={gameName}
+                    />
+                    <StyledInput
+                      onChange={(e) => {
+                        setTagLine(e.target.value);
+                      }}
+                      placeholder="태그를 입력해주세요(#제외)"
+                      mode="dark"
+                      label="태그"
+                      value={tagLine}
+                    />
+                  </div>
+                </>
+              </div>
+              <div className="duo_even_wrapper">
+                <MainPosition />
+                <SeekPosition />
+              </div>
+              <div className="duo_memo duo_wrapper">
+                <SeekTier />
+              </div>
+              <div className="duo_memo duo_wrapper">
+                <div className="duo_title">메모</div>
+                <textarea
+                  value={memo}
+                  onChange={(e) => setMemo(e.target.value)}
+                  maxLength={50}
+                ></textarea>
+              </div>
+              <div className="duo_submit_btn_wrapper duo_wrapper">
+                <button
+                  className="duo_submit_btn"
+                  onClick={() => {
+                    postDuo();
+                  }}
+                  type="button"
+                >
+                  신청
+                </button>
+              </div>
+            </form>
           </div>
-          <div className="select_wish_rank duo_wrapper">
-            찾는 랭크
-            <div
-              onClick={(e) => {
-                e.preventDefault();
-                Setter(wishTiers, setWishTiers, e.target.value);
-              }}
-              className="select_wrapper"
-            >
-              {TIER_TYPE_LIST.map((v) => {
-                return (
-                  <button
-                    type="button"
-                    key={`button_${v}`}
-                    className={`${wishTiers.includes(v) ? "selected" : ""}`}
-                    value={v}
-                  >
-                    <img src={`/${v.toLowerCase()}.webp`} />
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-          <div className="duo_queuetype_dropbox">
-            <select
-              onChange={(e) => setQueueType(e.target.value as IDuoQueueId)}
-            >
-              <option value={"SOLO_RANK_GAME"}>솔로 랭크</option>
-              <option value={"FLEX_RANK_GAME"}>자유 랭크</option>
-              <option value={"QUICK_PLAY"}>일반 게임</option>
-            </select>
-          </div>
-          <div className="duo_memo duo_wrapper">
-            메모
-            <textarea
-              value={memo}
-              maxLength={50}
-              onChange={(e) => setMemo(e.target.value)}
-            ></textarea>
-          </div>
-          <div className="duo_submit_btn_wrapper">
-            <button className="duo_submit_btn" type="submit">
-              제출
-            </button>
-          </div>
-        </form>
+        </div>
+        <CommonModal
+          showModal={showErrModal}
+          title="에러 발생"
+          message={errMsg}
+          onDisapppear={() => setShowErrModal(false)}
+        />
       </div>
-      <CommonModal
-        showModal={showErrModal}
-        title="에러 발생"
-        message={errMsg}
-        onDisapppear={() => setShowErrModal(false)}
-      />
     </div>
   ) : (
     <></>
