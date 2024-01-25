@@ -213,6 +213,21 @@ export default function DuoModal({
               <div className="duo_memo duo_wrapper">
                 <SeekTier />
               </div>
+              <div className="duo_queuetype_dropbox duo_wrapper">
+                <div className="duo_title">큐 타입</div>
+
+                <div className="duo_dropbox_wrapper ">
+                  <select
+                    onChange={(e) =>
+                      setQueueType(e.target.value as IDuoQueueId)
+                    }
+                  >
+                    <option value={"SOLO_RANK_GAME"}>솔로 랭크</option>
+                    <option value={"FLEX_RANK_GAME"}>자유 랭크</option>
+                    <option value={"QUICK_PLAY"}>일반 게임</option>
+                  </select>
+                </div>
+              </div>
               <div className="duo_memo duo_wrapper">
                 <div className="duo_title">메모</div>
                 <textarea
