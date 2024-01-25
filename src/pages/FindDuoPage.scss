@@ -14,6 +14,48 @@
     border: 1px solid $color-bar;
     padding: 1.2rem;
   }
+  .duo_btn_header {
+    display: flex;
+    .duo_queuetype_dropbox {
+      .duo_title {
+        text-align: left;
+      }
+      .duo_dropbox_wrapper {
+        display: inline-block;
+        position: relative;
+        margin-right: 4rem;
+        &::before {
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          right: 0.625rem;
+          margin: auto;
+          height: 0;
+          width: 0;
+          --tw-border-opacity: 1;
+          border-color: $color-dark-border transparent transparent;
+          border-style: solid;
+          border-width: 6px 6px 0;
+          content: "";
+        }
+      }
+
+      select {
+        -o-appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        border-radius: $default-border-radius;
+        height: 3.6rem;
+        padding: 5px 30px 5px 10px;
+        outline: none;
+        option {
+          background: $color-white;
+          padding: 5px 30px 5px 10px;
+        }
+      }
+    }
+  }
   .duo_btn_wrapper {
     border-radius: $default-border-radius;
     border: 1px solid $color-dark-border;
@@ -29,11 +71,18 @@
       }
     }
   }
+  .duo_func_btn_wrapper {
+    align-items: flex-end;
+    display: flex;
+    button {
+      margin-right: 4rem;
+    }
+  }
 
   .duo_page_head_wrapper {
     display: flex;
     flex-direction: row;
-    width: 100%;
+    width: 70%;
     justify-content: space-between;
     margin-bottom: 3rem;
 

@@ -44,71 +44,35 @@ export default function FindDuoPage() {
     <div className="duo_page_wrapper">
       <>
         <div className="duo_page_head_wrapper">
-          <div
-            onClick={(e) => {
-              e.preventDefault();
-              setMatch(e.target.value);
-            }}
-            className=" duo_btn_wrapper"
-          >
-            <button
-              className={getPositionClassName("ALL", match)}
-              value={"ALL"}
-            >
-              모두
-            </button>
-            <button
-              className={getPositionClassName("MATCHING", match)}
-              value={"MATCHING"}
-            >
-              매칭중
-            </button>
-            <button
-              className={getPositionClassName("MATCHED", match)}
-              value={"MATCHED"}
-            >
-              매칭완료
-            </button>
+          <div className="duo_btn_header">
+            <div className="duo_queuetype_dropbox">
+              <div className="duo_title">매칭상태</div>
+              <div className="duo_dropbox_wrapper ">
+                <select
+                  onChange={(e) => setMatch(e.target.value as IDuoMatchType)}
+                >
+                  <option value={"ALL"}>모두</option>
+                  <option value={"MATCHING"}>매칭중</option>
+                  <option value={"MATCHED"}>매칭완료</option>
+                </select>
+              </div>
+            </div>
+            <div className="duo_queuetype_dropbox">
+              <div className="duo_title">큐 타입</div>
+
+              <div className="duo_dropbox_wrapper ">
+                <select
+                  onChange={(e) => setQueue(e.target.value as IPostQueueId)}
+                >
+                  <option value={"ALL"}>모두</option>
+                  <option value={"SOLO_RANK_GAME"}>솔로랭크</option>
+                  <option value={"FLEX_RANK_GAME"}>자유랭크</option>
+                  <option value={"QUICK_PLAY"}>일반</option>
+                </select>
+              </div>
+            </div>
           </div>
-          <div
-            onClick={(e) => {
-              e.preventDefault();
-              setQueue(e.target.value);
-            }}
-            className=" duo_btn_wrapper"
-          >
-            <button
-              className={getPositionClassName("ALL", queue)}
-              value={"ALL"}
-            >
-              모두
-            </button>
-            <button
-              className={getPositionClassName("SOLO_RANK_GAME", queue)}
-              value={"SOLO_RANK_GAME"}
-            >
-              솔로랭크
-            </button>
-            <button
-              className={getPositionClassName("FLEX_RANK_GAME", queue)}
-              value={"FLEX_RANK_GAME"}
-            >
-              자유랭크
-            </button>
-            <button
-              className={getPositionClassName("QUICK_PLAY", queue)}
-              value={"QUICK_PLAY"}
-            >
-              일반
-            </button>
-          </div>
-          <div>
-            <button
-              onClick={() => setShowModal(true)}
-              className="create_duo_wrapper duo_comp_wrapper"
-            >
-              듀오찾기
-            </button>
+          <div className="duo_func_btn_wrapper">
             {myDuoData && (
               <button
                 onClick={() => {
@@ -119,6 +83,12 @@ export default function FindDuoPage() {
                 내 듀오찾기
               </button>
             )}
+            <button
+              onClick={() => setShowModal(true)}
+              className="create_duo_wrapper duo_comp_wrapper"
+            >
+              듀오찾기
+            </button>
           </div>
         </div>
         <div className="duo_page_list_wrapper">
