@@ -1,67 +1,73 @@
 @import "../variable";
 
-.input_wrapper {
-  position: relative;
+.input_outer_wrapper {
+  display: flex;
+  justify-content: center;
   width: 100%;
-  height: 4rem;
-  // margin: 2.4rem;
-  margin-bottom: 3.6rem;
-
-  label {
-    position: absolute;
-    pointer-events: none;
-    bottom: 0.4rem;
-    left: 1rem;
-    font-size: 1.6rem;
-    transition: all 0.3s ease;
-    color: $color-dark-border;
-  }
-  input {
-    display: block;
-    height: 5.2rem;
-    box-sizing: border-box;
+  .input_wrapper {
+    position: relative;
+    height: 4rem;
+    margin-bottom: 3.6rem;
+    display: flex;
+    flex-direction: column;
     width: 100%;
-    border: 1px solid $color-light-border;
-    border-radius: $default-border-radius;
-    padding: 1.6rem;
-    &:focus,
-    &:placeholder-shown {
-      outline: none;
-      border-color: $color-bar;
-      & ~ label {
-        transform: translateY(-4.2rem);
-        font-size: 1.4rem;
-        color: $color-dark-border;
-      }
-    }
-    &.valid ~ label {
-      transform: translateY(-4.2rem);
-      font-size: 1.4rem;
-      color: $color-win-bold;
-    }
-    &.invalid ~ label {
-      transform: translateY(-4.2rem);
-      font-size: 1.4rem;
-      color: $color-red;
-    }
-  }
-  .error_msg {
-    color: $color-red;
-    font-size: 1.2rem;
-  }
 
-  &.dark {
     label {
-      color: $color-white;
+      position: absolute;
+      pointer-events: none;
+      bottom: 0.4rem;
+      left: 1rem;
+      font-size: 1.6rem;
+      transition: all 0.3s ease;
+      color: $color-dark-border;
     }
     input {
-      border-color: $color-white;
-      color: $color-white;
-
+      display: block;
+      height: 5.2rem;
+      width: 100%;
+      box-sizing: border-box;
+      border: 1px solid $color-light-border;
+      border-radius: $default-border-radius;
+      padding: 1.6rem;
+      &:focus,
+      &:placeholder-shown {
+        outline: none;
+        border-color: $color-bar;
+        & ~ label {
+          transform: translateY(-4.2rem);
+          font-size: 1.4rem;
+          color: $color-dark-border;
+        }
+      }
       &.valid ~ label {
         transform: translateY(-4.2rem);
         font-size: 1.4rem;
+        color: $color-win-bold;
+      }
+      &.invalid ~ label {
+        transform: translateY(-4.2rem);
+        font-size: 1.4rem;
+        color: $color-red;
+      }
+    }
+    .error_msg {
+      color: $color-red;
+      font-size: 1.2rem;
+    }
+
+    &.dark {
+      label {
         color: $color-white;
+      }
+      input {
+        border-color: $color-white;
+        color: $color-white;
+
+        &.valid ~ label {
+          transform: translateY(-4.2rem);
+          font-size: 1.4rem;
+          color: $color-white;
+        }
       }
     }
   }
