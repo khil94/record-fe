@@ -45,10 +45,15 @@
       }
       .duo_detail_wrapper {
         padding: 0 2rem;
-        text-align: left;
         margin: 1rem;
+        font-size: 1.2rem;
         .duo_detail_title {
           margin: 1rem 0;
+
+          font-weight: bold;
+          color: $color-dark-border;
+        }
+        .duo_detail_content {
         }
       }
 
@@ -93,6 +98,7 @@
         .select_wrapper {
           display: flex;
           flex-direction: row;
+          justify-content: center;
 
           button {
             border: 1px solid $color-light-border;
@@ -121,6 +127,11 @@
             }
           }
         }
+        .duo_detail_even_wrapper {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          align-items: center;
+        }
 
         .duo_queuetype_dropbox {
           position: relative;
@@ -136,7 +147,7 @@
 
           .duo_detail_memo {
             padding: 2rem;
-            width: 10% auto;
+            width: auto;
             border-radius: $default-border-radius;
             background-color: $color-white;
             color: $color-black;

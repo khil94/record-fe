@@ -12,6 +12,7 @@ import {
 import {
   ellipsisString,
   getDateDiff,
+  getGameType,
   getMMDDHHmm,
 } from "../utils/generalFunctions";
 import CommonModal from "./CommonModal";
@@ -186,6 +187,139 @@ export default function DuoDetailModal({
     );
   }
 
+  function MainPosition() {
+    return (
+      <div className="select_my_line duo_detail_wrapper">
+        <div className="duo_detail_title">주 포지션</div>
+        <div
+          onClick={(e) => {
+            e.preventDefault();
+            ticketMode && Setter(userLines, setUserLines, e.target.value);
+          }}
+          className={`select_wrapper ${ticketMode && "ticket_mode_select"}`}
+        >
+          <button
+            type="button"
+            className={getPositionClassName(
+              ticketMode ? userLines : lines,
+              "TOP"
+            )}
+            value={"TOP"}
+          >
+            <img src="/Position_top.png" />
+          </button>
+          <button
+            type="button"
+            className={getPositionClassName(
+              ticketMode ? userLines : lines,
+              "JG"
+            )}
+            value={"JG"}
+          >
+            <img src="/Position_jg.png" />
+          </button>
+          <button
+            type="button"
+            className={getPositionClassName(
+              ticketMode ? userLines : lines,
+              "MID"
+            )}
+            value={"MID"}
+          >
+            <img src="/Position_mid.png" />
+          </button>
+          <button
+            type="button"
+            className={getPositionClassName(
+              ticketMode ? userLines : lines,
+              "AD"
+            )}
+            value={"AD"}
+          >
+            <img src="/Position_ad.png" />
+          </button>
+          <button
+            type="button"
+            className={getPositionClassName(
+              ticketMode ? userLines : lines,
+              "SUP"
+            )}
+            value={"SUP"}
+          >
+            <img src="/Position_sup.png" />
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  function SeekPosition() {
+    return (
+      <div className="select_wish_lines duo_detail_wrapper">
+        <div className="duo_detail_title">찾는 포지션</div>
+        <div className={`select_wrapper ${ticketMode && "ticket_mode_select"}`}>
+          <button
+            type="button"
+            className={getPositionClassName(wishLines, "TOP")}
+            value={"TOP"}
+          >
+            <img src="/Position_top.png" />
+          </button>
+          <button
+            type="button"
+            className={getPositionClassName(wishLines, "JG")}
+            value={"JG"}
+          >
+            <img src="/Position_jg.png" />
+          </button>
+          <button
+            type="button"
+            className={getPositionClassName(wishLines, "MID")}
+            value={"MID"}
+          >
+            <img src="/Position_mid.png" />
+          </button>
+          <button
+            type="button"
+            className={getPositionClassName(wishLines, "AD")}
+            value={"AD"}
+          >
+            <img src="/Position_ad.png" />
+          </button>
+          <button
+            type="button"
+            className={getPositionClassName(wishLines, "SUP")}
+            value={"SUP"}
+          >
+            <img src="/Position_sup.png" />
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  function SeekRank() {
+    return (
+      <div className="select_wish_rank duo_detail_wrapper">
+        <div className="duo_detail_title">찾는 랭크</div>
+        <div className={`select_wrapper ${ticketMode && "ticket_mode_select"}`}>
+          {wishTiers.map((v) => {
+            return (
+              <button
+                type="button"
+                key={`button_${v}`}
+                className={getPositionClassName(wishTiers, v)}
+                value={v}
+              >
+                <img src={`/${v.toLowerCase()}.webp`} />
+              </button>
+            );
+          })}
+        </div>
+      </div>
+    );
+  }
+
   return show ? (
     <div
       onClick={(e) => {
@@ -248,154 +382,32 @@ export default function DuoDetailModal({
                   </>
                 )}
               </div>
-              <div className="select_my_line duo_detail_wrapper">
-                <div className="duo_detail_title">주 포지션</div>
-                <div
-                  onClick={(e) => {
-                    e.preventDefault();
-                    ticketMode &&
-                      Setter(userLines, setUserLines, e.target.value);
-                  }}
-                  className={`select_wrapper ${
-                    ticketMode && "ticket_mode_select"
-                  }`}
-                >
-                  <button
-                    type="button"
-                    className={getPositionClassName(
-                      ticketMode ? userLines : lines,
-                      "TOP"
-                    )}
-                    value={"TOP"}
-                  >
-                    <img src="/Position_top.png" />
-                  </button>
-                  <button
-                    type="button"
-                    className={getPositionClassName(
-                      ticketMode ? userLines : lines,
-                      "JG"
-                    )}
-                    value={"JG"}
-                  >
-                    <img src="/Position_jg.png" />
-                  </button>
-                  <button
-                    type="button"
-                    className={getPositionClassName(
-                      ticketMode ? userLines : lines,
-                      "MID"
-                    )}
-                    value={"MID"}
-                  >
-                    <img src="/Position_mid.png" />
-                  </button>
-                  <button
-                    type="button"
-                    className={getPositionClassName(
-                      ticketMode ? userLines : lines,
-                      "AD"
-                    )}
-                    value={"AD"}
-                  >
-                    <img src="/Position_ad.png" />
-                  </button>
-                  <button
-                    type="button"
-                    className={getPositionClassName(
-                      ticketMode ? userLines : lines,
-                      "SUP"
-                    )}
-                    value={"SUP"}
-                  >
-                    <img src="/Position_sup.png" />
-                  </button>
-                </div>
+              <div className="duo_detail_even_wrapper">
+                <MainPosition />
+                {!ticketMode && <SeekPosition />}
               </div>
               {!ticketMode && (
                 <>
-                  <div className="select_wish_lines duo_detail_wrapper">
-                    <div className="duo_detail_title">찾는 포지션</div>
-                    <div
-                      className={`select_wrapper ${
-                        ticketMode && "ticket_mode_select"
-                      }`}
-                    >
-                      <button
-                        type="button"
-                        className={getPositionClassName(wishLines, "TOP")}
-                        value={"TOP"}
-                      >
-                        <img src="/Position_top.png" />
-                      </button>
-                      <button
-                        type="button"
-                        className={getPositionClassName(wishLines, "JG")}
-                        value={"JG"}
-                      >
-                        <img src="/Position_jg.png" />
-                      </button>
-                      <button
-                        type="button"
-                        className={getPositionClassName(wishLines, "MID")}
-                        value={"MID"}
-                      >
-                        <img src="/Position_mid.png" />
-                      </button>
-                      <button
-                        type="button"
-                        className={getPositionClassName(wishLines, "AD")}
-                        value={"AD"}
-                      >
-                        <img src="/Position_ad.png" />
-                      </button>
-                      <button
-                        type="button"
-                        className={getPositionClassName(wishLines, "SUP")}
-                        value={"SUP"}
-                      >
-                        <img src="/Position_sup.png" />
-                      </button>
+                  <div className="duo_detail_even_wrapper">
+                    <SeekRank />
+                    <div className="duo_detail_wrapper duo_detail_recent_wrapper">
+                      <div className="duo_detail_title">최근 전적</div>
+                      {recentMatches.length > 0 ? (
+                        <>
+                          <RecentChampComp
+                            size={48}
+                            key={gameName + tagLine}
+                            data={recentMatches}
+                          />
+                        </>
+                      ) : (
+                        <span>최근 전적이 없습니다.</span>
+                      )}
                     </div>
                   </div>
-
-                  <div className="select_wish_rank duo_detail_wrapper">
-                    <div className="duo_detail_title">찾는 랭크</div>
-                    <div
-                      className={`select_wrapper ${
-                        ticketMode && "ticket_mode_select"
-                      }`}
-                    >
-                      {wishTiers.map((v) => {
-                        return (
-                          <button
-                            type="button"
-                            key={`button_${v}`}
-                            className={getPositionClassName(wishTiers, v)}
-                            value={v}
-                          >
-                            <img src={`/${v.toLowerCase()}.webp`} />
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
-
-                  <div>{duoQueueId}</div>
-
-                  <div className="duo_detail_wrapper duo_detail_recent_wrapper">
-                    {recentMatches.length > 0 ? (
-                      <>
-                        <div className="duo_detail_title">주 포지션</div>
-                        <RecentChampComp
-                          size={48}
-                          key={gameName + tagLine}
-                          data={recentMatches}
-                        />
-                      </>
-                    ) : (
-                      <span>최근 전적이 없습니다.</span>
-                    )}
+                  <div className="duo_detail_wrapper">
+                    <div className="duo_detail_title">게임 타입</div>
+                    {getGameType(duoQueueId)}
                   </div>
                 </>
               )}
