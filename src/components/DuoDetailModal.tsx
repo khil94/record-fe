@@ -378,7 +378,7 @@ export default function DuoDetailModal({
                 )}
               </div>
               <div className="duo_submit_btn_wrapper duo_detail_wrapper">
-                {!isExpired && (
+                {!isExpired && !own && (
                   <button
                     className="duo_submit_btn"
                     onClick={() => {
