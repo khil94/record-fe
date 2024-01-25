@@ -2,8 +2,8 @@ import {
   DUO_MATCH_TYPE_LIST,
   GAME_MODE_LIST,
   GAME_TYPE_LIST,
-  LANE_LIST,
   LEADERBOARD_QUEUE_TYPE_LIST,
+  LINE_LIST,
   QUEUE_ID_LIST,
   QUEUE_TYPE_LIST,
   RANK_NUMBER_LIST,
@@ -18,7 +18,7 @@ export type IQueueId = (typeof QUEUE_ID_LIST)[number];
 export type IGameType = (typeof GAME_TYPE_LIST)[number];
 export type ILeaderBoardQueueTyep =
   (typeof LEADERBOARD_QUEUE_TYPE_LIST)[number];
-export type ILineType = (typeof LANE_LIST)[number];
+export type ILineType = (typeof LINE_LIST)[number];
 export type IDuoMatchType = (typeof DUO_MATCH_TYPE_LIST)[number];
 
 export interface ILeagueEntry {
