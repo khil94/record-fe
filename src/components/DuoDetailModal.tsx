@@ -58,6 +58,8 @@ export default function DuoDetailModal({
   const [showErrModal, setShowErrModal] = useState(false);
   const [errMsg, setErrMsg] = useState("");
 
+  const [showAcceptModal, setShowAcceptModal] = useState(false);
+
   const [isExpired, setIsExpired] = useState(
     matched || getDateDiff(new Date(expiredAt)) !== 0
   );
@@ -100,6 +102,18 @@ export default function DuoDetailModal({
     }
   }
 
+  async function postAcceptTicket(duoId: number, id: number) {
+    try {
+      await PostAcceptTicket(duoId, id);
+      setShowAcceptModal(true);
+    } catch (e) {
+      if (axios.isAxiosError(e)) {
+        setErrMsg(e.response?.data.message);
+        setShowErrModal(true);
+      }
+    }
+  }
+
   function TicketComponent(ticket: IDuoTicket) {
     const [showMemo, setShowMemo] = useState(false);
     return (
@@ -122,11 +136,7 @@ export default function DuoDetailModal({
         </span>
         <span>
           {ticket.recentMatches.length > 0 ? (
-            <RecentChampComp
-              size={24}
-              key={"ticket_" + ticket.gameName + ticket.tagLine}
-              data={ticket.recentMatches}
-            />
+            <RecentChampComp size={24} data={ticket.recentMatches} />
           ) : (
             <>최근 전적 없음</>
           )}
@@ -146,9 +156,9 @@ export default function DuoDetailModal({
         </div>
         {own && (
           <button
-            className="duo_submit_btn"
-            onClick={async () => {
-              await PostAcceptTicket(ticket.duoId, ticket.id);
+            className="ticket_accept_btn"
+            onClick={() => {
+              postAcceptTicket(ticket.duoId, ticket.id);
             }}
             type="button"
           >
@@ -161,19 +171,17 @@ export default function DuoDetailModal({
 
   function RecentChampComp({
     data,
-    key,
     size,
   }: {
     data: IDuoRecentMatch[];
-    key: string;
     size: number;
   }) {
     console.log(data);
     return (
       <div className="duo_detail_recent_match">
-        {data.map((v) => {
+        {data.map((v, i) => {
           return (
-            <div key={key + v.championDto.image}>
+            <div key={i + v.championDto.image}>
               <ObjImgComponent
                 description={`최근 KDA : ${v.kills}/${v.deaths}/${v.assists}`}
                 src={v.championDto.image}
@@ -394,11 +402,7 @@ export default function DuoDetailModal({
                       <div className="duo_detail_title">최근 전적</div>
                       {recentMatches.length > 0 ? (
                         <>
-                          <RecentChampComp
-                            size={48}
-                            key={gameName + tagLine}
-                            data={recentMatches}
-                          />
+                          <RecentChampComp size={48} data={recentMatches} />
                         </>
                       ) : (
                         <span>최근 전적이 없습니다.</span>
@@ -458,6 +462,15 @@ export default function DuoDetailModal({
           title="에러 발생"
           message={errMsg}
           onDisapppear={() => setShowErrModal(false)}
+        />
+        <CommonModal
+          showModal={showAcceptModal}
+          title="듀오 승인!"
+          message={"듀오를 승인하셨습니다! 인게임에서 연락해보세요."}
+          onDisapppear={() => {
+            setShowAcceptModal(false);
+            window.location.reload();
+          }}
         />
       </div>
     </div>

@@ -175,7 +175,7 @@
         .ticket_wrapper {
           align-items: center;
           display: grid;
-          grid-template-columns: 1fr 1fr 1.5fr 1.5fr 1fr 1fr;
+          grid-template-columns: 1fr 1fr 1.5fr 1.5fr 1fr 1fr auto;
           margin-bottom: 1rem;
           .ticket_memo_wrapper {
             position: relative;
@@ -212,6 +212,12 @@
       .duo_submit_btn {
         background-color: $color-white;
         padding: 1rem 3rem;
+        border-radius: $default-border-radius;
+        color: $color-black;
+      }
+      .ticket_accept_btn {
+        background-color: $color-white;
+        padding: 0.6rem;
         border-radius: $default-border-radius;
         color: $color-black;
       }
