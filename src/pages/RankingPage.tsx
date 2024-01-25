@@ -85,7 +85,7 @@ export default function RankingPage() {
                     )
                     .map((v, i) => {
                       return (
-                        <tr key={v.summonerName}>
+                        <tr key={v.summonerName + v.summonerId}>
                           <td>
                             <span>{currentPage * 100 + i + 1}</span>
                           </td>
