@@ -3,6 +3,7 @@ import "./App.css";
 import GlobalLayout from "./Layouts/GlobalLayout";
 import AuthRouter from "./components/AuthRouter";
 import EmailAuthPage from "./pages/EmailAuthPage";
+import ErrorPage from "./pages/ErrorPage";
 import FindDuoPage from "./pages/FindDuoPage";
 import LoginPage from "./pages/LoginPage";
 import MainPage from "./pages/MainPage";
@@ -50,6 +51,7 @@ function App() {
             path="/duo"
             element={<AuthRouter children={<FindDuoPage key={`DUO`} />} />}
           />
+          <Route path="*" element={<ErrorPage />} />
         </Routes>
       </GlobalLayout>
     </BrowserRouter>
