@@ -65,6 +65,9 @@
           &:hover {
             color: $color-light-border;
           }
+          &:last-child {
+            color: $color-red;
+          }
         }
 
         &.show {

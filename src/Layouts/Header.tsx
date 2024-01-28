@@ -1,5 +1,7 @@
 import { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { DeleteUser } from "../api/apis";
+import CommonModal from "../components/CommonModal";
 import SearchInput from "../components/SearchInput";
 import { MENU_LIST } from "../constants/Enum";
 import { addRecentSearchVal, makeTagName } from "../utils/generalFunctions";
@@ -10,38 +12,59 @@ import "./Header.scss";
 export default function Header() {
   const [searchVal, setSearchVal] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
-  const ref = useRef(null);
+  const [showErrDeleteUserModal, setErrShowDeleteUserModal] = useState(false);
 
   const { data, logout } = userAuth();
-  const navigation = useNavigate();
+  const navigator = useNavigate();
 
+  const ref = useRef(null);
   useOnClickOutside(ref, () => setShowDropdown(false));
+
+  const deleteUser = async () => {
+    try {
+      await DeleteUser();
+      await logout();
+      navigator("/login");
+    } catch {
+      setErrShowDeleteUserModal(true);
+    }
+  };
 
   const UserComponent = () => {
     return (
       <div
         onClick={() => {
-          data?.auth ? setShowDropdown(!showDropdown) : navigation("/login");
+          data?.auth ? setShowDropdown(!showDropdown) : navigator("/login");
         }}
         className="user_wrapper"
         ref={ref}
       >
         <span>{data?.auth ? "메뉴" : "로그인"}</span>
         <div className={`user_dropdown ${showDropdown ? "show" : ""}`}>
-          <div
+          {/* <div
             onClick={() => {
               navigation("/mypage");
             }}
           >
             마이페이지
-          </div>
+          </div> */}
           <div
             onClick={() => {
               logout();
-              navigation("/login");
+              navigator("/login");
             }}
           >
             로그아웃
+          </div>
+          <div
+            onClick={() => {
+              const answer = confirm("정말로 탈퇴하시겠습니까?");
+              if (answer) {
+                deleteUser();
+              }
+            }}
+          >
+            회원탈퇴
           </div>
         </div>
       </div>
@@ -73,7 +96,7 @@ export default function Header() {
                 const { name, tag } = makeTagName(searchVal);
                 setSearchVal("");
                 addRecentSearchVal(name, tag);
-                navigation(`summoner/${name}/${tag}`);
+                navigator(`summoner/${name}/${tag}`);
               }}
               placeholder="소환사 검색"
               onChange={(v) => setSearchVal(v)}
@@ -81,6 +104,12 @@ export default function Header() {
             <UserComponent />
           </div>
         </div>
+        <CommonModal
+          showModal={showErrDeleteUserModal}
+          title="회원탈퇴 실패"
+          message="회원탈퇴에 실패하였습니다. 잠시 후 다시 시도해주세요."
+          onDisapppear={() => setErrShowDeleteUserModal(false)}
+        />
       </div>
     </header>
   );
