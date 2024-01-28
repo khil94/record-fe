@@ -126,7 +126,11 @@ export default function DuoDetailModal({
     const [showMemo, setShowMemo] = useState(false);
     return (
       <div className="ticket_wrapper">
-        <Link to={`/summoner/${ticket.gameName}/${ticket.tagLine}`}>
+        <Link
+          rel="noopener noreferrer"
+          target="blank"
+          to={`/summoner/${ticket.gameName}/${ticket.tagLine}`}
+        >
           <span>{ticket.gameName}</span>
           <span className="tag_line">#{ticket.tagLine}</span>
         </Link>
