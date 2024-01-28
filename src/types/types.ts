@@ -1,5 +1,6 @@
 import {
   DUO_MATCH_TYPE_LIST,
+  ERR_CODE,
   GAME_MODE_LIST,
   GAME_TYPE_LIST,
   LEADERBOARD_QUEUE_TYPE_LIST,
@@ -20,6 +21,7 @@ export type ILeaderBoardQueueTyep =
   (typeof LEADERBOARD_QUEUE_TYPE_LIST)[number];
 export type ILineType = (typeof LINE_LIST)[number];
 export type IDuoMatchType = (typeof DUO_MATCH_TYPE_LIST)[number];
+export type IErrCode = keyof typeof ERR_CODE;
 
 export interface ILeagueEntry {
   queueType: IQueueType;
@@ -129,7 +131,7 @@ export interface IUser {
 }
 
 export interface IError {
-  errorCode: number;
+  errorCode: IErrCode;
   httpStatus: string;
   message: string;
   data: unknown;
