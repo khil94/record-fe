@@ -6,7 +6,6 @@ import EmailAuthPage from "./pages/EmailAuthPage";
 import FindDuoPage from "./pages/FindDuoPage";
 import LoginPage from "./pages/LoginPage";
 import MainPage from "./pages/MainPage";
-import MyPage from "./pages/MyPage";
 import RankingPage from "./pages/RankingPage";
 import RegisterPage from "./pages/RegisterPage";
 import SummonerPage from "./pages/SummonerPage";
@@ -25,10 +24,6 @@ function App() {
           />
           <Route path="/summoner/:id" element={<SummonerPage />} />
           <Route path="/ranking" element={<RankingPage />} />
-          <Route
-            path="/test"
-            element={<AuthRouter key={"RANKING"} children={<RankingPage />} />}
-          />
           <Route
             path="login"
             element={
@@ -52,12 +47,8 @@ function App() {
             }
           />
           <Route
-            path="/mypage"
-            element={<AuthRouter key={"MY"} children={<MyPage />} />}
-          />
-          <Route
             path="/duo"
-            element={<AuthRouter key={"FINDDUO"} children={<FindDuoPage />} />}
+            element={<AuthRouter children={<FindDuoPage key={`DUO`} />} />}
           />
         </Routes>
       </GlobalLayout>
