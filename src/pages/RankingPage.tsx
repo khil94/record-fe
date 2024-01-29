@@ -62,52 +62,58 @@ export default function RankingPage() {
               </div>
             </div>
             <div className="ranking_content">
-              <table>
-                <colgroup>
-                  <col width={60} />
-                  <col />
-                  <col />
-                  <col />
-                </colgroup>
-                <thead>
-                  <tr>
-                    <th scope="col">순위</th>
-                    <th scope="col">소환사</th>
-                    <th scope="col">LP</th>
-                    <th scope="col">승률</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {data?.players
-                    .slice(
-                      MAX_PAGE_NUMBER * currentPage,
-                      MAX_PAGE_NUMBER * (currentPage + 1)
-                    )
-                    .map((v, i) => {
-                      return (
-                        <tr key={v.summonerName + v.summonerId}>
-                          <td>
-                            <span>{currentPage * 100 + i + 1}</span>
-                          </td>
-                          <td
-                            onClick={() =>
-                              navigator(`/summoner/${v.summonerId}`)
-                            }
-                            className="ranker_td"
-                          >
-                            <span className="rank_summoner_name">
-                              {v.summonerName}
-                            </span>
-                          </td>
-                          <td>
-                            <span>{v.leaguePoints}</span>
-                          </td>
-                          <WinRateComponent wins={v.wins} loses={v.loses} />
-                        </tr>
-                      );
-                    })}
-                </tbody>
-              </table>
+              {data ? (
+                <table>
+                  <colgroup>
+                    <col width={60} />
+                    <col />
+                    <col />
+                    <col />
+                  </colgroup>
+                  <thead>
+                    <tr>
+                      <th scope="col">순위</th>
+                      <th scope="col">소환사</th>
+                      <th scope="col">LP</th>
+                      <th scope="col">승률</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {data?.players
+                      .slice(
+                        MAX_PAGE_NUMBER * currentPage,
+                        MAX_PAGE_NUMBER * (currentPage + 1)
+                      )
+                      .map((v, i) => {
+                        return (
+                          <tr key={v.summonerName + v.summonerId}>
+                            <td>
+                              <span>{currentPage * 100 + i + 1}</span>
+                            </td>
+                            <td
+                              onClick={() =>
+                                navigator(`/summoner/${v.summonerId}`)
+                              }
+                              className="ranker_td"
+                            >
+                              <span className="rank_summoner_name">
+                                {v.summonerName}
+                              </span>
+                            </td>
+                            <td>
+                              <span>{v.leaguePoints}</span>
+                            </td>
+                            <WinRateComponent wins={v.wins} loses={v.loses} />
+                          </tr>
+                        );
+                      })}
+                  </tbody>
+                </table>
+              ) : (
+                <div className="ranking_err">
+                  조건에 맞는 플레이어가 존재하지 않습니다.
+                </div>
+              )}
             </div>
             <div className="page_wrapper">
               {Array(Math.ceil((data?.players.length || 0) / 100))
