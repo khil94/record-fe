@@ -1,4 +1,3 @@
-import parse from "html-react-parser";
 import React, { useState } from "react";
 import "./ObjImgComponent.scss";
 
@@ -28,7 +27,7 @@ export default function ObjImgComponent({
       {showDesc && description && (
         <div className="obj_description">
           <span className="obj_name">{name}</span>
-          <span>{parse(description)}</span>
+          <span dangerouslySetInnerHTML={{ __html: description }}>{}</span>
         </div>
       )}
     </div>
