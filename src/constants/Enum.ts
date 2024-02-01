@@ -1,10 +1,17 @@
-export const MENU_LIST = ["RANKING"] as const;
+export const MENU_LIST = [
+  { url: "ranking", name: "랭킹" },
+  { url: "duo", name: "듀오 찾기" },
+] as const;
+
+export const LINE_LIST = ["TOP", "JG", "MID", "AD", "SUP"] as const;
 
 export const QUEUE_TYPE_LIST = [
   "RANKED_SOLO",
   "RANKED_TEAM",
   "UNKNOWN",
 ] as const;
+
+export const DUO_MATCH_TYPE_LIST = ["ALL", "MATCHING", "MATCHED"] as const;
 
 export const TIER_TYPE_LIST = [
   "CHALLENGER",
@@ -57,9 +64,10 @@ export const QUEUE_ID_LIST = [
   "DRAFT_GAME",
   "DYNAMIC_RANK_GAME",
   "SOLO_RANK_GAME",
-  "NORMAL_GAME",
+  "QUICK_PLAY",
   "FLEX_RANK_GAME",
   "OTHER_GAME",
+  "NORMAL_GAME",
 ] as const;
 
 export const GAME_TYPE_LIST = [
@@ -73,3 +81,17 @@ export const LEADERBOARD_QUEUE_TYPE_LIST = [
   "RANKED_FLEX_SR",
   "RANKED_FLEX_TT",
 ] as const;
+
+export const ERR_CODE = {
+  1000: "USER_JOIN_FAIL",
+  1001: "USER_LOGIN_FAIL",
+  1002: "NEED_LOGIN",
+  1003: "NEED_EMAIL_AUTHENTICATION",
+  1004: "WRONG_EMAIL_AUTHENTICATION",
+  1005: "TOKEN_EXPIRED",
+  2000: "DUO_ALREADY_EXIST",
+  2001: "DUO_EXPIRED",
+  2002: "DUO_ALREADY_MATCHED",
+  2003: "DUO_OWNER_TRY_TICKET",
+  9000: "INPUT_ERROR",
+} as const;

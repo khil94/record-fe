@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { GetGameList } from "../api/apis";
 import {
-  IQueueId,
+  IPostQueueId,
   ISimpleMatch,
   ISimpleParticipant,
   ISummonerProfile,
@@ -12,7 +12,7 @@ import UserRecentInfoComponent from "./UserRecentInfoComponent";
 
 interface IProp {
   data: ISummonerProfile;
-  q?: IQueueId;
+  q?: IPostQueueId;
 }
 
 const MatchesComponent = React.memo(({ data, q }: IProp) => {
@@ -22,10 +22,35 @@ const MatchesComponent = React.memo(({ data, q }: IProp) => {
   );
   const [isMoreLoading, setIsMoreLoading] = useState(false);
   const [userGameList, setUserGameList] = useState<ISimpleParticipant[]>([]);
+  const [isNoMore, setIsNoMore] = useState(false);
 
   function filtering(data: ISimpleMatch[]) {
-    return q ? data.filter((t) => t.queueId === q) : data;
+    switch (q) {
+      case "ALL":
+        return data;
+      case undefined:
+        return data.filter((t) => {
+          return (
+            t.queueId !== "SOLO_RANK_GAME" &&
+            t.queueId !== "FLEX_RANK_GAME" &&
+            t.queueId !== "QUICK_PLAY" &&
+            t.queueId !== "NORMAL_GAME"
+          );
+        });
+      case "QUICK_PLAY":
+        return data.filter(
+          (t) => t.queueId === q || t.queueId === "NORMAL_GAME"
+        );
+      default:
+        return data.filter((t) => t.queueId === q);
+    }
   }
+
+  useEffect(() => {
+    if (gameListData.length === 0) {
+      getMoreGameList();
+    }
+  }, []);
 
   useEffect(() => {
     const target = filtering(gameListData);
@@ -44,14 +69,17 @@ const MatchesComponent = React.memo(({ data, q }: IProp) => {
     setUserGameList(temp);
   }, [gameListData, q, data]);
 
-  const getMoreGameList = async (puid: string) => {
+  const getMoreGameList = async () => {
+    const puid = data.profile.puuid;
     const targetNumber = pageNumber.current + 1;
-    const gameData = await GetGameList(puid, targetNumber);
-    if (gameData) {
+    const gameData = await GetGameList(puid, targetNumber, q || "ALL");
+    if (gameData.data.length > 0) {
       setGameListData(filtering([...gameListData, ...gameData.data]));
       pageNumber.current = pageNumber.current + 1;
-      setIsMoreLoading(false);
+    } else {
+      setIsNoMore(true);
     }
+    setIsMoreLoading(false);
   };
 
   return (
@@ -72,11 +100,13 @@ const MatchesComponent = React.memo(({ data, q }: IProp) => {
             <div className="more_match">
               {isMoreLoading ? (
                 <Loading width={32} />
+              ) : isNoMore ? (
+                <></>
               ) : (
                 <button
                   onClick={() => {
                     setIsMoreLoading(true);
-                    getMoreGameList(data.profile.puuid);
+                    getMoreGameList();
                   }}
                   type="button"
                 >

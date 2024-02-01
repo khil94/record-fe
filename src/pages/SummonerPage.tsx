@@ -22,12 +22,7 @@ export default function SummonerPage() {
     ) {
       setGameData(dataByName.data);
     }
-  }, [
-    dataByName.isLoading,
-    dataByName.isValidating,
-    dataByName.data?.matches,
-    dataByName.data?.profile,
-  ]);
+  }, [dataByName.isLoading, dataByName.isValidating, dataByName.data?.matches]);
 
   useEffect(() => {
     if (
@@ -37,12 +32,7 @@ export default function SummonerPage() {
     ) {
       setGameData(dataById.data);
     }
-  }, [
-    dataById.isLoading,
-    dataById.isValidating,
-    dataById.data?.matches,
-    dataById.data?.profile,
-  ]);
+  }, [dataById.isLoading, dataById.isValidating, dataById.data?.matches]);
 
   const LeagueComponent = (props: ILeagueEntry) => {
     const qType = props.queueType === "RANKED_SOLO" ? "솔로 랭크" : "자유 랭크";
@@ -102,11 +92,11 @@ export default function SummonerPage() {
             <MultiTabLayout
               tabList={["전체", "솔로 랭크", "자유 랭크", "일반", "기타"]}
               tabPageList={[
-                <MatchesComponent data={gameData} />,
+                <MatchesComponent data={gameData} q="ALL" />,
                 <MatchesComponent data={gameData} q="SOLO_RANK_GAME" />,
                 <MatchesComponent data={gameData} q="FLEX_RANK_GAME" />,
-                <MatchesComponent data={gameData} q="NORMAL_GAME" />,
-                <MatchesComponent data={gameData} q="OTHER_GAME" />,
+                <MatchesComponent data={gameData} q="QUICK_PLAY" />,
+                <MatchesComponent data={gameData} />,
               ]}
             />
           )}

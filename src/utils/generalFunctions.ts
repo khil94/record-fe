@@ -63,6 +63,7 @@ export function getGameType(queueType: IQueueId) {
       return "커스텀 게임";
     case "DRAFT_GAME":
       return "일반 교차 선택";
+    case "QUICK_PLAY":
     case "NORMAL_GAME":
       return "일반 게임";
     case "URF_GAME":
@@ -98,3 +99,50 @@ export function makeTagName(val: string) {
   const [name, tag] = searchVal.split("#");
   return { name, tag: tag ? `${tag}` : "KR1" };
 }
+
+export function getXOR(a: boolean, b: boolean) {
+  if (!a && b) {
+    return true;
+  }
+  if (a && !b) {
+    return true;
+  }
+  return false;
+}
+
+export const get24Time = (target: number) => {
+  return target < 10 ? `0${target}` : target;
+};
+
+export const getYYYYMMDDHHmm = (date: Date) => {
+  const YYYY = date.getFullYear();
+  const MM = date.getMonth() + 1;
+  const DD = date.getDate();
+  const HH = date.getHours();
+  const mm = date.getMinutes();
+
+  return `${YYYY}-${get24Time(MM)}-${get24Time(DD)} ${get24Time(
+    HH
+  )}:${get24Time(mm)}`;
+};
+
+export const getMMDDHHmm = (date: Date) => {
+  const MM = date.getMonth() + 1;
+  const DD = date.getDate();
+  const HH = date.getHours();
+  const mm = date.getMinutes();
+
+  return `${get24Time(MM)}-${get24Time(DD)} ${get24Time(HH)}:${get24Time(mm)}`;
+};
+
+export const getDateDiff = (date: Date) => {
+  const now = new Date();
+  const diff = now.getTime() - date.getTime();
+  const diffDate = diff / (1000 * 3600 * 24);
+
+  return Math.round(diffDate);
+};
+
+export const ellipsisString = (val: string, targetNum: number) => {
+  return val.length <= targetNum ? val : val.slice(0, targetNum) + "...";
+};

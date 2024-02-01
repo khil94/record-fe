@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import API from "../api/api";
-import { PostLogin } from "../api/apis";
+import { GetMe, PostLogin } from "../api/apis";
 import CommonModal from "../components/CommonModal";
 import StyledInput from "../components/StyledInput";
+import useAuth from "../utils/useAuth";
 import useUser from "../utils/useUser";
 import "./LoginPage.scss";
 
@@ -12,7 +13,8 @@ export default function LoginPage() {
   const [pwd, setPwd] = useState("");
   const [showModal, setShowModal] = useState(false);
   const navigator = useNavigate();
-  const { login } = useUser();
+  const { login } = useAuth();
+  const { mutate } = useUser();
 
   async function HandleLogin() {
     try {
@@ -21,7 +23,9 @@ export default function LoginPage() {
       API.defaults.headers.common[
         "Authorization"
       ] = `Bearer ${resp.data.accessToken}`;
-      login();
+      await login();
+      mutate({ ...resp.data.userInfo });
+      await GetMe();
       navigator("/");
     } catch {
       setShowModal(true);
@@ -37,7 +41,7 @@ export default function LoginPage() {
   return (
     <div className="login_page_wrapper">
       <div className="logo_wrapper">
-        <img src="logo.png" width={88} />
+        <img src="/logo.png" width={88} />
       </div>
       <div className="login_form_wrapper">
         <form

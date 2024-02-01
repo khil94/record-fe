@@ -3,6 +3,8 @@ import "./App.css";
 import GlobalLayout from "./Layouts/GlobalLayout";
 import AuthRouter from "./components/AuthRouter";
 import EmailAuthPage from "./pages/EmailAuthPage";
+import ErrorPage from "./pages/ErrorPage";
+import FindDuoPage from "./pages/FindDuoPage";
 import LoginPage from "./pages/LoginPage";
 import MainPage from "./pages/MainPage";
 import RankingPage from "./pages/RankingPage";
@@ -24,21 +26,32 @@ function App() {
           <Route path="/summoner/:id" element={<SummonerPage />} />
           <Route path="/ranking" element={<RankingPage />} />
           <Route
-            path="/test"
-            element={<AuthRouter children={<RankingPage />} />}
-          />
-          <Route
             path="login"
-            element={<AuthRouter reverse children={<LoginPage />} />}
+            element={
+              <AuthRouter key={"LOGIN"} reverse children={<LoginPage />} />
+            }
           />
           <Route
             path="register"
-            element={<AuthRouter reverse children={<RegisterPage />} />}
+            element={
+              <AuthRouter
+                key={"REGISTER"}
+                reverse
+                children={<RegisterPage />}
+              />
+            }
           />
           <Route
             path="/email_auth"
-            element={<AuthRouter children={<EmailAuthPage />} />}
+            element={
+              <AuthRouter key={"EMAILAUTH"} children={<EmailAuthPage />} />
+            }
           />
+          <Route
+            path="/duo"
+            element={<AuthRouter children={<FindDuoPage key={`DUO`} />} />}
+          />
+          <Route path="*" element={<ErrorPage />} />
         </Routes>
       </GlobalLayout>
     </BrowserRouter>

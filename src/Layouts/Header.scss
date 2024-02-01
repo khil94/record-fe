@@ -1,7 +1,7 @@
 @import "../variable";
 
 .header {
-  height: 9rem;
+  height: $header-height;
   background-color: $color-bar;
   color: white;
 
@@ -64,6 +64,9 @@
           padding: 1.2rem;
           &:hover {
             color: $color-light-border;
+          }
+          &:last-child {
+            color: $color-red;
           }
         }
 

@@ -4,10 +4,10 @@ import { NavigateFunction } from "react-router-dom";
 import API from "../api/api";
 import { PostRefresh } from "../api/apis";
 import { IError } from "../types/types";
-import useUser from "./useUser";
+import useAuth from "./useAuth";
 
 const SetupInterceptors = (navigate: NavigateFunction) => {
-  const { logout } = useUser();
+  const { logout } = useAuth();
   const [once, setOnce] = useState(true);
   if (once) {
     API.interceptors.response.use(
@@ -31,9 +31,10 @@ const SetupInterceptors = (navigate: NavigateFunction) => {
                   ] = `Bearer ${resp.data.accessToken}`;
                   if (config) {
                     config.headers.Authorization = `Bearer ${resp.data.accessToken}`;
-                    return (await axios.request(config)).data;
+                    return axios.request(config);
                   }
                 } catch (e) {
+                  await logout();
                   navigate("/");
                   return Promise.reject(e);
                 }
@@ -42,7 +43,7 @@ const SetupInterceptors = (navigate: NavigateFunction) => {
               }
               break;
             case 1003:
-              navigate("/email_auth");
+              navigate("/email_auth", { state: { isValid: true } });
               break;
             case 1005:
               try {
@@ -64,7 +65,7 @@ const SetupInterceptors = (navigate: NavigateFunction) => {
                   return await axios.request(config);
                 }
               } catch (e) {
-                logout();
+                await logout();
                 navigate("/");
 
                 return config;

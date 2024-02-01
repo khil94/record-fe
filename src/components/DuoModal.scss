@@ -1,0 +1,184 @@
+@import "../variable";
+
+.duo_modal_outer_wrapper {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  top: 0;
+
+  .duo_modal_middle_wrapper {
+    height: 100vh;
+    position: relative;
+    .duo_modal_inner_wrapper {
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      background-color: $color-bar;
+      color: $color-white;
+      border-radius: $default-border-radius;
+      top: 50%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-50%);
+      width: 80rem;
+      height: 50rem auto;
+      .duo_main_title {
+        font-size: 1.6rem;
+      }
+      .duo_recent_match {
+        display: flex;
+        flex-direction: row;
+        position: relative;
+        justify-content: center;
+      }
+      .tag_line {
+        color: $color-dark-border;
+      }
+
+      .duo_wrapper {
+        padding: 0 2rem;
+        margin: 1rem;
+        font-size: 1.2rem;
+        .duo_title {
+          margin: 1rem 0;
+
+          font-weight: bold;
+          color: $color-dark-border;
+        }
+      }
+
+      .duo_modal_header {
+        display: flex;
+        position: relative;
+        justify-content: flex-end;
+        font-size: 2rem;
+        padding: 1rem 2rem;
+        span:hover {
+          color: $color-dark-border;
+          cursor: pointer;
+        }
+      }
+
+      .duo_modal_inner {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 100%;
+
+        input:disabled {
+          background-color: $color-light-border;
+        }
+        .duomodal_name_wrapper {
+          margin-top: 4rem;
+
+          .duo_name_wrapper {
+            font-size: 1.6rem;
+            span {
+              &:nth-child(2) {
+                color: $color-dark-border;
+              }
+            }
+          }
+        }
+        .select_wrapper {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+
+          button {
+            border: 1px solid $color-light-border;
+            padding: 0.8rem;
+            cursor: default;
+
+            &.selected {
+              background-color: $color-light-border;
+            }
+            &:first-child {
+              border-top-left-radius: $default-border-radius;
+              border-bottom-left-radius: $default-border-radius;
+            }
+            &:last-child {
+              border-top-right-radius: $default-border-radius;
+              border-bottom-right-radius: $default-border-radius;
+            }
+            img {
+              width: 3.2rem;
+              pointer-events: none;
+            }
+          }
+        }
+        .duo_even_wrapper {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          align-items: center;
+          .input_wrapper {
+            width: 80%;
+          }
+        }
+
+        .duo_queuetype_dropbox {
+          .duo_dropbox_wrapper {
+            display: inline-block;
+            position: relative;
+            &::before {
+              position: absolute;
+              top: 0;
+              bottom: 0;
+              right: 0.625rem;
+              margin: auto;
+              height: 0;
+              width: 0;
+              --tw-border-opacity: 1;
+              border-color: $color-dark-border transparent transparent;
+              border-style: solid;
+              border-width: 6px 6px 0;
+              content: "";
+            }
+          }
+
+          select {
+            -o-appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            border-radius: $default-border-radius;
+            height: 3.6rem;
+            padding: 5px 30px 5px 10px;
+            outline: none;
+            option {
+              background: $color-white;
+              padding: 5px 30px 5px 10px;
+            }
+          }
+        }
+        .duo_memo {
+          margin-bottom: 2rem;
+          font-size: 1.2rem;
+
+          textarea {
+            width: 50%;
+            border: none;
+            resize: none;
+            border-radius: $default-border-radius;
+            padding: 1rem;
+            &:focus {
+              outline: none;
+              border: none;
+            }
+          }
+        }
+        .duo_submit_btn_wrapper {
+          text-align: right;
+        }
+      }
+
+      .duo_submit_btn {
+        background-color: $color-white;
+        padding: 1rem 3rem;
+        border-radius: $default-border-radius;
+        color: $color-black;
+      }
+    }
+  }
+}

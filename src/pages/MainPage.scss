@@ -2,7 +2,10 @@
 
 .page_main {
   background-image: url("/main_background.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
   height: 96rem;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;

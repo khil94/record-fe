@@ -1,17 +1,30 @@
 import useSWR from "swr";
 import {
+  IDuoDetailResp,
+  IDuoMatchType,
+  IDuoPost,
+  IDuoResp,
   ILeaderBoardQueueTyep,
   ILoginResp,
+  IMyDuoResp,
+  IPostQueueId,
   IRanking,
   ISimpleMatch,
   ISummonerProfile,
+  ITicketPost,
+  IUserInfo,
 } from "../types/types";
 import API from "./api";
 
-export const GetGameList = async (puid: string, pageNumber: number) => {
+export const GetGameList = async (
+  puid: string,
+  pageNumber: number,
+  queue: IPostQueueId
+) => {
   const resp = await API.get<ISimpleMatch[]>(`/matches/${puid}`, {
     params: {
       page: pageNumber,
+      queue,
     },
   });
   return resp;
@@ -46,6 +59,7 @@ export function useSummonerInfo(summonerName?: string, tagName?: string) {
     },
     {
       revalidateOnFocus: false,
+      shouldRetryOnError: false,
     }
   );
 
@@ -60,6 +74,7 @@ export function useSummonerInfoById(summonerId?: string) {
     },
     {
       revalidateOnFocus: false,
+      shouldRetryOnError: false,
     }
   );
 
@@ -123,5 +138,56 @@ export const PutVerifyEmail = async (verificationCode: string) => {
   const resp = await API.put("/user/verify", {
     verificationCode,
   });
+  return resp;
+};
+
+export const DeleteUser = async () => {
+  const resp = await API.delete("/user");
+  return resp;
+};
+
+export const useDuoList = (
+  page: number,
+  match: IDuoMatchType,
+  queue: IPostQueueId
+) => {
+  const resp = useSWR(
+    ["/duo", page, match, queue],
+    ([url, page, match, queue]) => {
+      return API.get<IDuoResp>(url, {
+        params: { page, match, queue },
+      });
+    }
+  );
+  return resp;
+};
+
+export const PostDuo = async (data: IDuoPost) => {
+  const resp = await API.post("/duo", { ...data });
+  return resp;
+};
+
+export const GetDuoDetail = async (duoId: number) => {
+  const resp = await API.get<IDuoDetailResp>(`/duo/${duoId}`);
+  return resp;
+};
+
+export const GetMyDuo = async () => {
+  const resp = await API.get<IMyDuoResp>(`/duo/my`);
+  return resp;
+};
+
+export const PostTicket = async (duoId: number, data: ITicketPost) => {
+  const resp = await API.post(`/duo/${duoId}`, { ...data });
+  return resp;
+};
+
+export const PostAcceptTicket = async (duoId: number, ticketId: number) => {
+  const resp = await API.post(`/duo/${duoId}/${ticketId}/accept`);
+  return resp;
+};
+
+export const GetMe = async () => {
+  const resp = await API.get<IUserInfo>("/user/me");
   return resp;
 };

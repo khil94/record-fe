@@ -7,7 +7,7 @@ interface IProp {
   message: string;
   width?: number;
   height?: number;
-  onDisapppear?: () => void;
+  onDisapppear: () => void;
 }
 
 export default function CommonModal({
@@ -26,18 +26,20 @@ export default function CommonModal({
 
   return show ? (
     <div
-      onClick={() => {
-        setShow(false);
+      onClick={(e) => {
+        e.stopPropagation();
         onDisapppear();
       }}
       className="modal_outer_wrapper"
     >
-      <div
-        style={{ width: width, height: height }}
-        className="modal_inner_wrapper"
-      >
-        <span className="modal_title">{title}</span>
-        <span className="modal_body">{message}</span>
+      <div className="modal_middle_wrapper">
+        <div
+          style={{ width: width, height: height }}
+          className="modal_inner_wrapper"
+        >
+          <span className="modal_title">{title}</span>
+          <span className="modal_body">{message}</span>
+        </div>
       </div>
     </div>
   ) : (

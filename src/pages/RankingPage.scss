@@ -87,6 +87,16 @@
         }
       }
     }
+    .ranking_content {
+      width: 100%;
+      min-height: 60vh;
+      .ranking_err {
+        height: 60vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
 
     .page_wrapper {
       margin-top: 2rem;

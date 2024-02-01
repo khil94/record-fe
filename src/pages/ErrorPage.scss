@@ -1,0 +1,31 @@
+@import "../variable";
+
+.err_page_wrapper {
+  width: 108rem;
+  height: 75vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .err_page_title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+  }
+  .err_page_content {
+    font-size: 1.4rem;
+    p {
+      margin-bottom: 1.4rem;
+    }
+    margin-bottom: 4rem;
+  }
+  .err_page_btn_wrapper {
+    button {
+      border-radius: $default-border-radius;
+      background-color: $color-bar;
+      color: white;
+      padding: 1rem 2rem;
+      margin-right: 3rem;
+    }
+  }
+}
