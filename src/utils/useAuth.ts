@@ -1,10 +1,10 @@
-import useSWRMutation from "swr";
+import useSWRImmutation from "swr/immutable";
 import API from "../api/api";
 import { IUser } from "../types/types";
 export const USER_KEY = "/auth-data";
 
 export default function useAuth() {
-  const { data, mutate } = useSWRMutation<IUser>(USER_KEY, {
+  const { data, mutate } = useSWRImmutation<IUser>(USER_KEY, {
     fallbackData: {
       auth:
         API.defaults.headers.common["Authorization"] !== undefined ||
@@ -12,9 +12,6 @@ export default function useAuth() {
           ? true
           : false,
     },
-    revalidateOnFocus: false,
-    revalidateIfStale: false,
-    revalidateOnReconnect: false,
   });
 
   const logout = async () => {
