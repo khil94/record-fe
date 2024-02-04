@@ -88,10 +88,11 @@ export default function DuoModal({
           }}
           className={`select_wrapper`}
         >
-          {LINE_LIST.map((v, ) => {
+          {LINE_LIST.map((v) => {
             return (
               <button
                 type="button"
+                key={`main_position_${v}`}
                 className={getPositionClassName(lines, v)}
                 value={v}
               >
@@ -116,10 +117,11 @@ export default function DuoModal({
           }}
           className={`select_wrapper`}
         >
-          {LINE_LIST.map((v, ) => {
+          {LINE_LIST.map((v) => {
             return (
               <button
                 type="button"
+                key={`seek_position_${v}`}
                 className={getPositionClassName(wishLines, v)}
                 value={v}
               >

@@ -109,7 +109,7 @@ export default function SummonerPage() {
     <div className="page_summoner">
       <div className="page_summoner_wrapper">
         {dataByName.isLoading || dataById.isLoading ? (
-          <Loading width={18} />
+          <Loading width={48} />
         ) : dataByName.data ? (
           <SummonerProfile {...dataByName.data} />
         ) : dataById.data ? (
