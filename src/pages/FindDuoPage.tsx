@@ -120,7 +120,7 @@ export default function FindDuoPage() {
                 </tr>
               </thead>
               <tbody>
-                {duoListData.map((v, i) => (
+                {duoListData? duoListData.map((v, i) => (
                   <tr
                     onClick={() => {
                       getDetailData(v.id);
@@ -164,7 +164,7 @@ export default function FindDuoPage() {
                     <td>{getMMDDHHmm(new Date(v.expiredAt))}</td>
                     <td>{v.matched ? "매칭완료" : "매칭중"}</td>
                   </tr>
-                ))}
+                )): <tr ><td className="duo_page_none" colSpan={9}>현재 등록된 듀오 찾기가 없습니다.</td></tr>}
               </tbody>
             </table>
           </div>
