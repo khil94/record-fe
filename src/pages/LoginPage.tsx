@@ -74,7 +74,7 @@ export default function LoginPage() {
             회원가입{" "}
           </button>
         </Link>
-        <div className="extra_option_wrapper">
+        {/* <div className="extra_option_wrapper">
           <Link to="/">
             <span>아이디 찾기</span>
           </Link>
@@ -82,7 +82,7 @@ export default function LoginPage() {
           <Link to={"/"}>
             <span>비밀번호 찾기</span>
           </Link>
-        </div>
+        </div> */}
       </div>
       <CommonModal
         showModal={showModal}
