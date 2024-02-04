@@ -25,7 +25,7 @@ export default function FindDuoPage() {
   const [queue, setQueue] = useState<IPostQueueId>("ALL");
   const [myDuoId, setMyDuoId] = useState(-1);
 
-  const { data, isLoading, isValidating } = useDuoList(
+  const { data, isLoading,  } = useDuoList(
     currentPage.current,
     match,
     queue
@@ -134,7 +134,7 @@ export default function FindDuoPage() {
                       </Link>
                     </td>
                     <td>
-                      {v.lines.map((t, i) => {
+                      {v.lines.map((t, ) => {
                         return (
                           <img
                             key={`wishlines_${v.id}_${t}`}

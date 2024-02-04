@@ -83,11 +83,12 @@ export default function DuoModal({
         <div
           onClick={(e) => {
             e.preventDefault();
-            Setter(lines, setLines, e.target.value);
+            const target = e.target as HTMLButtonElement;
+            Setter(lines, setLines, target.value as ILineType);
           }}
           className={`select_wrapper`}
         >
-          {LINE_LIST.map((v, i) => {
+          {LINE_LIST.map((v, ) => {
             return (
               <button
                 type="button"
@@ -110,11 +111,12 @@ export default function DuoModal({
         <div
           onClick={(e) => {
             e.preventDefault();
-            Setter(wishLines, setWishLines, e.target.value);
+            const target = e.target as HTMLButtonElement;
+            Setter(wishLines, setWishLines, target.value as ILineType);
           }}
           className={`select_wrapper`}
         >
-          {LINE_LIST.map((v, i) => {
+          {LINE_LIST.map((v, ) => {
             return (
               <button
                 type="button"
@@ -138,7 +140,8 @@ export default function DuoModal({
           className={`select_wrapper `}
           onClick={(e) => {
             e.preventDefault();
-            Setter(wishTiers, setWishTiers, e.target.value);
+            const target = e.target as HTMLButtonElement;
+            Setter(wishTiers, setWishTiers, target.value as ITierType);
           }}
         >
           {TIER_TYPE_LIST.map((v) => {

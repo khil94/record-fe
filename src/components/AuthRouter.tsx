@@ -11,7 +11,7 @@ interface IProp {
 export default function AuthRouter({ children, reverse = false }: IProp) {
   const { data } = useAuth();
   const navigator = useNavigate();
-  const [show, setShow] = useState(getXOR(data?.auth || false, reverse));
+  const [show, ] = useState(getXOR(data?.auth || false, reverse));
 
   useEffect(() => {
     if (!show) {

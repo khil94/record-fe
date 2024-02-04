@@ -67,7 +67,7 @@ export default function DuoDetailModal({
 
   const [showAcceptModal, setShowAcceptModal] = useState(false);
 
-  const [isExpired, setIsExpired] = useState(
+  const [isExpired, ] = useState(
     matched || getDateDiff(new Date(expiredAt)) !== 0
   );
 
@@ -99,7 +99,7 @@ export default function DuoDetailModal({
         lines: userLines,
         memo: userMemo,
       } as ITicketPost;
-      const resp = await PostTicket(id, data);
+      await PostTicket(id, data);
       onDisapppear();
     } catch (e) {
       if (axios.isAxiosError(e)) {
@@ -213,7 +213,8 @@ export default function DuoDetailModal({
         <div
           onClick={(e) => {
             e.preventDefault();
-            ticketMode && Setter(userLines, setUserLines, e.target.value);
+            const target = e.target as HTMLButtonElement;
+            ticketMode && Setter(userLines, setUserLines, target.value as ILineType);
           }}
           className={`select_wrapper ${ticketMode && "ticket_mode_select"}`}
         >
